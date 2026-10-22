@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="50%" stop-color="#060913"/>
+      <stop offset="100%" stop-color="#04060c"/>
+    </linearGradient>
+
+    <radialGradient id="glowGrad" cx="50%" cy="46%" r="40%">
+      <stop offset="0%" stop-color="#c8a24d" stop-opacity="0.18"/>
+      <stop offset="60%" stop-color="#c8a24d" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#c8a24d" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fae5a7"/>
+      <stop offset="30%" stop-color="#d4af37"/>
+      <stop offset="70%" stop-color="#aa8222"/>
+      <stop offset="100%" stop-color="#7a5a12"/>
+    </linearGradient>
+
+    <linearGradient id="capGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fae5a7"/>
+      <stop offset="50%" stop-color="#c8a24d"/>
+      <stop offset="100%" stop-color="#805d15"/>
+    </linearGradient>
+
+    <filter id="subtleGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+
+  <!-- Soft Ambient Glow -->
+  <circle cx="400" cy="460" r="320" fill="url(#glowGrad)"/>
+
+  <!-- Outer Double Framing -->
+  <rect x="28" y="28" width="744" height="944" fill="none" stroke="#c8a24d" stroke-opacity="0.18" stroke-width="1"/>
+  <rect x="36" y="36" width="728" height="928" fill="none" stroke="#c8a24d" stroke-opacity="0.08" stroke-width="1"/>
+
+  <!-- Corner Flourishes -->
+  <path d="M 28 50 L 50 28 M 772 50 L 750 28 M 28 950 L 50 972 M 772 950 L 750 972" stroke="#c8a24d" stroke-opacity="0.25" stroke-width="1"/>
+
+  <!-- Perfume Flacon Silhouette -->
+  <g transform="translate(400, 440)" filter="url(#subtleGlow)">
+    <!-- Cap Crown / Stopper -->
+    <rect x="-36" y="-230" width="72" height="18" rx="4" fill="url(#capGrad)" stroke="#c8a24d" stroke-width="1"/>
+    <rect x="-24" y="-212" width="48" height="42" rx="3" fill="url(#capGrad)" stroke="#fae5a7" stroke-width="0.75" stroke-opacity="0.6"/>
+    <!-- Collar / Neck -->
+    <rect x="-16" y="-170" width="32" height="24" rx="2" fill="url(#goldGrad)" opacity="0.9"/>
+    <line x1="-30" y1="-146" x2="30" y2="-146" stroke="#c8a24d" stroke-width="2"/>
+
+    <!-- Shoulders & Flacon Body -->
+    <path d="
+      M -30 -146
+      C -70 -140 -120 -100 -128 -50
+      L -136 120
+      C -138 150 -120 170 -90 172
+      L 90 172
+      C 120 170 138 150 136 120
+      L 128 -50
+      C 120 -100 70 -140 30 -146
+      Z"
+      fill="#0c1222"
+      fill-opacity="0.85"
+      stroke="url(#goldGrad)"
+      stroke-width="2.5"
+    />
+
+    <!-- Inner Facet Bevel Lines (Crystal aesthetic) -->
+    <path d="
+      M -18 -144 L -80 -40 L -88 120 L -60 152
+      M 18 -144 L 80 -40 L 88 120 L 60 152
+      M -60 152 L 60 152
+    " fill="none" stroke="#c8a24d" stroke-opacity="0.3" stroke-width="1.2"/>
+
+    <!-- Central Emblem / Crest Plaque -->
+    <rect x="-62" y="-40" width="124" height="140" rx="8" fill="#080c18" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.8"/>
+    <rect x="-56" y="-34" width="112" height="128" rx="6" fill="none" stroke="#c8a24d" stroke-width="0.75" stroke-opacity="0.4"/>
+
+    <!-- Heraldic Wreath & Monogram (SN) -->
+    <!-- Crest Crown -->
+    <path d="M -12 -18 L -6 -12 L 0 -22 L 6 -12 L 12 -18 L 10 -4 L -10 -4 Z" fill="url(#goldGrad)"/>
+    <!-- Monogram SN -->
+    <text x="0" y="44" text-anchor="middle" font-family="'Cinzel', 'Playfair Display', 'Georgia', serif" font-size="44" font-weight="600" fill="url(#goldGrad)" letter-spacing="3">SN</text>
+    <line x1="-30" y1="62" x2="30" y2="62" stroke="#c8a24d" stroke-width="1" stroke-opacity="0.6"/>
+    <!-- Small Diamond -->
+    <polygon points="0,58 3,62 0,66 -3,62" fill="#fae5a7"/>
+    <text x="0" y="82" text-anchor="middle" font-family="'Montserrat', sans-serif" font-size="9.5" font-weight="500" letter-spacing="5" fill="#c8a24d" opacity="0.85">PARFUM</text>
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="400" y="740" text-anchor="middle" font-family="'Cinzel', 'Playfair Display', 'Georgia', serif" font-size="28" font-weight="400" letter-spacing="8" fill="#ffffff" opacity="0.9">
+    ST. NOBLESSE
+  </text>
+  <text x="400" y="774" text-anchor="middle" font-family="'Cinzel', 'Playfair Display', 'Georgia', serif" font-size="13" font-style="italic" letter-spacing="5" fill="#c8a24d" opacity="0.85">
+    Maison de Haute Parfumerie
+  </text>
+
+  <!-- Bottom Visual Indicator -->
+  <line x1="340" y1="810" x2="460" y2="810" stroke="#c8a24d" stroke-opacity="0.3" stroke-width="1"/>
+  <circle cx="400" cy="810" r="3" fill="#c8a24d" opacity="0.7"/>
+</svg>

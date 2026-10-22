@@ -1,0 +1,133 @@
+/* ============ NEWSLETTER ============ */
+#contacts {
+  background: var(--bg2);
+  position: relative;
+}
+
+#contacts::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 80% at 50% 100%, rgba(200, 162, 77, 0.09), transparent 70%);
+  pointer-events: none;
+}
+
+.nl {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.nl h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 14px;
+}
+
+.nl h2 em {
+  font-style: italic;
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nl p {
+  color: var(--muted);
+  margin-bottom: 34px;
+}
+
+.nl-form {
+  display: flex;
+  gap: 12px;
+}
+
+.nl-form input {
+  flex: 1;
+  background: rgba(10, 14, 26, 0.6);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 16px 22px;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  transition: border-color 0.3s;
+  min-width: 0;
+}
+
+.nl-form input::placeholder {
+  color: var(--muted2);
+}
+
+.nl-form input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.nl-form input.err {
+  border-color: #a33b3b;
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.nl-note {
+  font-size: 0.7rem;
+  color: var(--muted2);
+  margin-top: 16px;
+  letter-spacing: 0.06em;
+}
+
+.nl-done {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 26px 0 10px;
+}
+
+.nl-done .dm {
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--gold);
+  transform: rotate(45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nl-done .dm i {
+  width: 16px;
+  height: 16px;
+  background: var(--grad-gold);
+}
+
+.nl.done .nl-form,
+.nl.done .nl-note {
+  display: none;
+}
+
+.nl.done .nl-done {
+  display: flex;
+}
+
+.nl-done b {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.nl-done span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 680px) {
+  .nl-form {
+    flex-direction: column;
+  }
+}

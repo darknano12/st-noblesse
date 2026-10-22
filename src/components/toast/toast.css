@@ -1,0 +1,40 @@
+/* ============ TOAST NOTIFICATION ============ */
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%, 80px);
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #141d33;
+  border: 1px solid var(--line2);
+  padding: 14px 26px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  transition: 0.5s var(--ease);
+  box-shadow: var(--shadow);
+  max-width: 92vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+#toast b {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+@media (max-width: 680px) {
+  #toast {
+    white-space: normal;
+    text-align: center;
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "freeShipThreshold": 150,
+  "shipping": {
+    "carrier": "DHL",
+    "freeThreshold": 150,
+    "rates": {
+      "DE": 5.99,
+      "EU": 8.99
+    },
+    "notifications": "email"
+  },
+  "currency": "EUR",
+  "currencySymbol": "€",
+  "locale": "en",
+  "particleCount": {
+    "mobile": 34,
+    "desktop": 66
+  },
+  "particleMobileBreakpoint": 700,
+  "families": {
+    "floral": "Floral",
+    "oriental": "Oriental",
+    "woody": "Woody",
+    "fresh": "Fresh"
+  },
+  "navLinks": [
+    { "label": "The Families", "href": "#collections" },
+    { "label": "La Collection", "href": "#catalog" },
+    { "label": "Reviews", "href": "#reviews" },
+    { "label": "Contact", "href": "#contacts" }
+  ],
+  "preloaderDuration": 1100,
+  "reviewInterval": 6500,
+  "cartStorageKey": "sn-cart"
+}

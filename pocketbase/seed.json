@@ -1,0 +1,78 @@
+{
+  "products": [
+    {
+      "name": "Azure Épure",
+      "slug": "azure-epure",
+      "family": "fresh",
+      "gender": "Unisex",
+      "badge": "Signature",
+      "desc": "Our priority fragrance — fresh, elegant and the finest place to begin. Azure-clean air, cool iris and white musk: a cloudless sky, made wearable.",
+      "notes_top": ["Bergamot", "Neroli", "Lemon"],
+      "notes_heart": ["Iris", "Green Tea"],
+      "notes_base": ["White Musk", "Cedar"],
+      "price_50": 89,
+      "price_100": 129,
+      "rating": 4.9,
+      "reviews_count": 187,
+      "image": "p8"
+    },
+    {
+      "name": "Ambre Velours",
+      "slug": "ambre-velours",
+      "family": "oriental",
+      "gender": "Unisex",
+      "badge": "",
+      "desc": "The sweeter side of the House: golden amber, Bourbon vanilla and benzoin, wrapped in the warmth of velvet.",
+      "notes_top": ["Bitter Orange"],
+      "notes_heart": ["Amber", "Benzoin", "Rose"],
+      "notes_base": ["Bourbon Vanilla", "Tonka Bean"],
+      "price_50": 99,
+      "price_100": 139,
+      "rating": 4.9,
+      "reviews_count": 143,
+      "image": "p7"
+    },
+    {
+      "name": "Oud Serein",
+      "slug": "oud-serein",
+      "family": "woody",
+      "gender": "Unisex",
+      "badge": "",
+      "desc": "Serene oud: Laotian oud and cedar, deepened by sandalwood — woody, quiet and certain, without a trace of harshness.",
+      "notes_top": ["Saffron"],
+      "notes_heart": ["Laotian Oud", "Cedar"],
+      "notes_base": ["Sandalwood", "Vetiver", "Grey Amber"],
+      "price_50": 119,
+      "price_100": 159,
+      "rating": 5.0,
+      "reviews_count": 96,
+      "image": "p3"
+    }
+  ],
+  "reviews": [
+    {
+      "author": "Anna K.",
+      "location": "London · Azure Épure",
+      "content": "Azure Épure is where I started — and a year later it is still the one I reach for. Fresh, elegant, quietly expensive.",
+      "rating": 5
+    },
+    {
+      "author": "James W.",
+      "location": "New York · Oud Serein",
+      "content": "Oud Serein is the calmest oud I have ever worn: woody depth, no harshness. It lasts from morning meetings to midnight.",
+      "rating": 5
+    },
+    {
+      "author": "Camille D.",
+      "location": "Paris · Ambre Velours",
+      "content": "Ambre Velours feels like velvet on a winter evening — sweet, but never childish. My signature for three months now.",
+      "rating": 5
+    },
+    {
+      "author": "Sophie M.",
+      "location": "Geneva · La Collection",
+      "content": "I began with the discovery set and finished with all three flacons. Azure Épure by day, Ambre Velours by night.",
+      "rating": 5
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>st.noblesse — Maison de Haute Parfumerie · Endless Elegance</title>
+<meta name="description" content="st.noblesse — Maison de Haute Parfumerie. Exquisite authorial fragrances: rare ingredients, limited editions, complimentary DHL shipping over €150.">
+<link rel="canonical" href="https://stnoblesse.com/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stnoblesse.com/">
+<meta property="og:title" content="st.noblesse — Maison de Haute Parfumerie · Endless Elegance">
+<meta property="og:description" content="Exquisite authorial fragrances. Rare ingredients, limited editions, complimentary DHL shipping over €150.">
+<meta property="og:image" content="https://stnoblesse.com/img/hero.jpg">
+<meta property="og:site_name" content="st.noblesse">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://stnoblesse.com/">
+<meta name="twitter:title" content="st.noblesse — Maison de Haute Parfumerie">
+<meta name="twitter:description" content="Exquisite authorial fragrances. Rare ingredients, limited editions.">
+<meta name="twitter:image" content="https://stnoblesse.com/img/hero.jpg">
+
+<!-- Hreflang alternates -->
+<link rel="alternate" hreflang="de" href="https://stnoblesse.com/?lang=de">
+<link rel="alternate" hreflang="en" href="https://stnoblesse.com/?lang=en">
+<link rel="alternate" hreflang="fr" href="https://stnoblesse.com/?lang=fr">
+<link rel="alternate" hreflang="es" href="https://stnoblesse.com/?lang=es">
+<link rel="alternate" hreflang="x-default" href="https://stnoblesse.com/">
+
+<!-- Schema.org JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://stnoblesse.com/#organization",
+      "name": "st.noblesse",
+      "url": "https://stnoblesse.com",
+      "logo": "https://stnoblesse.com/img/logo.png",
+      "description": "Maison de Haute Parfumerie. Exquisite authorial fragrances."
+    },
+    {
+      "@type": "Store",
+      "@id": "https://stnoblesse.com/#store",
+      "name": "st.noblesse Boutique",
+      "image": "https://stnoblesse.com/img/hero.jpg",
+      "telephone": "[Telefonnummer]",
+      "email": "[E-Mail-Adresse]",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "[Adresse in Deutschland]",
+        "addressCountry": "DE"
+      },
+      "priceRange": "€€€"
+    }
+    }
+  ]
+}
+</script>
+
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="preload" as="image" href="img/logo.png">
+<link rel="stylesheet" href="src/styles/main.css">
+</head>
+
+<body>
+
+<canvas id="dust"></canvas>
+
+<div id="preloader" aria-hidden="true">
+  <div class="pre-logo"><img src="img/logo.png" alt="st.noblesse crest"></div>
+  <div class="pre-name">st.noblesse</div>
+  <div class="pre-bar"><i></i></div>
+</div>
+
+<header id="header">
+  <a class="logo" href="#hero" aria-label="st.noblesse — home">
+    <span class="crest"><img src="img/logo.png" alt="st.noblesse crest"></span>
+    <b>st.<em>noblesse</em></b>
+  </a>
+  <nav class="desk">
+    <a href="#collections" data-i18n="nav.families">The Families</a>
+    <a href="#catalog" data-i18n="nav.collection">La Collection</a>
+    <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+    <a href="#contacts" data-i18n="nav.contact">Contact</a>
+  </nav>
+  <div class="h-right">
+    <div class="lang-switch" id="langSwitch" aria-label="Language selector">
+      <button class="lang-btn" data-lang="de">DE</button>
+      <span class="lang-sep">·</span>
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-sep">·</span>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <span class="lang-sep">·</span>
+      <button class="lang-btn" data-lang="es">ES</button>
+    </div>
+    <button class="icon-btn" id="userBtn" aria-label="Account / Sign in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span class="user-status-dot" id="userDot"></span>
+    </button>
+    <button class="icon-btn" id="cartBtn" aria-label="Open shopping bag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 13H7L6 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+      <span id="cartCount">0</span>
+    </button>
+    <button class="burger" id="burger" aria-label="Menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<div id="mnav">
+  <a href="#collections" data-i18n="nav.families">The Families</a>
+  <a href="#catalog" data-i18n="nav.collection">La Collection</a>
+  <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+  <a href="#contacts" data-i18n="nav.contact">Contact</a>
+  <a href="#account" id="mAccountBtn" data-i18n="account.title">My Account</a>
+  <div class="m-lang-switch">
+    <button class="lang-btn" data-lang="de">DE</button>
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="es">ES</button>
+  </div>
+</div>
+
+<main>
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <div class="hero-media"><img id="heroImg" src="img/hero.jpg" alt="The Azure Épure flacon — st.noblesse" fetchpriority="high"></div>
+  <div class="hero-inner wrap">
+    <div class="kicker" data-i18n="hero.kicker">Maison de Haute Parfumerie</div>
+    <h1>
+      <span class="rl"><span data-i18n="hero.title_line1">Endless</span></span>
+      <span class="rl"><span data-i18n="hero.title_line2"><em>Elegance</em></span></span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.subtitle">Authorial fragrances of unmistakable character. Rare ingredients, masterfully crafted compositions, and limited editions.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#catalog" data-i18n="hero.cta_explore">Discover the Collection</a>
+      <a class="btn btn-ghost" href="#collections" data-i18n="nav.families">The Families</a>
+    </div>
+    <div class="hero-stats">
+      <div><b data-i18n="hero.stat1_value">100%</b><span data-i18n="hero.stat1_label">authentic</span></div>
+      <div><b data-i18n="hero.stat2_value">4</b><span data-i18n="hero.stat2_label">fragrance families</span></div>
+      <div><b data-i18n="hero.stat3_value">DHL</b><span data-i18n="hero.stat3_label">fast delivery</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track" id="mqTrack">
+    <span data-i18n="marquee">Complimentary DHL shipping over €150 <b>✦</b> 100% authentic creations <b>✦</b> Samples with every order <b>✦</b> Exquisite Haute Parfumerie <b>✦</b> Presented in a wax-sealed box <b>✦</b></span>
+  </div>
+</div>
+
+<!-- ================= COLLECTIONS ================= -->
+<section id="collections">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker" data-i18n="collections.kicker">Les Familles</div>
+      <h2 data-i18n="collections.title">Four characters, <em>one signature</em></h2>
+      <p data-i18n="collections.subtitle">Every st.noblesse fragrance belongs to one of the families — find your own character, or gift yourself a new one.</p>
+    </div>
+    <div class="col-grid">
+      <div class="col-card reveal" data-fam="floral" style="transition-delay:.05s">
+        <div class="num">I</div>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.4"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg>
+        <h3 data-i18n="collections.floral_title">Florale</h3>
+        <p data-i18n="collections.floral_desc">Rose, peony, jasmine — classics that stir the soul and live in memory.</p>
+        <span class="go"><span data-i18n="collections.explore">Explore</span><i></i></span>
+      </div>
+      <div class="col-card reveal" data-fam="oriental" style="transition-delay:.15s">
+        <div class="num">II</div>
+        <svg viewBox="0 0 24 24"><path d="M12 2c1.8 2.4 2.8 4.3 2.8 6a2.8 2.8 0 11-5.6 0c0-1.7 1-3.6 2.8-6z"/><path d="M7 15c1.5 1.2 3.2 1.8 5 1.8s3.5-.6 5-1.8"/><path d="M5 20c2 1.4 4.4 2 7 2s5-.6 7-2"/></svg>
+        <h3 data-i18n="collections.oriental_title">Orientale</h3>
+        <p data-i18n="collections.oriental_desc">Oud, amber, vanilla — depth, magic and the warmth of distant voyages.</p>
+        <span class="go"><span data-i18n="collections.explore">Explore</span><i></i></span>
+      </div>
+      <div class="col-card reveal" data-fam="woody" style="transition-delay:.25s">
+        <div class="num">III</div>
+        <svg viewBox="0 0 24 24"><path d="M12 2L5 10h4l-3 6h5v6h2v-6h5l-3-6h4L12 2z"/></svg>
+        <h3 data-i18n="collections.woody_title">Boisée</h3>
+        <p data-i18n="collections.woody_desc">Cedar, vetiver, moss — the character and strength of nature, pure.</p>
+        <span class="go"><span data-i18n="collections.explore">Explore</span><i></i></span>
+      </div>
+      <div class="col-card reveal" data-fam="fresh" style="transition-delay:.35s">
+        <div class="num">IV</div>
+        <svg viewBox="0 0 24 24"><path d="M12 3c3.5 4.2 6 7.3 6 10.2A6 6 0 016 13.2C6 10.3 8.5 7.2 12 3z"/><path d="M9.5 13.5c0 1.4 1.1 2.5 2.5 2.5"/></svg>
+        <h3 data-i18n="collections.fresh_title">Fraîche</h3>
+        <p data-i18n="collections.fresh_desc">Citrus, neroli, green tea — the lightness and purity of a first breath.</p>
+        <span class="go"><span data-i18n="collections.explore">Explore</span><i></i></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATALOG ================= -->
+<section id="catalog">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker" data-i18n="catalog.kicker">La Collection</div>
+      <h2 data-i18n="catalog.title">Fragrances created <em>to be loved</em></h2>
+      <p data-i18n="catalog.subtitle">Three signature compositions. Each in a limited edition, each with a character of its own.</p>
+    </div>
+    <div class="filters reveal" id="filters">
+      <button class="pill active" data-fam="all" data-i18n="catalog.filter_all">All Fragrances</button>
+      <button class="pill" data-fam="floral" data-i18n="catalog.filter_floral">Floral</button>
+      <button class="pill" data-fam="oriental" data-i18n="catalog.filter_oriental">Oriental</button>
+      <button class="pill" data-fam="woody" data-i18n="catalog.filter_woody">Woody</button>
+      <button class="pill" data-fam="fresh" data-i18n="catalog.filter_fresh">Fresh</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker" data-i18n="reviews.kicker">Témoignages</div>
+      <h2 data-i18n="reviews.title">They speak of us <em>in whispers and aloud</em></h2>
+    </div>
+    <div class="rev-box reveal" id="revBox">
+      <span class="rev-mark">“</span>
+      <div id="revSlides"></div>
+    </div>
+    <div class="rev-nav reveal">
+      <button class="rev-arrow" id="revPrev" aria-label="Previous review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 4l-8 8 8 8"/></svg></button>
+      <div class="rev-dots" id="revDots"></div>
+      <button class="rev-arrow" id="revNext" aria-label="Next review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 4l8 8-8 8"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section id="contacts">
+  <div class="wrap">
+    <div class="nl reveal" id="nl">
+      <div class="kicker" style="justify-content:center;margin-bottom:18px" data-i18n="newsletter.kicker">Le Club st.noblesse</div>
+      <h2 data-i18n="newsletter.title">Letters that <em>linger</em></h2>
+      <p data-i18n="newsletter.subtitle">Subscribe — enjoy 10% off your first order, hear of new editions before anyone else, and receive invitations to private tastings.</p>
+      <form class="nl-form" id="nlForm" novalidate>
+        <input type="email" id="nlEmail" placeholder="Your e-mail" aria-label="E-mail" autocomplete="email" data-i18n="newsletter.placeholder">
+        <button class="btn btn-gold" type="submit" data-i18n="newsletter.btn">Subscribe</button>
+      </form>
+      <div class="nl-note" data-i18n="newsletter.note">By subscribing you agree to our Privacy Policy. No spam — only beauty.</div>
+      <div class="nl-done">
+        <div class="dm"><i></i></div>
+        <b data-i18n="newsletter.success_title">Welcome to the Club</b>
+        <span data-i18n="newsletter.success_subtitle">Your 10% code is already on its way. Bienvenue chez st.noblesse.</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="logo" href="#hero"><span class="crest"><img src="img/logo.png" alt="st.noblesse crest"></span><b>st.<em>noblesse</em></b></a>
+        <p data-i18n="footer.brand_desc">Maison de Haute Parfumerie. Exquisite authorial fragrances — for those who choose the trace, not the noise.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 4L3 11l5 2 2 6 3-4 5 4 3-15z"/><path d="M8 13l9-6"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="6" width="19" height="12" rx="3.5"/><path d="M10.5 9.8v4.4l4-2.2-4-2.2z"/></svg></a>
+        </div>
+      </div>
+      <div class="f-col f-contact">
+        <h4 data-i18n="footer.col_contact">Contact</h4>
+        <address class="adr">
+          <b data-i18n="footer.country">Deutschland</b><br>
+          <span data-i18n="footer.placeholder_address">[Adresse in Deutschland]</span><br>
+          <span data-i18n="footer.placeholder_phone">[Telefonnummer]</span><br>
+          <span data-i18n="footer.placeholder_email">[E-Mail-Adresse]</span>
+        </address>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 st.noblesse. <span data-i18n="legal.rights">All rights reserved.</span></span>
+      <span>
+        <a href="/agb.html" data-i18n="legal.terms">Terms of Service (AGB)</a> · 
+        <a href="/datenschutz.html" data-i18n="legal.privacy">Privacy Policy (Datenschutz)</a> · 
+        <a href="/impressum.html" data-i18n="legal.impressum">Impressum</a> · 
+        <a href="/sitemap.html" data-i18n="legal.sitemap">Sitemap</a>
+      </span>
+      <span><b>Visa · Mastercard · Amex · PayPal</b></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= CART ================= -->
+<div id="overlay"></div>
+<aside id="cart" aria-label="Shopping bag">
+  <div class="cart-head">
+    <h3><span data-i18n="cart.title">Shopping Bag</span> <span id="cartN"></span></h3>
+    <button class="x" id="cartClose" aria-label="Close bag">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot" id="cartFoot">
+    <div class="ship">
+      <small id="shipTxt"></small>
+      <div class="ship-bar"><i id="shipBar"></i></div>
+    </div>
+    <div class="cart-total"><span data-i18n="cart.subtotal">Subtotal</span><b id="cartTotal">€0</b></div>
+    <button class="btn btn-gold" id="checkout" data-i18n="cart.checkout_btn">Proceed to Checkout</button>
+    <div class="tax" data-i18n="cart.tax_note">Exclusive DHL Delivery: Germany €5.99 · EU €8.99 (Complimentary over €150). Order receipt and dispatch tracking sent via Email.</div>
+  </div>
+  <div class="order-ok">
+    <svg class="ok-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46"/><path d="M32 51l12 12 24-26"/></svg>
+    <b data-i18n="cart.order_placed">Order Placed Successfully</b>
+    <div class="num" id="orderNum"></div>
+    <span data-i18n="cart.order_advisor_notice">A detailed order confirmation and receipt have been sent to your email. You will receive real-time dispatch updates via email as soon as DHL collects your handcrafted flacon.</span>
+    <button class="btn btn-ghost" id="okClose" style="margin-top:10px" data-i18n="cart.continue_shopping">Continue Shopping</button>
+  </div>
+</aside>
+
+<!-- ================= MODAL ================= -->
+<div id="modal" role="dialog" aria-modal="true">
+  <div class="md-panel">
+    <button class="x md-close" id="mdClose" aria-label="Close">✕</button>
+    <div class="md-media"><img id="mdImg" alt=""></div>
+    <div class="md-body">
+      <div class="md-fam" id="mdFam"></div>
+      <h3 class="md-name" id="mdName"></h3>
+      <div class="md-rating"><b id="mdStars"></b><span id="mdRev"></span></div>
+      <p class="md-desc" id="mdDesc"></p>
+      <div class="md-notes" id="mdNotes"></div>
+      <div class="vol" id="mdVol"></div>
+      <div class="md-row">
+        <div class="md-price"><small data-i18n="modal.price_label">Price</small><span id="mdPrice"></span></div>
+        <button class="btn btn-gold" id="mdAdd" data-i18n="modal.add_to_bag">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= AUTH MODAL ================= -->
+<div id="authModal" class="auth-modal" role="dialog" aria-modal="true">
+  <div class="auth-panel">
+    <button class="x auth-close" id="authClose" aria-label="Close">✕</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" data-i18n="auth.sign_in">Sign In</button>
+      <button class="auth-tab" id="tabRegister" data-i18n="auth.sign_up">Create Account</button>
+    </div>
+    <div id="authError" class="auth-error"></div>
+
+    <form id="formLogin" class="auth-form">
+      <div class="auth-field">
+        <label for="loginEmail" data-i18n="auth.email_label">Email Address</label>
+        <input type="email" id="loginEmail" placeholder="client@noblesse.com" required autocomplete="email" />
+      </div>
+      <div class="auth-field">
+        <label for="loginPassword" data-i18n="auth.password_label">Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn btn-gold auth-submit-btn" data-i18n="auth.btn_sign_in">Enter Sanctuary</button>
+    </form>
+
+    <form id="formRegister" class="auth-form" style="display: none;">
+      <div class="auth-field">
+        <label for="regName" data-i18n="auth.name_label">Full Name</label>
+        <input type="text" id="regName" placeholder="Name" required autocomplete="name" />
+      </div>
+      <div class="auth-field">
+        <label for="regEmail" data-i18n="auth.email_label">Email Address</label>
+        <input type="email" id="regEmail" placeholder="client@noblesse.com" required autocomplete="email" />
+      </div>
+      <div class="auth-field">
+        <label for="regPassword" data-i18n="auth.password_label">Password</label>
+        <input type="password" id="regPassword" placeholder="Min. 6 characters" required autocomplete="new-password" />
+      </div>
+      <button type="submit" class="btn btn-gold auth-submit-btn" data-i18n="auth.btn_sign_up">Join La Maison</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= ACCOUNT DRAWER ================= -->
+<div id="accountOverlay"></div>
+<aside id="accountDrawer" aria-label="Client Account">
+  <div class="account-head">
+    <h3 data-i18n="account.title">Sanctuaire Privé</h3>
+    <button class="x" id="accountClose" aria-label="Close account drawer">✕</button>
+  </div>
+  <div class="account-profile-card">
+    <div class="account-user-meta">
+      <div class="account-avatar">✦</div>
+      <div class="account-user-details">
+        <h4 id="accountUserName">Client</h4>
+        <p id="accountUserEmail">email@example.com</p>
+      </div>
+    </div>
+    <div class="account-actions-bar">
+      <button class="account-admin-btn" id="accountAdminBtn" data-i18n="admin.title">Open Boutique Studio</button>
+      <button class="account-logout-btn" id="accountLogout" data-i18n="account.sign_out">Sign Out</button>
+    </div>
+  </div>
+  <div class="account-orders-section">
+    <h4 data-i18n="account.orders_title">Acquisitions & Orders</h4>
+    <div id="accountOrdersList"></div>
+  </div>
+</aside>
+
+<!-- ================= BOUTIQUE STUDIO (ADMIN) ================= -->
+<div id="adminStudioOverlay"></div>
+<div id="adminStudioModal" role="dialog" aria-modal="true">
+  <div class="admin-window">
+    <div class="admin-header">
+      <div class="admin-header-main">
+        <div class="admin-header-titles">
+          <h3 data-i18n="admin.studio_title">Boutique Studio</h3>
+          <p data-i18n="admin.studio_desc">Direct creation & curation of Haute Parfumerie collection</p>
+        </div>
+        <div class="admin-nav-tabs">
+          <button type="button" class="admin-nav-tab active" id="adminTabFragrances" data-i18n="admin.tab_fragrances">Fragrance Collection</button>
+          <button type="button" class="admin-nav-tab" id="adminTabLanguages" data-i18n="admin.tab_languages">Languages & Visibility</button>
+        </div>
+      </div>
+      <button class="x" id="adminStudioClose" aria-label="Close Studio">✕</button>
+    </div>
+    <div class="admin-body">
+      <!-- VIEW 1: FRAGRANCE COLLECTION -->
+      <div class="admin-view-fragrances" id="adminViewFragrances">
+        <div class="admin-sidebar">
+          <div class="admin-sidebar-top">
+            <span data-i18n="nav.collection">Collection</span>
+            <button class="admin-new-btn" id="adminNewProductBtn">+ New Fragrance</button>
+          </div>
+          <div class="admin-product-list" id="adminProductList"></div>
+        </div>
+        <div class="admin-editor">
+          <h4 id="adminFormTitle">Fragrance Details</h4>
+          <form id="adminProductForm">
+            <input type="hidden" id="adminProductId" />
+            <input type="hidden" id="adminProductRecordId" />
+            <div class="admin-form-grid">
+              <div class="admin-field">
+                <label for="adminProductName" data-i18n="admin.field_name">Fragrance Name</label>
+                <input type="text" id="adminProductName" required placeholder="e.g. Étoile d'Or" />
+              </div>
+              <div class="admin-field">
+                <label for="adminProductFamily" data-i18n="admin.field_family">Olfactory Family</label>
+                <select id="adminProductFamily">
+                  <option value="floral">Floral & Delicate</option>
+                  <option value="oriental">Oriental & Amber</option>
+                  <option value="woody">Woody & Leather</option>
+                  <option value="fresh">Azure & Fresh</option>
+                </select>
+              </div>
+              <div class="admin-field">
+                <label for="adminProductGender" data-i18n="admin.field_gender">Gender</label>
+                <select id="adminProductGender">
+                  <option value="Unisex">Unisex</option>
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                </select>
+              </div>
+              <div class="admin-field">
+                <label for="adminProductBadge" data-i18n="admin.field_badge">Emblem Badge</label>
+                <input type="text" id="adminProductBadge" placeholder="e.g. Rare Extract, Signature" />
+              </div>
+              <div class="admin-field">
+                <label for="adminProductPrice50" data-i18n="admin.field_price_50">Price 50ml (€)</label>
+                <input type="number" id="adminProductPrice50" required min="1" step="1" />
+              </div>
+              <div class="admin-field">
+                <label for="adminProductPrice100" data-i18n="admin.field_price_100">Price 100ml (€)</label>
+                <input type="number" id="adminProductPrice100" required min="1" step="1" />
+              </div>
+              
+              <!-- Flacon Image from Device -->
+              <div class="admin-field full">
+                <label data-i18n="admin.field_image">Flacon Visual</label>
+                <div class="admin-upload-zone" id="adminUploadZone">
+                  <input type="file" id="adminProductFileInput" accept="image/jpeg,image/png,image/webp" style="display:none;" />
+                  <input type="hidden" id="adminProductImage" value="img/p1.jpg" />
+                  <div class="admin-preview-box">
+                    <img id="adminProductImagePreview" class="admin-image-preview" src="img/p1.jpg" alt="Preview" />
+                  </div>
+                  <div class="admin-upload-details">
+                    <div class="admin-upload-btns">
+                      <button type="button" class="admin-choose-file-btn" id="adminUploadBtn" data-i18n="admin.upload_btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                          <polyline points="17 8 12 3 7 8"/>
+                          <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        Upload from Device
+                      </button>
+                      <button type="button" class="admin-remove-image-btn" id="adminRemoveImageBtn" data-i18n="admin.remove_image_btn" style="display:none;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16">
+                          <path d="M3 6h18"/>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                          <line x1="10" y1="11" x2="10" y2="17"/>
+                          <line x1="14" y1="11" x2="14" y2="17"/>
+                        </svg>
+                        Remove Image
+                      </button>
+                    </div>
+                    <p class="admin-upload-hint" data-i18n="admin.upload_hint">
+                      Recommended: 800 × 1000 px (ratio 4:5) or square 1000 × 1000 px. Supports JPG, PNG, WebP up to 5 MB.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Olfactory Narrative with Language Tabs -->
+              <div class="admin-field full">
+                <div class="admin-desc-header">
+                  <label for="adminProductDesc" data-i18n="admin.field_desc">Olfactory Narrative</label>
+                  <div class="desc-lang-tabs" id="adminDescLangTabs">
+                    <button type="button" class="desc-lang-tab" data-desc-lang="de">DE</button>
+                    <button type="button" class="desc-lang-tab active" data-desc-lang="en">EN</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="fr">FR</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="es">ES</button>
+                  </div>
+                </div>
+                <textarea id="adminProductDesc" rows="3" placeholder="Poetic sensory journey in English..."></textarea>
+                <div class="desc-lang-badge" id="adminDescLangBadge">Editing in English (EN)</div>
+              </div>
+
+              <div class="admin-field">
+                <label for="adminProductNotesTop" data-i18n="admin.field_notes_top">Top Notes (comma-separated)</label>
+                <input type="text" id="adminProductNotesTop" placeholder="Calabrian Bergamot, Pink Pepper" />
+              </div>
+              <div class="admin-field">
+                <label for="adminProductNotesHeart" data-i18n="admin.field_notes_heart">Heart Notes (comma-separated)</label>
+                <input type="text" id="adminProductNotesHeart" placeholder="Centifolia Rose, Tuscan Iris" />
+              </div>
+              <div class="admin-field full">
+                <label for="adminProductNotesBase" data-i18n="admin.field_notes_base">Base Notes (comma-separated)</label>
+                <input type="text" id="adminProductNotesBase" placeholder="White Amber, Indonesian Patchouli" />
+              </div>
+            </div>
+            <div class="admin-actions">
+              <button type="button" class="admin-delete-btn" id="adminDeleteBtn" data-i18n="admin.delete_btn">Retire Fragrance</button>
+              <button type="submit" class="admin-save-btn" id="adminSaveBtn" data-i18n="admin.save_btn">Save Fragrance</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- VIEW 2: LANGUAGES & VISIBILITY -->
+      <div class="admin-view-languages" id="adminViewLanguages" style="display: none;">
+        <div class="admin-lang-card">
+          <div class="admin-lang-card-header">
+            <h4 data-i18n="admin.lang_settings_title">Boutique Language Settings</h4>
+            <p data-i18n="admin.lang_settings_desc">Control which languages are active on the website or hide the language selector entirely.</p>
+          </div>
+
+          <div class="admin-lang-option">
+            <label class="admin-switch-label">
+              <input type="checkbox" id="adminToggleLangSwitcher" checked />
+              <span class="admin-switch-slider"></span>
+              <span class="admin-switch-text" data-i18n="admin.toggle_switcher">Enable language switcher on website</span>
+            </label>
+            <p class="admin-subtext">If unchecked, the language bar is completely removed from the header and mobile navigation, defaulting to English.</p>
+          </div>
+
+          <div class="admin-lang-selection">
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangDe" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_de">Deutsch (German)</strong>
+                <small>Deutsche Übersetzung, DHL-Versanddetails und AGB.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox disabled">
+              <input type="checkbox" id="adminLangEn" checked disabled />
+              <span class="custom-chk checked"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_en">English (Base language)</strong>
+                <small>Default language. Cannot be disabled.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangFr" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_fr">Français (French)</strong>
+                <small>Complete French translations and currency formats.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangEs" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_es">Español (Spanish)</strong>
+                <small>Traducción completa en español y términos legales.</small>
+              </div>
+            </label>
+          </div>
+
+          <div class="admin-lang-actions">
+            <button type="button" class="admin-save-btn" id="adminSaveLanguagesBtn" data-i18n="admin.btn_save_languages">Save Language Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"><b>✦</b><span id="toastTxt"></span></div>
+<button id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

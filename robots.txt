@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /pocketbase/
+Disallow: /pb_hooks/
+
+Sitemap: https://stnoblesse.com/sitemap.xml

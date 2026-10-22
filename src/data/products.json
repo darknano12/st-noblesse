@@ -1,0 +1,62 @@
+[
+  {
+    "id": "azure-epure",
+    "img": "",
+    "name": "Azure Épure",
+    "fam": "fresh",
+    "gender": "Unisex",
+    "badge": "Signature",
+    "desc": "Our priority fragrance — fresh, elegant and the finest place to begin. Azure-clean air, cool iris and white musk: a cloudless sky, made wearable.",
+    "notes": {
+      "top": ["Bergamot", "Neroli", "Lemon"],
+      "heart": ["Iris", "Green Tea"],
+      "base": ["White Musk", "Cedar"]
+    },
+    "price": {
+      "50": 89,
+      "100": 129
+    },
+    "rating": 4.9,
+    "rev": 187
+  },
+  {
+    "id": "ambre-velours",
+    "img": "",
+    "name": "Ambre Velours",
+    "fam": "oriental",
+    "gender": "Unisex",
+    "badge": "",
+    "desc": "The sweeter side of the House: golden amber, Bourbon vanilla and benzoin, wrapped in the warmth of velvet.",
+    "notes": {
+      "top": ["Bitter Orange"],
+      "heart": ["Amber", "Benzoin", "Rose"],
+      "base": ["Bourbon Vanilla", "Tonka Bean"]
+    },
+    "price": {
+      "50": 99,
+      "100": 139
+    },
+    "rating": 4.9,
+    "rev": 143
+  },
+  {
+    "id": "oud-serein",
+    "img": "",
+    "name": "Oud Serein",
+    "fam": "woody",
+    "gender": "Unisex",
+    "badge": "",
+    "desc": "Serene oud: Laotian oud and cedar, deepened by sandalwood — woody, quiet and certain, without a trace of harshness.",
+    "notes": {
+      "top": ["Saffron"],
+      "heart": ["Laotian Oud", "Cedar"],
+      "base": ["Sandalwood", "Vetiver", "Grey Amber"]
+    },
+    "price": {
+      "50": 119,
+      "100": 159
+    },
+    "rating": 5.0,
+    "rev": 96
+  }
+]

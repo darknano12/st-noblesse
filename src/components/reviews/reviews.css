@@ -1,0 +1,119 @@
+/* ============ REVIEWS ============ */
+#reviews {
+  background: var(--bg);
+}
+
+.rev-box {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  min-height: 340px;
+}
+
+.rev-mark {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--serif);
+  font-size: 6rem;
+  line-height: 0.6;
+  color: var(--gold);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.rev-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: 0.7s var(--ease);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 56px 8px 0;
+}
+
+.rev-slide.active {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.rev-stars {
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+}
+
+.rev-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.15rem, 2.3vw, 1.6rem);
+  line-height: 1.55;
+}
+
+.rev-who b {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.rev-who span {
+  color: var(--muted2);
+  font-size: 0.74rem;
+}
+
+.rev-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  margin-top: 36px;
+}
+
+.rev-arrow {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  transition: 0.35s;
+}
+
+.rev-arrow:hover {
+  border-color: var(--gold);
+  background: rgba(200, 162, 77, 0.1);
+}
+
+.rev-arrow svg {
+  width: 15px;
+  height: 15px;
+}
+
+.rev-dots {
+  display: flex;
+  gap: 10px;
+}
+
+.rev-dots button {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(200, 162, 77, 0.25);
+  transition: 0.4s;
+}
+
+.rev-dots button.active {
+  background: var(--gold);
+  transform: scale(1.5);
+}

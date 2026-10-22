@@ -1,0 +1,9 @@
+node_modules
+dist
+.gemini
+pb_data
+*.local
+*.exe
+pocketbase/pocketbase.exe
+.DS_Store
+Thumbs.db

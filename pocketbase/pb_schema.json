@@ -1,0 +1,247 @@
+[
+  {
+    "id": "col_products_noblesse",
+    "name": "products",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "name": "name",
+        "type": "text",
+        "required": true,
+        "options": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "slug",
+        "type": "text",
+        "required": true,
+        "options": {
+          "min": 1,
+          "max": 60,
+          "pattern": "^[a-z0-9-]+$"
+        }
+      },
+      {
+        "name": "family",
+        "type": "select",
+        "required": true,
+        "options": {
+          "maxSelect": 1,
+          "values": ["fresh", "oriental", "woody", "floral"]
+        }
+      },
+      {
+        "name": "gender",
+        "type": "select",
+        "required": true,
+        "options": {
+          "maxSelect": 1,
+          "values": ["Unisex", "Men", "Women"]
+        }
+      },
+      {
+        "name": "badge",
+        "type": "text",
+        "required": false,
+        "options": {
+          "max": 50
+        }
+      },
+      {
+        "name": "desc",
+        "type": "text",
+        "required": false,
+        "options": {
+          "max": 10000
+        }
+      },
+      {
+        "name": "notes_top",
+        "type": "json",
+        "required": false,
+        "options": {
+          "maxSize": 2000000
+        }
+      },
+      {
+        "name": "notes_heart",
+        "type": "json",
+        "required": false,
+        "options": {
+          "maxSize": 2000000
+        }
+      },
+      {
+        "name": "notes_base",
+        "type": "json",
+        "required": false,
+        "options": {
+          "maxSize": 2000000
+        }
+      },
+      {
+        "name": "price_50",
+        "type": "number",
+        "required": true,
+        "options": {
+          "min": 0
+        }
+      },
+      {
+        "name": "price_100",
+        "type": "number",
+        "required": true,
+        "options": {
+          "min": 0
+        }
+      },
+      {
+        "name": "rating",
+        "type": "number",
+        "required": false,
+        "options": {
+          "min": 0,
+          "max": 5
+        }
+      },
+      {
+        "name": "reviews_count",
+        "type": "number",
+        "required": false,
+        "options": {
+          "min": 0
+        }
+      },
+      {
+        "name": "image",
+        "type": "text",
+        "required": false,
+        "options": {}
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_products_slug` ON `products` (`slug`)"
+    ],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null
+  },
+  {
+    "id": "col_reviews_noblesse",
+    "name": "reviews",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "name": "author",
+        "type": "text",
+        "required": true,
+        "options": {
+          "min": 1,
+          "max": 100
+        }
+      },
+      {
+        "name": "content",
+        "type": "text",
+        "required": true,
+        "options": {
+          "min": 5,
+          "max": 1000
+        }
+      },
+      {
+        "name": "location",
+        "type": "text",
+        "required": false,
+        "options": {
+          "max": 100
+        }
+      },
+      {
+        "name": "rating",
+        "type": "number",
+        "required": true,
+        "options": {
+          "min": 1,
+          "max": 5
+        }
+      }
+    ],
+    "indexes": [],
+    "listRule": "",
+    "viewRule": "",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null
+  },
+  {
+    "id": "col_orders_noblesse",
+    "name": "orders",
+    "type": "base",
+    "system": false,
+    "schema": [
+      {
+        "name": "stripe_session_id",
+        "type": "text",
+        "required": true,
+        "options": {
+          "min": 5,
+          "max": 150
+        }
+      },
+      {
+        "name": "customer_email",
+        "type": "email",
+        "required": false,
+        "options": {}
+      },
+      {
+        "name": "items",
+        "type": "json",
+        "required": true,
+        "options": {
+          "maxSize": 2000000
+        }
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": true,
+        "options": {
+          "min": 0
+        }
+      },
+      {
+        "name": "currency",
+        "type": "text",
+        "required": true,
+        "options": {
+          "max": 10
+        }
+      },
+      {
+        "name": "status",
+        "type": "select",
+        "required": true,
+        "options": {
+          "maxSelect": 1,
+          "values": ["pending", "paid", "failed"]
+        }
+      }
+    ],
+    "indexes": [
+      "CREATE UNIQUE INDEX `idx_orders_stripe_id` ON `orders` (`stripe_session_id`)"
+    ],
+    "listRule": "@request.auth.id != ''",
+    "viewRule": "@request.auth.id != ''",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null
+  }
+]
