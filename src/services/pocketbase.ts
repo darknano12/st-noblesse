@@ -42,7 +42,14 @@ export class PocketBaseService {
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return parsed;
+            // Clean up any stale dummy/test items that might have been saved in localStorage
+            const cleaned = parsed.filter(
+              (p) => p && p.id !== 'azure-celestial' && p.id !== 'toile-c-leste'
+            );
+            if (cleaned.length !== parsed.length) {
+              window.localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(cleaned));
+            }
+            return cleaned.length > 0 ? cleaned : null;
           }
         }
       }
@@ -53,16 +60,10 @@ export class PocketBaseService {
   saveLocalProducts(products: Product[]): void {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
-        window.localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
-      }
-    } catch {}
-    try {
-      if (typeof fetch !== 'undefined') {
-        fetch('/api/sync-products', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(products),
-        }).catch(() => {});
+        const cleaned = products.filter(
+          (p) => p && p.id !== 'azure-celestial' && p.id !== 'toile-c-leste'
+        );
+        window.localStorage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(cleaned));
       }
     } catch {}
   }
@@ -573,13 +574,16 @@ export class PocketBaseService {
       image: form.image !== undefined ? form.image : '',
     };
 
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1000);
+
     let targetRecordId = form.recordId;
     if (!targetRecordId && form.id) {
       if (/^[a-z0-9]{15}$/.test(form.id)) {
         targetRecordId = form.id;
       } else {
         try {
-          const findRes = await fetch(`${this.baseUrl}/api/collections/products/records?filter=(slug="${encodeURIComponent(form.id)}")`, { headers });
+          const findRes = await fetch(`${this.baseUrl}/api/collections/products/records?filter=(slug="${encodeURIComponent(form.id)}")`, { headers, signal: controller.signal });
           if (findRes.ok) {
             const data = await findRes.json();
             if (data.items && data.items.length > 0) {
@@ -598,6 +602,7 @@ export class PocketBaseService {
           method: 'PATCH',
           headers,
           body: JSON.stringify(payload),
+          signal: controller.signal,
         });
       } else {
         // Create new record
@@ -605,10 +610,12 @@ export class PocketBaseService {
           method: 'POST',
           headers,
           body: JSON.stringify(payload),
+          signal: controller.signal,
         });
       }
 
       if (res.ok) {
+        clearTimeout(timeout);
         const r = await res.json();
         const savedProd: Product = {
           id: r.slug || r.id,
@@ -637,6 +644,7 @@ export class PocketBaseService {
         return savedProd;
       }
     } catch {}
+    clearTimeout(timeout);
 
     // Graceful offline / demo fallback
     const offlineProd: Product = {

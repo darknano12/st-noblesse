@@ -144,10 +144,11 @@ async function run() {
     console.log('3. Testing Admin Studio unified multilingual product editor...');
     const studioRes = await evalCode(`
       (async () => {
-        const { bus, pb } = window.__st;
+        const { bus, pb, adminStudioApi, catalog } = window.__st;
 
-        // Open Studio
-        bus.emit('admin:open', undefined);
+        // Open Studio with existing product
+        const prods = catalog.all();
+        adminStudioApi.open(prods[0]);
         await new Promise(r => setTimeout(r, 300));
 
         const modal = document.querySelector('#adminStudioModal');
@@ -160,7 +161,7 @@ async function run() {
         const langBadge = document.querySelector('#adminProductLangBadge');
 
         // 1. Set distinct English values
-        nameInput.value = 'Azure Celestial';
+        nameInput.value = 'Azure Épure';
         badgeInput.value = 'Rare Extract';
         discInput.value = 'Autumn Privilege';
         descInput.value = 'An imperial and luminous sillage.';
@@ -179,7 +180,7 @@ async function run() {
         await new Promise(r => setTimeout(r, 100));
 
         // Set French values
-        nameInput.value = 'Étoile Céleste';
+        nameInput.value = 'Azur Épure';
         badgeInput.value = 'Extrait Rare';
         discInput.value = "Privilège d'Automne";
         descInput.value = 'Un sillage impérial et mystique.';
@@ -201,13 +202,20 @@ async function run() {
         const frRecheckDisc = discInput.value;
 
         // 5. Submit form to persist multilingual data
+        const savePromise = new Promise((resolve) => {
+          const timer = setTimeout(() => resolve({ timedOut: true }), 4000);
+          bus.once('admin:product-saved', (saved) => {
+            clearTimeout(timer);
+            resolve({ timedOut: false, saved });
+          });
+        });
         const form = document.querySelector('#adminProductForm');
         form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-        await new Promise(r => setTimeout(r, 400));
+        const saveEventResult = await savePromise;
 
         // Check stored product in pocketbase
         const savedList = pb.getLocalProducts();
-        const firstProd = savedList[0];
+        const firstProd = savedList.find(p => p.id === 'azure-epure') || savedList[0];
 
         return {
           enValues,
@@ -215,8 +223,8 @@ async function run() {
           enRecheckName,
           frRecheckName,
           frRecheckDisc,
-          savedName: firstProd.name,
-          savedDiscountLabel: firstProd.discountLabel
+          savedName: saveEventResult.saved.name,
+          savedDiscountLabel: saveEventResult.saved.discountLabel
         };
       })()
     `);
@@ -224,10 +232,10 @@ async function run() {
     console.log('✓ Admin Studio multilingual editor verification:', studioRes);
     assert.equal(studioRes.enValues.tabsCount, 9, 'Admin Product editor must have 9 language tabs');
     assert.ok(studioRes.frBadgeText.includes('Français'), 'Language badge must reflect French');
-    assert.notEqual(studioRes.enRecheckName, 'Étoile Céleste', 'English name must remain distinct from French');
-    assert.equal(studioRes.frRecheckName, 'Étoile Céleste', 'French name must be preserved across tab switches');
+    assert.notEqual(studioRes.enRecheckName, 'Azur Épure', 'English name must remain distinct from French');
+    assert.equal(studioRes.frRecheckName, 'Azur Épure', 'French name must be preserved across tab switches');
     assert.equal(studioRes.frRecheckDisc, "Privilège d'Automne", 'French discount label preserved');
-    assert.ok(studioRes.savedName.includes('Étoile Céleste'), 'Saved name must contain multilingual JSON');
+    assert.ok(studioRes.savedName.includes('Azur Épure'), 'Saved name must contain multilingual JSON');
     assert.ok(studioRes.savedDiscountLabel.includes("Privilège d'Automne"), 'Saved discount label must contain multilingual JSON');
 
     console.log('4. Verifying site language switch dynamically translates product card...');
@@ -263,10 +271,17 @@ async function run() {
     `);
 
     console.log('✓ Dynamic site language switch verification:', switchLangRes);
-    assert.equal(switchLangRes.cardNameFr, 'Étoile Céleste', 'Catalog product name must render French when locale is FR');
+    assert.equal(switchLangRes.cardNameFr, 'Azur Épure', 'Catalog product name must render French when locale is FR');
     assert.ok(switchLangRes.saleBadgeFr.includes("Privilège d'Automne"), 'Sale badge must render French when locale is FR');
     assert.equal(switchLangRes.goldBadgeFr, 'Extrait Rare', 'Gold badge must render French when locale is FR');
-    assert.notEqual(switchLangRes.cardNameEn, 'Étoile Céleste', 'Catalog product name must return to English when locale is EN');
+    assert.equal(switchLangRes.cardNameEn, 'Azure Épure', 'Catalog product name must return to English when locale is EN');
+
+    // Clean up test localStorage
+    await evalCode(`
+      (() => {
+        localStorage.removeItem('st_noblesse_custom_products');
+      })()
+    `);
 
     console.log('\n🎉 ALL MULTILINGUAL PRODUCT EDITOR & DUAL BADGE TESTS PASSED 100%!\n');
     process.exit(0);

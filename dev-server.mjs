@@ -72,10 +72,11 @@ const server = http.createServer((req, res) => {
       try {
         const parsed = JSON.parse(body);
         if (Array.isArray(parsed)) {
+          const clean = parsed.filter(p => p && p.id !== 'azure-celestial' && p.id !== 'toile-c-leste');
           const targetPath = path.join(ROOT, 'src', 'data', 'products.json');
-          fs.writeFileSync(targetPath, JSON.stringify(parsed, null, 2), 'utf8');
+          fs.writeFileSync(targetPath, JSON.stringify(clean, null, 2), 'utf8');
           res.writeHead(200, { 'Content-Type': 'application/json' });
-          return res.end(JSON.stringify({ ok: true, count: parsed.length }));
+          return res.end(JSON.stringify({ ok: true, count: clean.length }));
         }
       } catch (err) {
         console.error('Failed to sync products:', err);

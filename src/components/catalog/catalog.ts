@@ -101,6 +101,11 @@ export function initCatalog(
       saleBadgeHtml = `<span class="badge badge-sale">${escapeHtml(saleText)}</span>`;
     }
 
+    let badgesHtml = '';
+    if (goldBadgeHtml || saleBadgeHtml) {
+      badgesHtml = `<div class="pc-badges">${goldBadgeHtml}${saleBadgeHtml}</div>`;
+    }
+
     let priceHtml = '';
     if (hasDiscount) {
       priceHtml = `<span class="pc-price">${escapeHtml(fromText)} <b>${formatPrice(effectivePrice50)}</b> <s class="old-price">${formatPrice(p.price['50'])}</s></span>`;
@@ -111,8 +116,7 @@ export function initCatalog(
     return (
       `<article class="pc pc-out" data-id="${escapeHtml(p.id)}" style="transition-delay:${delay}ms">` +
       `<div class="pc-media" data-view>` +
-      goldBadgeHtml +
-      saleBadgeHtml +
+      badgesHtml +
       `<img src="${escapeHtml(img)}" alt="${escapeHtml(localizedName)}" loading="lazy">` +
       `<button class="qv" type="button">${escapeHtml(qvText)}</button>` +
       `</div>` +

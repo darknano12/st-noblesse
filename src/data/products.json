@@ -1,58 +1,12 @@
 [
   {
-    "id": "azure-celestial",
-    "recordId": "demo_1792776341803",
-    "img": "img/p1.jpg",
-    "name": "{\"en\":\"Azure Celestial\",\"fr\":\"Étoile Céleste\"}",
-    "fam": "floral",
-    "gender": "Unisex",
-    "badge": "{\"en\":\"Rare Extract\",\"fr\":\"Extrait Rare\"}",
-    "desc": "{\"en\":\"An imperial and luminous sillage.\",\"fr\":\"Un sillage impérial et mystique.\"}",
-    "notes": {
-      "top": [],
-      "heart": [],
-      "base": []
-    },
-    "price": {
-      "50": 89,
-      "100": 0
-    },
-    "rating": 5,
-    "rev": 1,
-    "discountLabel": "Autumn Privilege",
-    "discountPercent": 20
-  },
-  {
-    "id": "toile-c-leste",
-    "recordId": "demo_1792776208557",
-    "img": "img/p1.jpg",
-    "name": "{\"fr\":\"Étoile Céleste\",\"en\":\"Étoile Céleste\"}",
-    "fam": "floral",
-    "gender": "Unisex",
-    "badge": "Rare Extract",
-    "desc": "{\"fr\":\"Un sillage impérial et mystique.\",\"en\":\"Un sillage impérial et mystique.\"}",
-    "notes": {
-      "top": [],
-      "heart": [],
-      "base": []
-    },
-    "price": {
-      "50": 0,
-      "100": 0
-    },
-    "rating": 5,
-    "rev": 1,
-    "discountLabel": "Autumn Privilege",
-    "discountPercent": 25
-  },
-  {
     "id": "azure-epure",
     "recordId": "demo_1792769642696",
     "img": "",
     "name": "Azure Épure",
     "fam": "fresh",
     "gender": "Unisex",
-    "badge": "Rare Extract",
+    "badge": "Signature",
     "desc": "Azure-clean air and iris.",
     "notes": {
       "top": [
@@ -70,8 +24,8 @@
       "100": 129
     },
     "rating": 5,
-    "rev": 1,
-    "discountPercent": 25,
+    "rev": 187,
+    "discountPercent": 20,
     "discountLabel": "Autumn Privilege"
   },
   {
