@@ -19,13 +19,11 @@ export function initLangSwitch(): void {
       (item) => settings.languages[item.code] !== false
     );
 
-    // 1. Render Header Single-Button Dropdown
-    const headerFlag = document.querySelector<HTMLElement>('#headerLangFlag');
+    // 1. Render Header Single-Button Dropdown (Clean Typography, No Extra Text/Flags)
     const headerCode = document.querySelector<HTMLElement>('#headerLangCode');
     const headerList = document.querySelector<HTMLElement>('#headerLangList');
     const activeMeta = NOTRESUCCES_LOCALES.find((l) => l.code === current) || NOTRESUCCES_LOCALES[0];
 
-    if (headerFlag) headerFlag.textContent = activeMeta.flag;
     if (headerCode) headerCode.textContent = activeMeta.code.toUpperCase();
 
     if (headerList) {
@@ -33,10 +31,7 @@ export function initLangSwitch(): void {
         .map(
           (item) => `
           <li class="lang-switch-item ${item.code === current ? 'active' : ''}" data-lang="${item.code}">
-            <div class="lang-switch-item-text">
-              <span>${item.flag}</span>
-              <strong>${item.nativeName}</strong>
-            </div>
+            <span class="lang-switch-item-name">${item.nativeName}</span>
             <span class="lang-switch-item-code">${item.code.toUpperCase()}</span>
           </li>
         `
@@ -55,12 +50,11 @@ export function initLangSwitch(): void {
         .join('');
     }
 
-    // 3. Render Footer Dropdown (Notre Succès style)
+    // 3. Render Footer Dropdown (Clean Luxury Typography)
     const footerCurrent = document.querySelector<HTMLElement>('#footerLangCurrent');
     const footerList = document.querySelector<HTMLElement>('#footerLangList');
     if (footerCurrent) {
-      const activeMeta = NOTRESUCCES_LOCALES.find((l) => l.code === current) || NOTRESUCCES_LOCALES[0];
-      footerCurrent.textContent = `${activeMeta.flag} ${activeMeta.nativeName}`;
+      footerCurrent.textContent = activeMeta.nativeName;
     }
 
     if (footerList) {
@@ -68,10 +62,7 @@ export function initLangSwitch(): void {
         .map(
           (item) => `
           <li class="loc-item ${item.code === current ? 'active' : ''}" data-lang="${item.code}">
-            <div class="loc-item-text">
-              <span>${item.flag}</span>
-              <strong>${item.nativeName}</strong>
-            </div>
+            <strong class="loc-item-name">${item.nativeName}</strong>
             <small style="opacity: 0.6; font-size: 0.72rem; text-transform: uppercase;">${item.code}</small>
           </li>
         `
@@ -108,9 +99,7 @@ export function initLangSwitch(): void {
 
   function updateActiveButtons(current: Locale): void {
     const activeMeta = NOTRESUCCES_LOCALES.find((l) => l.code === current) || NOTRESUCCES_LOCALES[0];
-    const headerFlag = document.querySelector<HTMLElement>('#headerLangFlag');
     const headerCode = document.querySelector<HTMLElement>('#headerLangCode');
-    if (headerFlag) headerFlag.textContent = activeMeta.flag;
     if (headerCode) headerCode.textContent = activeMeta.code.toUpperCase();
 
     document.querySelectorAll<HTMLElement>('.lang-switch-item').forEach((item) => {
@@ -126,7 +115,7 @@ export function initLangSwitch(): void {
 
     const footerCurrent = document.querySelector<HTMLElement>('#footerLangCurrent');
     if (footerCurrent) {
-      footerCurrent.textContent = `${activeMeta.flag} ${activeMeta.nativeName}`;
+      footerCurrent.textContent = activeMeta.nativeName;
     }
 
     document.querySelectorAll<HTMLElement>('.loc-item').forEach((item) => {

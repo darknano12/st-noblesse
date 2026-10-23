@@ -120,7 +120,8 @@
     "btn_register": "Opret Konto",
     "btn_logging": "Verificerer...",
     "btn_registering": "Opretter konto...",
-    "admin_badge": "Klient- og Administratoradgang"
+    "admin_badge": "Klient- og Administratoradgang",
+    "btn_sign_up": "Tilmeld dig La Maison"
   },
   "account": {
     "title": "Min Konto",
@@ -131,7 +132,9 @@
     "order_number": "Ordre №",
     "order_total": "Total",
     "btn_logout": "Log Ud",
-    "admin_studio_btn": "Åbn Boutique Studio"
+    "admin_studio_btn": "Åbn Boutique Studio",
+    "sign_out": "Log Ud",
+    "orders_title": "Ordrer og Køb"
   },
   "admin": {
     "studio_title": "Boutique Studio",
@@ -196,7 +199,10 @@
     "lang_sv": "Svenska (Svensk)",
     "lang_da": "Dansk",
     "btn_save_languages": "Gem Sprogindstillinger",
-    "lang_saved_toast": "Sprogindstillinger gemt"
+    "lang_saved_toast": "Sprogindstillinger gemt",
+    "title": "Boutique Studio",
+    "review_author_required": "Indtast venligst forfatterens navn.",
+    "review_text_required": "Indtast venligst anmeldelsesteksten."
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Eksklusive forfatterdufte — for dem der vælger sporet, ikke støjen.",

@@ -120,7 +120,8 @@
     "btn_register": "Account Aanmaken",
     "btn_logging": "Verifiëren...",
     "btn_registering": "Account Aanmaken...",
-    "admin_badge": "Cliënt & Staff Toegang"
+    "admin_badge": "Cliënt & Staff Toegang",
+    "btn_sign_up": "Word lid van La Maison"
   },
   "account": {
     "title": "Mijn Account",
@@ -131,7 +132,9 @@
     "order_number": "Bestelling №",
     "order_total": "Totaal",
     "btn_logout": "Uitloggen",
-    "admin_studio_btn": "Boutique Studio Openen"
+    "admin_studio_btn": "Boutique Studio Openen",
+    "sign_out": "Uitloggen",
+    "orders_title": "Bestellingen & Aankopen"
   },
   "admin": {
     "studio_title": "Boutique Studio",
@@ -196,7 +199,10 @@
     "lang_sv": "Svenska (Zweeds)",
     "lang_da": "Dansk (Deens)",
     "btn_save_languages": "Taalinstellingen Opslaan",
-    "lang_saved_toast": "Taalinstellingen succesvol opgeslagen"
+    "lang_saved_toast": "Taalinstellingen succesvol opgeslagen",
+    "title": "Boutique Studio",
+    "review_author_required": "Voer de naam van de auteur in.",
+    "review_text_required": "Voer de recensietekst in."
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exquise auteursparfums — voor wie kiest voor het spoor, niet het lawaai.",

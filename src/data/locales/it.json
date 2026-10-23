@@ -120,7 +120,8 @@
     "btn_register": "Crea Account",
     "btn_logging": "Verifica in corso...",
     "btn_registering": "Creazione account...",
-    "admin_badge": "Accesso Clienti & Amministrazione"
+    "admin_badge": "Accesso Clienti & Amministrazione",
+    "btn_sign_up": "Entra nella Maison"
   },
   "account": {
     "title": "Il Mio Account",
@@ -131,7 +132,9 @@
     "order_number": "Ordine №",
     "order_total": "Totale",
     "btn_logout": "Esci",
-    "admin_studio_btn": "Apri Boutique Studio"
+    "admin_studio_btn": "Apri Boutique Studio",
+    "sign_out": "Esci",
+    "orders_title": "Ordini e Acquisti"
   },
   "admin": {
     "studio_title": "Boutique Studio",
@@ -196,7 +199,10 @@
     "lang_sv": "Svenska (Svedese)",
     "lang_da": "Dansk (Danese)",
     "btn_save_languages": "Salva Impostazioni Lingua",
-    "lang_saved_toast": "Impostazioni lingua salvate con successo"
+    "lang_saved_toast": "Impostazioni lingua salvate con successo",
+    "title": "Studio Boutique",
+    "review_author_required": "Inserisci il nome dell'autore.",
+    "review_text_required": "Inserisci il testo della recensione."
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Profumi d'autore esclusivi — per chi sceglie la scia indelebile, non il rumore.",

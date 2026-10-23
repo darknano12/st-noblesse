@@ -120,7 +120,8 @@
     "btn_register": "Crear Cuenta",
     "btn_logging": "Autenticando...",
     "btn_registering": "Creando cuenta...",
-    "admin_badge": "Acceso de Clientes y Equipo"
+    "admin_badge": "Acceso de Clientes y Equipo",
+    "btn_sign_up": "Unirse a La Maison"
   },
   "account": {
     "title": "Mi Cuenta",
@@ -131,7 +132,9 @@
     "order_number": "Pedido №",
     "order_total": "Total",
     "btn_logout": "Cerrar Sesión",
-    "admin_studio_btn": "Abrir Boutique Studio"
+    "admin_studio_btn": "Abrir Boutique Studio",
+    "sign_out": "Cerrar Sesión",
+    "orders_title": "Pedidos y Adquisiciones"
   },
   "admin": {
     "studio_title": "Boutique Studio",
@@ -201,7 +204,10 @@
     "desc_en": "Descripción en inglés",
     "desc_fr": "Descripción en francés",
     "desc_es": "Descripción en español",
-    "confirm_delete": "¿Está seguro de que desea retirar esta fragancia del catálogo?"
+    "confirm_delete": "¿Está seguro de que desea retirar esta fragancia del catálogo?",
+    "title": "Estudio Boutique",
+    "review_author_required": "Por favor ingrese el nombre del autor.",
+    "review_text_required": "Por favor ingrese el texto de la reseña."
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Fragancias de autor — para quienes eligen la huella perdurable, no el ruido.",

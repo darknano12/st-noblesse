@@ -120,7 +120,8 @@
     "btn_register": "Créer un Compte",
     "btn_logging": "Authentification...",
     "btn_registering": "Création du compte...",
-    "admin_badge": "Accès Client & Équipe"
+    "admin_badge": "Accès Client & Équipe",
+    "btn_sign_up": "Rejoindre La Maison"
   },
   "account": {
     "title": "Mon Compte",
@@ -131,7 +132,9 @@
     "order_number": "Commande №",
     "order_total": "Total",
     "btn_logout": "Se Déconnecter",
-    "admin_studio_btn": "Ouvrir Boutique Studio"
+    "admin_studio_btn": "Ouvrir Boutique Studio",
+    "sign_out": "Se Déconnecter",
+    "orders_title": "Commandes & Acquisitions"
   },
   "admin": {
     "studio_title": "Boutique Studio",
@@ -201,7 +204,10 @@
     "desc_en": "Description en anglais",
     "desc_fr": "Description en français",
     "desc_es": "Description en espagnol",
-    "confirm_delete": "Êtes-vous sûr de vouloir retirer ce parfum du catalogue ?"
+    "confirm_delete": "Êtes-vous sûr de vouloir retirer ce parfum du catalogue ?",
+    "title": "Studio Boutique",
+    "review_author_required": "Veuillez saisir le nom de l'auteur.",
+    "review_text_required": "Veuillez saisir le texte de l'avis."
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Parfums d'auteur — pour ceux qui choisissent le sillage, pas le bruit.",

@@ -120,7 +120,8 @@
     "btn_register": "Create Account",
     "btn_logging": "Authenticating...",
     "btn_registering": "Creating Account...",
-    "admin_badge": "Client & Staff Access"
+    "admin_badge": "Client & Staff Access",
+    "btn_sign_up": "Join La Maison"
   },
   "account": {
     "title": "My Account",
@@ -131,7 +132,9 @@
     "order_number": "Order №",
     "order_total": "Total",
     "btn_logout": "Sign Out",
-    "admin_studio_btn": "Launch Boutique Studio"
+    "admin_studio_btn": "Launch Boutique Studio",
+    "sign_out": "Sign Out",
+    "orders_title": "Acquisitions & Orders"
   },
   "admin": {
     "studio_title": "Boutique Studio",
@@ -201,7 +204,10 @@
     "desc_en": "English description",
     "desc_fr": "French description",
     "desc_es": "Spanish description",
-    "confirm_delete": "Are you sure you want to remove this fragrance from the collection?"
+    "confirm_delete": "Are you sure you want to remove this fragrance from the collection?",
+    "title": "Boutique Studio",
+    "review_author_required": "Please enter reviewer name.",
+    "review_text_required": "Please enter review text."
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exquisite authorial fragrances — for those who choose the trace, not the noise.",

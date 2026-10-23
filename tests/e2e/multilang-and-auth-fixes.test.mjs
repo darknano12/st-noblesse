@@ -60,19 +60,21 @@ async function run() {
       return res?.result?.value;
     }
 
-    console.log('1. Testing Header Single-Button Language Dropdown...');
+    console.log('1. Testing Header Single-Button Language Dropdown (No extra white text/flag)...');
     const headerState = await evalCode(`
       (() => {
         const dropdown = document.querySelector('#langSwitch');
         const btn = document.querySelector('#headerLangBtn');
         const code = document.querySelector('#headerLangCode')?.textContent.trim();
-        const flag = document.querySelector('#headerLangFlag')?.textContent.trim();
+        const hasFlag = Boolean(document.querySelector('#headerLangFlag'));
+        const btnText = btn?.innerText?.trim();
         const items = document.querySelectorAll('#headerLangList .lang-switch-item');
         return {
           isDropdown: dropdown?.classList.contains('lang-switch-dropdown'),
           hasBtn: Boolean(btn),
           code,
-          flag,
+          hasFlag,
+          btnText,
           itemCount: items.length
         };
       })()
@@ -81,6 +83,8 @@ async function run() {
     assert.strictEqual(headerState.isDropdown, true);
     assert.strictEqual(headerState.hasBtn, true);
     assert.strictEqual(headerState.code, 'EN');
+    assert.strictEqual(headerState.hasFlag, false);
+    assert.strictEqual(headerState.btnText, 'EN');
     assert.strictEqual(headerState.itemCount, 9);
 
     console.log('2. Clicking header lang button to open dropdown and switching to German...');
@@ -181,7 +185,28 @@ async function run() {
     assert.strictEqual(regRes.hasToken, true);
     assert.strictEqual(regRes.currentUserMatches, true);
 
-    console.log('\n🎉 ALL 4 CORE FIXES (Header Lang Button, Product 9-Langs, Review 9-Langs, Client Registration) VERIFIED 100%!');
+    console.log('7. Verifying all button texts in Auth & Account modals (no raw i18n keys)...');
+    const buttonsCheck = await evalCode(`
+      (() => {
+        const regBtnText = document.querySelector('#formRegister button[type="submit"]')?.textContent.trim();
+        const loginBtnText = document.querySelector('#formLogin button[type="submit"]')?.textContent.trim();
+        const adminBtnText = document.querySelector('#accountAdminBtn')?.textContent.trim();
+        const logoutBtnText = document.querySelector('#accountLogout')?.textContent.trim();
+        return {
+          regBtnText,
+          loginBtnText,
+          adminBtnText,
+          logoutBtnText
+        };
+      })()
+    `);
+    console.log('✓ Buttons text check:', buttonsCheck);
+    assert.ok(buttonsCheck.regBtnText && !buttonsCheck.regBtnText.includes('auth.'));
+    assert.ok(buttonsCheck.loginBtnText && !buttonsCheck.loginBtnText.includes('auth.'));
+    assert.ok(buttonsCheck.adminBtnText && !buttonsCheck.adminBtnText.includes('admin.') && !buttonsCheck.adminBtnText.includes('account.'));
+    assert.ok(buttonsCheck.logoutBtnText && !buttonsCheck.logoutBtnText.includes('account.'));
+
+    console.log('\n🎉 ALL 4 CORE FIXES (Header Lang Button, Product 9-Langs, Review 9-Langs, Client Registration & Buttons) VERIFIED 100%!');
   } finally {
     chrome.kill();
   }
