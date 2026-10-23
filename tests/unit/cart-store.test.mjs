@@ -113,3 +113,65 @@ test('createCart setQty, remove, and clear operations', () => {
   assert.equal(cart.count(), 0);
   assert.equal(cart.subtotal(), 0);
 });
+
+test('createCart Buy 2 Get 1 Free: 3 flacons triggers 1 complimentary lowest price flacon', () => {
+  const cart = setupCart();
+
+  // Add 2x 100ml (€129 each = €258) + 1x 50ml (€89)
+  cart.add('azure-epure', '100', 2);
+  cart.add('azure-epure', '50', 1);
+
+  assert.equal(cart.count(), 3);
+  assert.equal(cart.subtotal(), 347); // 258 + 89 = 347
+
+  const snap = cart.snapshot();
+  assert.equal(snap.freeFlaconsCount, 1);
+  assert.equal(snap.freeFlaconDiscount, 89); // lowest unit price is €89
+  assert.equal(snap.discount, 89);
+  assert.equal(snap.total, 258); // 347 - 89 = 258
+});
+
+test('createCart Buy 2 Get 1 Free: 6 flacons triggers 2 complimentary flacons', () => {
+  const cart = setupCart();
+
+  // 4x 100ml (€129) + 2x 50ml (€89) -> 6 items total
+  cart.add('azure-epure', '100', 4); // 4 * 129 = 516
+  cart.add('azure-epure', '50', 2);  // 2 * 89 = 178
+  // subtotal = 694
+
+  const snap = cart.snapshot();
+  assert.equal(snap.count, 6);
+  assert.equal(snap.freeFlaconsCount, 2);
+  // Lowest 2 unit prices are the 2x 50ml flacons (€89 + €89 = €178)
+  assert.equal(snap.freeFlaconDiscount, 178);
+  assert.equal(snap.total, 516);
+});
+
+test('createCart promo code application, percentage calculation, case insensitivity, and removal', () => {
+  const cart = setupCart();
+  cart.add('azure-epure', '50', 1); // €89
+
+  // Invalid code
+  const badRes = cart.applyPromo('INVALID_CODE');
+  assert.equal(badRes.ok, false);
+
+  // Valid code: NOBLESSE15 (15%)
+  const goodRes = cart.applyPromo('noblesse15');
+  assert.equal(goodRes.ok, true);
+  assert.equal(goodRes.discountPercent, 15);
+  assert.equal(cart.getPromoCode(), 'NOBLESSE15');
+
+  let snap = cart.snapshot();
+  assert.equal(snap.promoCode, 'NOBLESSE15');
+  assert.equal(snap.promoDiscount, 13); // round(89 * 0.15) = 13
+  assert.equal(snap.discount, 13);
+  assert.equal(snap.total, 76); // 89 - 13 = 76
+
+  // Remove promo
+  cart.removePromo();
+  assert.equal(cart.getPromoCode(), undefined);
+  snap = cart.snapshot();
+  assert.equal(snap.promoCode, undefined);
+  assert.equal(snap.promoDiscount, 0);
+  assert.equal(snap.total, 89);
+});

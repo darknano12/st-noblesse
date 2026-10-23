@@ -3,7 +3,8 @@
     "families": "Las Familias",
     "collection": "La Colección",
     "reviews": "Opiniones",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "privileges": "Privilegios"
   },
   "hero": {
     "kicker": "Maison de Haute Parfumerie",
@@ -67,7 +68,18 @@
     "success_subtitle": "Su pedido {orderId} ha sido procesado con éxito. Se ha enviado un correo electrónico de confirmación.",
     "continue_shopping": "Continuar comprando",
     "order_placed": "Pedido Realizado con Éxito",
-    "order_advisor_notice": "La confirmación del pedido y los detalles de seguimiento han sido enviados a su correo electrónico. Le notificaremos por e-mail tan pronto como DHL recoja su frasco."
+    "order_advisor_notice": "La confirmación del pedido y los detalles de seguimiento han sido enviados a su correo electrónico. Le notificaremos por e-mail tan pronto como DHL recoja su frasco.",
+    "total": "Total",
+    "free_flacon_label": "3.er Frasco de Cortesía",
+    "free_badge": "Cortesía",
+    "apply_code": "Aplicar",
+    "promo_add_2_more": "Añada 2 frascos más para recibir el 3.er frasco de cortesía",
+    "promo_add_1_more": "¡Añada 1 frasco más para recibir su 3.er frasco de cortesía!",
+    "promo_applied": "Privilegio aplicado: {count} frasco(s) de cortesía incluido(s)",
+    "privilege_code": "Privilegio",
+    "promo_invalid": "Código de privilegio no válido o caducado",
+    "promo_applied_success": "Código de privilegio {code} aplicado (-{percent}%)",
+    "promo_placeholder": "Código de privilegio (ej: NOBLESSE15)"
   },
   "modal": {
     "price_label": "Precio",
@@ -99,7 +111,8 @@
     "removed": "Eliminado",
     "copied": "Enlace copiado al portapapeles",
     "auth_required_cart": "✦ Inicie sesión o cree una cuenta para adquirir fragancias.",
-    "auth_required_checkout": "✦ Inicie sesión o cree una cuenta para proceder al pago."
+    "auth_required_checkout": "✦ Inicie sesión o cree una cuenta para proceder al pago.",
+    "promo_copied": "Código de privilegio {code} aplicado a la cesta"
   },
   "common": {
     "currency": "€",
@@ -227,5 +240,29 @@
     "shipping": "Envío con DHL y Pago (AGB §4: Alemania 5,99 € / UE 8,99 €)",
     "returns": "Derecho de Desistimiento y Devoluciones (AGB §5)",
     "rights": "Todos los derechos reservados."
+  },
+  "privileges": {
+    "kicker": "Privilegios Maison",
+    "title": "El Arte de Coleccionar · <em>3.er Frasco de Cortesía</em>",
+    "subtitle": "Atenciones exclusivas para nuestros clientes más distinguidos. Obsequios selectos en cada pedido.",
+    "offer_badge": "Privilegio Exclusivo de la Maison",
+    "offer_kicker": "Oferta Excepcional",
+    "offer_title": "Compre 2 Frascos, el 3.° es de Cortesía",
+    "offer_desc": "Adquiera dos frascos de alta perfumería a su elección y reciba un tercer frasco con nuestros cumplidos. El descuento se aplica automáticamente en la cesta.",
+    "hl_auto": "Automático en la cesta: no requiere código",
+    "hl_mix": "Combine formatos de 50ml y 100ml a su gusto",
+    "hl_stack": "Compatible con envío gratuito y privilegios de bienvenida",
+    "cta_compose": "Componer Mi Trío",
+    "tag_offert": "De Cortesía",
+    "seal_text": "3.er Frasco de Cortesía",
+    "perk1_title": "Privilegio de Bienvenida",
+    "perk1_desc": "Disfrute de un 15% de privilegio en su adquisición con el código:",
+    "copy_hint": "Aplicar",
+    "perk2_title": "Envío DHL Express de Cortesía",
+    "perk2_desc": "Entrega prioritaria climatizada en toda Europa y el mundo en pedidos a partir de 150 €.",
+    "perk2_meta": "Envío en un plazo de 24 horas",
+    "perk3_title": "Trío de Muestras Exclusivas",
+    "perk3_desc": "Cada frasco va acompañado de tres viales sellados de 2ml para degustar la fragancia antes de abrirla.",
+    "perk3_meta": "Incluido con nuestros cumplidos"
   }
 }

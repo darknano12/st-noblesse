@@ -19,6 +19,7 @@
 @import '../components/hero/hero.css';
 @import '../components/catalog/catalog.css';
 @import '../components/story/story.css';
+@import '../components/privileges/privileges.css';
 @import '../components/reviews/reviews.css';
 @import '../components/newsletter/newsletter.css';
 @import '../components/footer/footer.css';

@@ -1,0 +1,278 @@
+/* ==========================================================================
+   st.noblesse — Maison Privilèges & Exceptional Offers
+   ========================================================================== */
+
+.privileges-sec {
+  padding: 96px 0 100px;
+  background: radial-gradient(circle at 50% 20%, rgba(200, 162, 77, 0.07) 0%, rgba(10, 14, 26, 0.98) 75%), var(--bg2);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+
+.privileges-card {
+  position: relative;
+  margin-top: 40px;
+  background: linear-gradient(145deg, rgba(17, 26, 46, 0.92) 0%, rgba(13, 18, 34, 0.97) 100%);
+  border: 1px solid rgba(200, 162, 77, 0.28);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(236, 217, 168, 0.05);
+  border-radius: 4px;
+  padding: 44px 48px;
+}
+
+.priv-badge-top {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold2);
+  padding: 5px 16px;
+  background: rgba(200, 162, 77, 0.12);
+  border: 1px solid rgba(200, 162, 77, 0.35);
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.priv-card-content {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.priv-card-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.priv-card-left h3 {
+  font-family: var(--serif);
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.priv-card-left p {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.priv-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.priv-hl-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.86rem;
+  color: var(--ink);
+}
+
+.priv-hl-dot {
+  color: var(--gold);
+  font-size: 0.8rem;
+}
+
+.priv-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.priv-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px 24px;
+  background: radial-gradient(circle, rgba(200, 162, 77, 0.12) 0%, transparent 72%);
+  border: 1px dashed rgba(200, 162, 77, 0.25);
+  border-radius: 4px;
+}
+
+.priv-flacon-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-top: 32px;
+}
+
+.priv-flacon {
+  width: 66px;
+  height: 104px;
+  border: 1px solid rgba(200, 162, 77, 0.35);
+  background: linear-gradient(180deg, rgba(24, 35, 56, 0.95) 0%, rgba(17, 26, 46, 0.98) 100%);
+  border-radius: 4px 4px 2px 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease;
+}
+
+.priv-flacon::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 22px;
+  height: 12px;
+  background: var(--grad-gold);
+  border-radius: 2px 2px 0 0;
+}
+
+.priv-flacon-free {
+  border-color: var(--gold);
+  box-shadow: 0 0 28px rgba(200, 162, 77, 0.35);
+  transform: scale(1.08);
+}
+
+.priv-free-tag {
+  position: absolute;
+  top: -34px;
+  background: var(--grad-gold);
+  color: #0a0e1a;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.priv-flacon-lbl {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  color: var(--gold2);
+  letter-spacing: 0.1em;
+}
+
+.priv-seal-caption {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.96rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.privileges-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.priv-perk {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.priv-perk:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+
+.priv-perk-icon {
+  font-size: 1.35rem;
+  color: var(--gold);
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+.priv-perk h4 {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.priv-perk p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.priv-promo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(200, 162, 77, 0.1);
+  border: 1px dashed var(--gold);
+  padding: 6px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--gold2);
+  font-size: 0.82rem;
+  align-self: flex-start;
+  transition: all 0.25s;
+}
+
+.priv-promo-pill:hover {
+  background: rgba(200, 162, 77, 0.22);
+  transform: scale(1.02);
+}
+
+.priv-promo-pill code {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold2);
+}
+
+.priv-copy-hint {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--grad-gold);
+  color: #0a0e1a;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.priv-perk-meta {
+  font-size: 0.72rem;
+  color: var(--muted2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 960px) {
+  .priv-card-content {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .privileges-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .privileges-card {
+    padding: 32px 24px;
+  }
+  .priv-card-left h3 {
+    font-size: 1.65rem;
+  }
+}

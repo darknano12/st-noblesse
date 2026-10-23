@@ -3,7 +3,8 @@
     "families": "Die Duftfamilien",
     "collection": "La Collection",
     "reviews": "Erfahrungen",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "privileges": "Privilegien"
   },
   "hero": {
     "kicker": "Maison de Haute Parfumerie",
@@ -67,7 +68,18 @@
     "success_subtitle": "Ihre Bestellung {orderId} wurde erfolgreich aufgegeben. Eine Bestätigung wurde soeben an Ihre E-Mail gesendet.",
     "continue_shopping": "Weiter einkaufen",
     "order_placed": "Bestellung erfolgreich aufgegeben",
-    "order_advisor_notice": "Eine Bestätigung wurde an Ihre E-Mail-Adresse gesendet. Sie erhalten alle Status- und DHL-Tracking-Updates zuverlässig per E-Mail."
+    "order_advisor_notice": "Eine Bestätigung wurde an Ihre E-Mail-Adresse gesendet. Sie erhalten alle Status- und DHL-Tracking-Updates zuverlässig per E-Mail.",
+    "total": "Gesamtbetrag",
+    "free_flacon_label": "3. Flakon Als Geschenk",
+    "free_badge": "Gratis",
+    "apply_code": "Einlösen",
+    "promo_add_2_more": "Fügen Sie 2 weitere Flakons hinzu, um den 3. Flakon gratis zu erhalten",
+    "promo_add_1_more": "Nur noch 1 Flakon, um Ihren 3. Flakon als Geschenk zu erhalten!",
+    "promo_applied": "Privileg aktiv: {count} Flakon(s) als Geschenk beigelegt",
+    "privilege_code": "Privileg",
+    "promo_invalid": "Ungültiger oder abgelaufener Privileg-Code",
+    "promo_applied_success": "Privileg-Code {code} erfolgreich angewendet (-{percent}%)",
+    "promo_placeholder": "Privileg-Code (z.B. NOBLESSE15)"
   },
   "modal": {
     "price_label": "Preis",
@@ -99,7 +111,8 @@
     "removed": "Entfernt",
     "copied": "In die Zwischenablage kopiert",
     "auth_required_cart": "✦ Bitte melden Sie sich an oder erstellen Sie ein Konto, um Düfte zu erwerben.",
-    "auth_required_checkout": "✦ Bitte melden Sie sich an, um zur Kasse zu gehen."
+    "auth_required_checkout": "✦ Bitte melden Sie sich an, um zur Kasse zu gehen.",
+    "promo_copied": "Privileg-Code {code} in den Warenkorb übernommen"
   },
   "common": {
     "currency": "€",
@@ -227,5 +240,29 @@
     "shipping": "DHL-Versand & Zahlung (AGB §4: DE 5,99 € / EU 8,99 €)",
     "returns": "Widerrufsrecht & Rückgabe (AGB §5)",
     "rights": "Alle Rechte vorbehalten."
+  },
+  "privileges": {
+    "kicker": "Maison Privilegien",
+    "title": "Die Kunst des Schenkens · <em>3. Flakon Gratis</em>",
+    "subtitle": "Exklusive Vorzüge für unsere anspruchsvollen Kunden. Kostbare Geschenke und feine Aufmerksamkeiten bei jeder Bestellung.",
+    "offer_badge": "Exklusives Maison-Privileg",
+    "offer_kicker": "Außergewöhnliches Angebot",
+    "offer_title": "2 Flakons Erwerben, der 3. Flakon ist Ihr Geschenk",
+    "offer_desc": "Erwerben Sie zwei kunstvoll komponierte Flakons Ihrer Wahl und erhalten Sie einen dritten Flakon als Geschenk der Maison. Die Ermäßigung wird im Warenkorb automatisch verrechnet.",
+    "hl_auto": "Automatisch im Warenkorb — kein Code erforderlich",
+    "hl_mix": "Frei kombinierbar zwischen 50ml und 100ml",
+    "hl_stack": "Kombinierbar mit Gratisversand und Willkommens-Codes",
+    "cta_compose": "Trio Zusammenstellen",
+    "tag_offert": "Geschenk",
+    "seal_text": "3. Flakon Gratis",
+    "perk1_title": "Willkommens-Privileg",
+    "perk1_desc": "Genießen Sie 15% Vorzugsnachlass auf Ihre Bestellung mit dem Code:",
+    "copy_hint": "Einlösen",
+    "perk2_title": "Kostenfreier DHL Expressversand",
+    "perk2_desc": "Sicherer, temperaturgeführter Premiumversand europa- und weltweit ab 150 € Bestellwert.",
+    "perk2_meta": "Versand innerhalb von 24 Stunden",
+    "perk3_title": "Trio Erlesener Kostproben",
+    "perk3_desc": "Jeder Bestellung liegen drei versiegelte 2ml-Entdeckungsfläschchen bei, um den Duft in Ruhe zu erleben.",
+    "perk3_meta": "Mit unseren Komplimenten beigelegt"
   }
 }

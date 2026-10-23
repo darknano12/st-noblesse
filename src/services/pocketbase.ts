@@ -175,7 +175,7 @@ export class PocketBaseService {
   /**
    * Initiate Stripe Checkout session via PocketBase hook
    */
-  async createCheckout(items: CheckoutPayloadItem[]): Promise<CheckoutResponse> {
+  async createCheckout(items: CheckoutPayloadItem[], promoCode?: string): Promise<CheckoutResponse> {
     try {
       const token = this.getAuthToken();
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
@@ -184,7 +184,7 @@ export class PocketBaseService {
       const res = await fetch(`${this.baseUrl}/api/create-checkout-session`, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, promoCode }),
       });
 
       if (!res.ok) {

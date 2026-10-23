@@ -3,7 +3,8 @@
     "families": "De Geurfamilies",
     "collection": "La Collection",
     "reviews": "Recensies",
-    "contact": "Contact"
+    "contact": "Contact",
+    "privileges": "Privileges"
   },
   "hero": {
     "kicker": "Maison de Haute Parfumerie",
@@ -67,7 +68,18 @@
     "success_subtitle": "Uw bestelling {orderId} is bevestigd. Een bevestiging en factuur zijn naar uw e-mailadres verzonden.",
     "continue_shopping": "Verder Winkelen",
     "order_placed": "Bestelling Succesvol Geplaatst",
-    "order_advisor_notice": "Een gedetailleerde bestelbevestiging is naar uw e-mail verzonden. U ontvangt actuele trackinggegevens zodra DHL uw pakket ophaalt."
+    "order_advisor_notice": "Een gedetailleerde bestelbevestiging is naar uw e-mail verzonden. U ontvangt actuele trackinggegevens zodra DHL uw pakket ophaalt.",
+    "total": "Totaal",
+    "free_flacon_label": "3e Flacon Kosteloos",
+    "free_badge": "Kosteloos",
+    "apply_code": "Toepassen",
+    "promo_add_2_more": "Voeg nog 2 flacons toe om de 3e flacon cadeau te ontvangen",
+    "promo_add_1_more": "Nog 1 flacon om uw 3e flacon kosteloos te ontvangen!",
+    "promo_applied": "Privilege toegepast: {count} kosteloze flacon(s) inbegrepen",
+    "privilege_code": "Privilege",
+    "promo_invalid": "Ongeldige of verlopen privilegecode",
+    "promo_applied_success": "Privilegecode {code} succesvol toegepast (-{percent}%)",
+    "promo_placeholder": "Privilegecode (bijv. NOBLESSE15)"
   },
   "modal": {
     "price_label": "Prijs",
@@ -99,7 +111,8 @@
     "removed": "Verwijderd uit Winkelmand",
     "copied": "Link gekopieerd naar klembord",
     "auth_required_cart": "✦ Log in of maak een account aan om parfums aan te schaffen.",
-    "auth_required_checkout": "✦ Log in of maak een account aan om af te rekenen."
+    "auth_required_checkout": "✦ Log in of maak een account aan om af te rekenen.",
+    "promo_copied": "Privilegecode {code} toegepast op uw winkelmand"
   },
   "common": {
     "currency": "€",
@@ -222,5 +235,29 @@
     "shipping": "DHL Verzending & Betaling (DE €5,99 / EU €8,99)",
     "returns": "Herroepingsrecht & Retourzendingen",
     "rights": "Alle rechten voorbehouden."
+  },
+  "privileges": {
+    "kicker": "Maison Privileges",
+    "title": "De Kunst van het Verwerven · <em>3e Flacon Cadeau</em>",
+    "subtitle": "Exclusieve privileges voor onze gewaardeerde patrons. Kostbare geschenken en persoonlijke attenties bij elke bestelling.",
+    "offer_badge": "Exclusief Maison Privilege",
+    "offer_kicker": "Uitzonderlijk Aanbod",
+    "offer_title": "Koop 2 Flacons, de 3e is Ons Geschenk",
+    "offer_desc": "Verwerf twee ambachtelijke flacons naar keuze en ontvang een derde flacon met onze complimenten. Het privilege wordt automatisch verrekend in uw mand.",
+    "hl_auto": "Automatisch in winkelmand — geen code vereist",
+    "hl_mix": "Vrij combineerbaar met 50ml en 100ml",
+    "hl_stack": "Combineerbaar met gratis verzending en welkomstprivileges",
+    "cta_compose": "Stel Uw Trio Samen",
+    "tag_offert": "Cadeau",
+    "seal_text": "3e Flacon Cadeau",
+    "perk1_title": "Welkomstprivilege",
+    "perk1_desc": "Ontvang 15% privilege op uw aankoop met code:",
+    "copy_hint": "Toepassen",
+    "perk2_title": "Kosteloze DHL Express Verzending",
+    "perk2_desc": "Beveiligde, geconditioneerde prioriteitslevering in Europa en wereldwijd bij bestellingen vanaf €150.",
+    "perk2_meta": "Verzonden binnen 24 uur",
+    "perk3_title": "Trio van Ontdekkingsvials",
+    "perk3_desc": "Elke flacon gaat vergezeld van drie verzegelde 2ml monsters om te ontdekken voor het ontzegelen.",
+    "perk3_meta": "Inbegrepen met onze complimenten"
   }
 }

@@ -29,6 +29,7 @@ import { initHeader } from './components/header/header';
 import { initHero } from './components/hero/hero';
 import { initCollections, initCatalog } from './components/catalog/catalog';
 import { initReviews } from './components/reviews/reviews';
+import { initPrivileges } from './components/privileges/privileges';
 import { initNewsletter } from './components/newsletter/newsletter';
 import { initToTop } from './components/to-top/to-top';
 import { initToast } from './components/toast/toast';
@@ -121,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const accountDrawerApi = initAccountDrawer();
   const adminStudioApi = initAdminStudio(catalog, imagesData as Record<string, string>);
 
+  initPrivileges(cart);
   initFooter((fam) => catalog.setFilter(fam as FilterFamily));
 
   /* ------------------------------------------------------------------ */

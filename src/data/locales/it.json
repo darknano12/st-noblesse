@@ -3,7 +3,8 @@
     "families": "Le Famiglie",
     "collection": "La Collection",
     "reviews": "Recensioni",
-    "contact": "Contatto"
+    "contact": "Contatto",
+    "privileges": "Privilegi"
   },
   "hero": {
     "kicker": "Maison de Haute Parfumerie",
@@ -67,7 +68,18 @@
     "success_subtitle": "Il tuo ordine {orderId} è stato confermato. Una ricevuta e il riepilogo sono stati inviati al tuo indirizzo email.",
     "continue_shopping": "Continua lo Shopping",
     "order_placed": "Ordine Inviato con Successo",
-    "order_advisor_notice": "Una conferma dettagliata è stata inviata via email. Riceverai aggiornamenti sul tracciamento non appena DHL ritirerà il tuo flacone."
+    "order_advisor_notice": "Una conferma dettagliata è stata inviata via email. Riceverai aggiornamenti sul tracciamento non appena DHL ritirerà il tuo flacone.",
+    "total": "Totale",
+    "free_flacon_label": "3° Flacone in Omaggio",
+    "free_badge": "Omaggio",
+    "apply_code": "Applica",
+    "promo_add_2_more": "Aggiungi altri 2 flaconi per ricevere il 3° flacone in omaggio",
+    "promo_add_1_more": "Aggiungi ancora 1 flacone per ricevere il tuo 3° flacone in omaggio!",
+    "promo_applied": "Privilegio applicato: {count} flacone/i in omaggio incluso/i",
+    "privilege_code": "Privilegio",
+    "promo_invalid": "Codice privilegio non valido o scaduto",
+    "promo_applied_success": "Codice privilegio {code} applicato con successo (-{percent}%)",
+    "promo_placeholder": "Codice privilegio (es. NOBLESSE15)"
   },
   "modal": {
     "price_label": "Prezzo",
@@ -99,7 +111,8 @@
     "removed": "Rimosso dal Carrello",
     "copied": "Link copiato negli appunti",
     "auth_required_cart": "✦ Accedi o crea un account per acquistare fragranze.",
-    "auth_required_checkout": "✦ Accedi o crea un account per procedere al pagamento."
+    "auth_required_checkout": "✦ Accedi o crea un account per procedere al pagamento.",
+    "promo_copied": "Codice privilegio {code} applicato alla borsa"
   },
   "common": {
     "currency": "€",
@@ -222,5 +235,29 @@
     "shipping": "Spedizione DHL e Pagamenti (Germania 5,99 € / UE 8,99 €)",
     "returns": "Diritto di Recesso e Resi",
     "rights": "Tutti i diritti riservati."
+  },
+  "privileges": {
+    "kicker": "Privilegi Maison",
+    "title": "L'Arte dell'Acquisizione · <em>3° Flacone in Omaggio</em>",
+    "subtitle": "Riconoscimenti esclusivi dedicati ai nostri estimatori. Doni preziosi e premure sartoriali su ogni ordine.",
+    "offer_badge": "Privilegio Esclusivo della Maison",
+    "offer_kicker": "Offerta Straordinaria",
+    "offer_title": "Acquista 2 Flaconi, il 3° è in Omaggio",
+    "offer_desc": "Scegli due flaconi d'arte olfattiva e ricevi un terzo flacone con i nostri complimenti. Lo sconto viene applicato automaticamente nella borsa degli acquisti.",
+    "hl_auto": "Automatico nella borsa — nessun codice richiesto",
+    "hl_mix": "Libera combinazione tra formati da 50ml e 100ml",
+    "hl_stack": "Cumulabile con spedizione gratuita e codici di benvenuto",
+    "cta_compose": "Componi il Tuo Trio",
+    "tag_offert": "In Omaggio",
+    "seal_text": "3° Flacone in Omaggio",
+    "perk1_title": "Privilegio di Benvenuto",
+    "perk1_desc": "Goditi il 15% di privilegio sul tuo primo acquisto con il codice:",
+    "copy_hint": "Applica",
+    "perk2_title": "Spedizione DHL Express in Omaggio",
+    "perk2_desc": "Consegna protetta e a temperatura controllata in tutta Europa e nel mondo per ordini oltre i 150 €.",
+    "perk2_meta": "Spedito entro 24 ore",
+    "perk3_title": "Trìo di Fiale di Scoperta",
+    "perk3_desc": "Ogni flacone include tre fiale sigillate da 2ml per esplorare l'essenza prima dell'apertura.",
+    "perk3_meta": "Incluso con i nostri complimenti"
   }
 }

@@ -3,7 +3,8 @@
     "families": "Duftfamilierne",
     "collection": "La Collection",
     "reviews": "Anmeldelser",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "privileges": "Privilegier"
   },
   "hero": {
     "kicker": "Maison de Haute Parfumerie",
@@ -67,7 +68,18 @@
     "success_subtitle": "Din ordre {orderId} er bekræftet. Kvittering og bekræftelse er sendt til din e-mailadresse.",
     "continue_shopping": "Fortsæt med at Handle",
     "order_placed": "Ordre Gennemført",
-    "order_advisor_notice": "En detaljeret ordrebekræftelse er sendt til din e-mail. Du modtager sporingsoplysninger så snart DHL afhenter din flakon."
+    "order_advisor_notice": "En detaljeret ordrebekræftelse er sendt til din e-mail. Du modtager sporingsoplysninger så snart DHL afhenter din flakon.",
+    "total": "Totalsum",
+    "free_flacon_label": "3. Flakon Som Gave",
+    "free_badge": "Gave",
+    "apply_code": "Anvend",
+    "promo_add_2_more": "Tilføj 2 flakoner mere for at modtage den 3. flakon som gave",
+    "promo_add_1_more": "Kun 1 flakon mere for at modtage din 3. flakon som gave!",
+    "promo_applied": "Privilegium aktiveret: {count} gaveflakon(er) inkluderet",
+    "privilege_code": "Privilegium",
+    "promo_invalid": "Ugyldig eller udløbet privilegiekode",
+    "promo_applied_success": "Privilegiekode {code} aktiveret (-{percent}%)",
+    "promo_placeholder": "Privilegiekode (f.eks. NOBLESSE15)"
   },
   "modal": {
     "price_label": "Pris",
@@ -99,7 +111,8 @@
     "removed": "Fjernet fra Kurv",
     "copied": "Link kopieret til udklipsholder",
     "auth_required_cart": "✦ Log venligst ind eller opret en konto for at købe parfumer.",
-    "auth_required_checkout": "✦ Log venligst ind for at gå til kassen."
+    "auth_required_checkout": "✦ Log venligst ind for at gå til kassen.",
+    "promo_copied": "Privilegiekode {code} anvendt i indkøbskurven"
   },
   "common": {
     "currency": "€",
@@ -222,5 +235,29 @@
     "shipping": "DHL Fragt & Betaling (5,99 € / 8,99 €)",
     "returns": "Fortrydelsesret & Returnering",
     "rights": "Alle rettigheder forbeholdes."
+  },
+  "privileges": {
+    "kicker": "Maison Privilegier",
+    "title": "Kunsten at Samle · <em>3. Flakon Som Gave</em>",
+    "subtitle": "Eksklusive fordele for vores kvalitetsbevidste kunder. Kostbare gaver og udsøgt service ved enhver bestilling.",
+    "offer_badge": "Eksklusivt Maison-Privilegium",
+    "offer_kicker": "Ekstraordinært Tilbud",
+    "offer_title": "Køb 2 Flakoner, den 3. Får Du Som Gave",
+    "offer_desc": "Køb to håndlavede flakoner efter eget valg, og modtag en tredje flakon med vores komplimenter. Fordelen fratrækkes automatisk i indkøbskurven.",
+    "hl_auto": "Automatisk i indkøbskurven — ingen kode nødvendig",
+    "hl_mix": "Kombiner frit mellem 50ml og 100ml flakoner",
+    "hl_stack": "Kan kombineres med fri fragt og velkomstkoder",
+    "cta_compose": "Sammensæt Din Trio",
+    "tag_offert": "Gave",
+    "seal_text": "3. Flakon Som Gave",
+    "perk1_title": "Velkomstprivilegium",
+    "perk1_desc": "Nyd 15% privilegium på din bestilling med koden:",
+    "copy_hint": "Anvend",
+    "perk2_title": "Gratis DHL Expresslevering",
+    "perk2_desc": "Sikker, temperaturkontrolleret prioriteret levering i hele Europa og globalt for ordrer over 150 €.",
+    "perk2_meta": "Afsendes inden for 24 timer",
+    "perk3_title": "Trio af Duftprøver",
+    "perk3_desc": "Enhver flakon ledsages af tre forseglede 2ml prøver for at opleve duften før emballagen brydes.",
+    "perk3_meta": "Inkluderet med vores komplimenter"
   }
 }

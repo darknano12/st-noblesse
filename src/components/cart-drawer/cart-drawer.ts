@@ -52,6 +52,23 @@ export function initCartDrawer(
   const orderNum = must('#orderNum');
   const okClose = must('#okClose');
 
+  const cartPromoBanner = document.getElementById('cartPromoBanner');
+  const cartPromoMsg = document.getElementById('cartPromoMsg');
+  const cartPromoInput = document.getElementById('cartPromoInput') as HTMLInputElement | null;
+  const cartPromoApply = document.getElementById('cartPromoApply');
+  const cartPromoInputRow = document.getElementById('cartPromoInputRow');
+  const cartPromoActive = document.getElementById('cartPromoActive');
+  const cartPromoActiveCode = document.getElementById('cartPromoActiveCode');
+  const cartPromoRemove = document.getElementById('cartPromoRemove');
+  const cartPromoFeedback = document.getElementById('cartPromoFeedback');
+
+  const cartSubtotalVal = document.getElementById('cartSubtotalVal');
+  const cartFreeFlaconRow = document.getElementById('cartFreeFlaconRow');
+  const cartFreeFlaconVal = document.getElementById('cartFreeFlaconVal');
+  const cartPromoDiscountRow = document.getElementById('cartPromoDiscountRow');
+  const cartPromoDiscountLabel = document.getElementById('cartPromoDiscountLabel');
+  const cartPromoDiscountVal = document.getElementById('cartPromoDiscountVal');
+
   let releaseFocus: (() => void) | null = null;
 
   /* ---- rendering ---- */
@@ -96,7 +113,57 @@ export function initCartDrawer(
       })
       .join('');
 
-    cartTotal.textContent = formatPrice(snap.subtotal);
+    cartTotal.textContent = formatPrice(snap.total);
+
+    if (cartPromoBanner && cartPromoMsg) {
+      if (snap.count === 1) {
+        cartPromoBanner.style.display = 'flex';
+        cartPromoMsg.textContent = t('cart.promo_add_2_more');
+      } else if (snap.count === 2) {
+        cartPromoBanner.style.display = 'flex';
+        cartPromoMsg.textContent = t('cart.promo_add_1_more');
+      } else if (snap.freeFlaconsCount > 0) {
+        cartPromoBanner.style.display = 'flex';
+        cartPromoMsg.textContent = t('cart.promo_applied', { count: snap.freeFlaconsCount });
+      } else {
+        cartPromoBanner.style.display = 'none';
+      }
+    }
+
+    if (cartSubtotalVal) {
+      cartSubtotalVal.textContent = formatPrice(snap.subtotal);
+    }
+
+    if (cartFreeFlaconRow && cartFreeFlaconVal) {
+      if (snap.freeFlaconDiscount > 0) {
+        cartFreeFlaconRow.style.display = 'flex';
+        cartFreeFlaconVal.textContent = `-${formatPrice(snap.freeFlaconDiscount)}`;
+      } else {
+        cartFreeFlaconRow.style.display = 'none';
+      }
+    }
+
+    if (cartPromoDiscountRow && cartPromoDiscountVal && cartPromoDiscountLabel) {
+      if (snap.promoCode && snap.promoDiscount > 0) {
+        cartPromoDiscountRow.style.display = 'flex';
+        cartPromoDiscountLabel.textContent = `${snap.promoCode} (${t('cart.privilege_code')})`;
+        cartPromoDiscountVal.textContent = `-${formatPrice(snap.promoDiscount)}`;
+      } else {
+        cartPromoDiscountRow.style.display = 'none';
+      }
+    }
+
+    if (cartPromoInputRow && cartPromoActive && cartPromoActiveCode) {
+      if (snap.promoCode) {
+        cartPromoInputRow.style.display = 'none';
+        cartPromoActive.style.display = 'inline-flex';
+        cartPromoActiveCode.textContent = `✦ ${snap.promoCode}`;
+      } else {
+        cartPromoInputRow.style.display = 'flex';
+        cartPromoActive.style.display = 'none';
+      }
+    }
+
     shipTxt.innerHTML = snap.freeShipUnlocked
       ? `<b>${t('cart.shipping_free')}</b>`
       : t('cart.shipping_progress', { amount: formatPrice(snap.shipRemaining) });
@@ -157,6 +224,48 @@ export function initCartDrawer(
     }
   });
 
+  /* ---- promo code interactions ---- */
+  function handleApplyPromo(): void {
+    if (!cartPromoInput) return;
+    const code = cartPromoInput.value.trim();
+    if (!code) return;
+    const res = cart.applyPromo(code);
+    if (res.ok) {
+      if (cartPromoFeedback) {
+        cartPromoFeedback.className = 'cart-promo-feedback success';
+        cartPromoFeedback.textContent = t('cart.promo_applied_success', {
+          code: code.toUpperCase(),
+          percent: res.discountPercent ?? 15,
+        });
+        setTimeout(() => {
+          if (cartPromoFeedback) cartPromoFeedback.textContent = '';
+        }, 3500);
+      }
+      cartPromoInput.value = '';
+    } else {
+      if (cartPromoFeedback) {
+        cartPromoFeedback.className = 'cart-promo-feedback error';
+        cartPromoFeedback.textContent = t('cart.promo_invalid');
+        setTimeout(() => {
+          if (cartPromoFeedback) cartPromoFeedback.textContent = '';
+        }, 3500);
+      }
+    }
+  }
+
+  cartPromoApply?.addEventListener('click', handleApplyPromo);
+  cartPromoInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleApplyPromo();
+    }
+  });
+
+  cartPromoRemove?.addEventListener('click', () => {
+    cart.removePromo();
+    if (cartPromoFeedback) cartPromoFeedback.textContent = '';
+  });
+
   /* ---- checkout ---- */
   checkoutBtn.addEventListener('click', async () => {
     const snap = cart.snapshot();
@@ -182,7 +291,7 @@ export function initCartDrawer(
         qty: l.qty,
       }));
 
-      const res = await pb.createCheckout(payload);
+      const res = await pb.createCheckout(payload, snap.promoCode);
 
       // If redirected to Stripe hosted checkout
       if (res.checkoutUrl && !res.mock && res.checkoutUrl.includes('stripe.com')) {
@@ -223,7 +332,11 @@ export function initCartDrawer(
   cart.store.subscribe(() => {
     renderHeader();
     if (drawer.classList.contains('open')) renderLines();
-    // Keep counts in header badge in sync is handled by header.ts via bus
+  });
+
+  bus.on('cart:changed', () => {
+    renderHeader();
+    if (drawer.classList.contains('open')) renderLines();
   });
 
   bus.on('i18n:change', () => {

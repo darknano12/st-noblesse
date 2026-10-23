@@ -3,7 +3,8 @@
     "families": "The Families",
     "collection": "La Collection",
     "reviews": "Reviews",
-    "contact": "Contact"
+    "contact": "Contact",
+    "privileges": "Privileges"
   },
   "hero": {
     "kicker": "Maison de Haute Parfumerie",
@@ -67,7 +68,18 @@
     "success_subtitle": "Your order {orderId} has been confirmed. A receipt and confirmation have been dispatched to your email address.",
     "continue_shopping": "Continue Shopping",
     "order_placed": "Order Placed Successfully",
-    "order_advisor_notice": "A detailed order confirmation and receipt have been sent to your email. You will receive real-time dispatch updates via email as soon as DHL collects your handcrafted flacon."
+    "order_advisor_notice": "A detailed order confirmation and receipt have been sent to your email. You will receive real-time dispatch updates via email as soon as DHL collects your handcrafted flacon.",
+    "total": "Total",
+    "free_flacon_label": "3rd Flacon Complimentary",
+    "free_badge": "Complimentary",
+    "apply_code": "Apply",
+    "promo_add_2_more": "Acquire 2 more flacons to receive your 3rd flacon complimentary",
+    "promo_add_1_more": "Acquire 1 more flacon to receive your 3rd flacon complimentary!",
+    "promo_applied": "Privilege applied: {count} complimentary flacon(s) included",
+    "privilege_code": "Privilege",
+    "promo_invalid": "Invalid or expired privilege code",
+    "promo_applied_success": "Privilege code {code} applied (-{percent}%)",
+    "promo_placeholder": "Privilege code (e.g. NOBLESSE15)"
   },
   "modal": {
     "price_label": "Price",
@@ -99,7 +111,8 @@
     "removed": "Removed from Bag",
     "copied": "Link copied to clipboard",
     "auth_required_cart": "✦ Please sign in or create an account to acquire fragrances.",
-    "auth_required_checkout": "✦ Please sign in or create an account to proceed to checkout."
+    "auth_required_checkout": "✦ Please sign in or create an account to proceed to checkout.",
+    "promo_copied": "Privilege code {code} applied to your bag"
   },
   "common": {
     "currency": "€",
@@ -227,5 +240,29 @@
     "shipping": "DHL Shipping & Payment (AGB §4: DE €5.99 / EU €8.99)",
     "returns": "Returns & Withdrawal (AGB §5)",
     "rights": "All rights reserved."
+  },
+  "privileges": {
+    "kicker": "Privilèges Maison",
+    "title": "The Art of Acquisition · <em>3ème Flacon Offert</em>",
+    "subtitle": "Exclusive benefits curated for our distinguished patrons. Complimentary treasures and bespoke courtesies on every order.",
+    "offer_badge": "Exclusive Maison Privilege",
+    "offer_kicker": "Offre Exceptionnelle",
+    "offer_title": "Buy 2 Flacons, the 3rd is Complimentary",
+    "offer_desc": "Acquire two handcrafted flacons of your choice and receive a third flacon with our compliments. The complimentary flacon privilege is automatically deducted in your shopping bag.",
+    "hl_auto": "Automatic in bag — no promo code required",
+    "hl_mix": "Combine 50ml & 100ml flacons freely",
+    "hl_stack": "Stacks with welcome privileges & free shipping",
+    "cta_compose": "Compose Your Trio",
+    "tag_offert": "Complimentary",
+    "seal_text": "3ème Flacon Offert",
+    "perk1_title": "Privilège Bienvenue",
+    "perk1_desc": "Enjoy 15% off your private acquisition with code:",
+    "copy_hint": "Apply",
+    "perk2_title": "Complimentary DHL Express",
+    "perk2_desc": "Secured, temperature-controlled priority dispatch across Europe and worldwide on all orders over €150.",
+    "perk2_meta": "Dispatched within 24 hours",
+    "perk3_title": "Trio of Discovery Vials",
+    "perk3_desc": "Every full bottle acquisition arrives with three 2ml sealed samples to explore the composition before unsealing.",
+    "perk3_meta": "Included with our compliments"
   }
 }

@@ -70,6 +70,12 @@ export interface CartSnapshot {
   lines: CartLine[];
   count: number;
   subtotal: number;
+  discount: number;
+  total: number;
+  freeFlaconDiscount: number;
+  freeFlaconsCount: number;
+  promoCode?: string;
+  promoDiscount: number;
   /** Amount still needed to unlock free shipping (0 = unlocked) */
   shipRemaining: number;
   /** 0–100 progress toward free shipping */

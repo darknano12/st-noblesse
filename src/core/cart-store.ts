@@ -32,6 +32,12 @@ export function parseKey(key: string): { productId: string; volume: Volume } | n
   return { productId, volume };
 }
 
+export const VALID_PROMOS: Record<string, { percent: number; label: string }> = {
+  NOBLESSE15: { percent: 15, label: '15% Off Privilege' },
+  BIENVENUE10: { percent: 10, label: '10% Welcome Gift' },
+  VIP20: { percent: 20, label: '20% VIP Salon' },
+};
+
 /* ------------------------------------------------------------------ */
 /* Cart store                                                          */
 /* ------------------------------------------------------------------ */
@@ -56,17 +62,26 @@ export interface CartApi {
   clear(): void;
   count(): number;
   subtotal(): number;
+  applyPromo(code: string): { ok: boolean; message?: string; discountPercent?: number };
+  removePromo(): void;
+  getPromoCode(): string | undefined;
   /** Hydrate from localStorage — call once on boot */
   hydrate(): void;
 }
 
 export function createCart(opts: CartStoreOptions): CartApi {
   const store = createStore<RawCart>({});
+  let appliedPromoCode: string | null = null;
 
   /* ---- persistence ---- */
   function persist(): void {
     try {
       localStorage.setItem(opts.storageKey, JSON.stringify(store.value));
+      if (appliedPromoCode) {
+        localStorage.setItem(`${opts.storageKey}_promo`, appliedPromoCode);
+      } else {
+        localStorage.removeItem(`${opts.storageKey}_promo`);
+      }
     } catch {
       /* quota or private mode — fail silently */
     }
@@ -85,6 +100,10 @@ export function createCart(opts: CartStoreOptions): CartApi {
           }
           store.set(clean);
         }
+      }
+      const rawPromo = localStorage.getItem(`${opts.storageKey}_promo`);
+      if (rawPromo && VALID_PROMOS[rawPromo.trim().toUpperCase()]) {
+        appliedPromoCode = rawPromo.trim().toUpperCase();
       }
     } catch {
       /* corrupted data — start empty */
@@ -111,6 +130,7 @@ export function createCart(opts: CartStoreOptions): CartApi {
   function snapshot(): CartSnapshot {
     const raw = store.value;
     const lines: CartLine[] = [];
+    const unitPrices: number[] = [];
     let count = 0;
     let subtotal = 0;
 
@@ -120,13 +140,44 @@ export function createCart(opts: CartStoreOptions): CartApi {
       lines.push(line);
       count += line.qty;
       subtotal += line.lineTotal;
+      const unit = line.product.price[line.volume];
+      if (typeof unit === 'number') {
+        for (let i = 0; i < line.qty; i++) {
+          unitPrices.push(unit);
+        }
+      }
     }
 
+    // Buy 2 Get 1 Free: For every 3 flacons, the 3rd flacon (lowest unit price) is complimentary
+    unitPrices.sort((a, b) => a - b);
+    const freeFlaconsCount = Math.floor(count / 3);
+    let freeFlaconDiscount = 0;
+    for (let i = 0; i < freeFlaconsCount; i++) {
+      freeFlaconDiscount += unitPrices[i];
+    }
+
+    // Promo code applied to the remaining subtotal after free flacon privilege
+    let promoDiscount = 0;
+    if (appliedPromoCode && VALID_PROMOS[appliedPromoCode]) {
+      const percent = VALID_PROMOS[appliedPromoCode].percent;
+      const eligibleSubtotal = Math.max(0, subtotal - freeFlaconDiscount);
+      promoDiscount = Math.round(eligibleSubtotal * (percent / 100));
+    }
+
+    const discount = freeFlaconDiscount + promoDiscount;
+    const total = Math.max(0, subtotal - discount);
     const remaining = Math.max(0, opts.freeShipThreshold - subtotal);
+
     return {
       lines,
       count,
       subtotal,
+      discount,
+      total,
+      freeFlaconDiscount,
+      freeFlaconsCount,
+      promoCode: appliedPromoCode || undefined,
+      promoDiscount,
       shipRemaining: remaining,
       shipProgress: Math.min(100, (subtotal / opts.freeShipThreshold) * 100),
       freeShipUnlocked: subtotal >= opts.freeShipThreshold,
@@ -184,6 +235,27 @@ export function createCart(opts: CartStoreOptions): CartApi {
     bus.emit('cart:cleared', undefined);
   }
 
+  function applyPromo(code: string): { ok: boolean; message?: string; discountPercent?: number } {
+    const clean = (code || '').trim().toUpperCase();
+    if (!clean || !VALID_PROMOS[clean]) {
+      return { ok: false, message: 'Invalid or expired code' };
+    }
+    appliedPromoCode = clean;
+    persist();
+    bus.emit('cart:changed', snapshot());
+    return { ok: true, discountPercent: VALID_PROMOS[clean].percent };
+  }
+
+  function removePromo(): void {
+    appliedPromoCode = null;
+    persist();
+    bus.emit('cart:changed', snapshot());
+  }
+
+  function getPromoCode(): string | undefined {
+    return appliedPromoCode || undefined;
+  }
+
   return {
     store,
     snapshot,
@@ -193,6 +265,9 @@ export function createCart(opts: CartStoreOptions): CartApi {
     clear,
     count,
     subtotal,
+    applyPromo,
+    removePromo,
+    getPromoCode,
     hydrate,
   };
 }

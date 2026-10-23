@@ -1,26 +1,206 @@
 [
   {
-    "t": "Azure Épure is where I started — and a year later it is still the one I reach for. Fresh, elegant, quietly expensive.",
+    "id": "rev_1",
     "n": "Anna K.",
     "c": "London · Azure Épure",
-    "s": 5
+    "s": 5,
+    "t": {
+      "en": "Azure Épure is where I started — and a year later it is still the one I reach for. Fresh, elegant, quietly expensive.",
+      "de": "Azure Épure war mein Beginn – und ein Jahr später greife ich noch immer danach. Frisch, elegant, von stiller Kostbarkeit.",
+      "nl": "Azure Épure was mijn begin — en een jaar later grijp ik er nog steeds naar. Fris, elegant, van ingetogen luxe.",
+      "fr": "Azure Épure fut mon initiation — et un an plus tard, c'est toujours lui que je choisis. Frais, noble, d'un luxe silencieux.",
+      "es": "Azure Épure fue mi punto de partida, y un año después sigo acudiendo a él. Fresco, elegante y de una discreta distinción.",
+      "it": "Azure Épure è stato il mio inizio, e a distanza di un anno è ancora la fragranza che scelgo ogni giorno. Fresco, elegante, di discreta nobiltà.",
+      "nb": "Azure Épure var min start – og et år senere strekker jeg meg fortsatt etter den. Frisk, elegant og av stille luksus.",
+      "sv": "Azure Épure var min start – och ett år senare är det fortfarande den jag sträcker mig efter. Frisk, elegant och stilla lyxig.",
+      "da": "Azure Épure var min start – og et år senere rækker jeg stadig efter den. Frisk, elegant og af stille luksus."
+    }
   },
   {
-    "t": "Oud Serein is the calmest oud I have ever worn: woody depth, no harshness. It lasts from morning meetings to midnight.",
+    "id": "rev_2",
     "n": "James W.",
     "c": "New York · Oud Serein",
-    "s": 5
+    "s": 5,
+    "t": {
+      "en": "Oud Serein is the calmest oud I have ever worn: woody depth, no harshness. It lasts from morning meetings to midnight.",
+      "de": "Oud Serein ist das sanfteste Oud, das ich je getragen habe: holzige Tiefe ohne jede Schärfe. Hält vom Morgenmeeting bis nach Mitternacht.",
+      "nl": "Oud Serein is de meest serene oudh die ik ooit heb gedragen: houtachtige diepte, zonder enige scherpte. Blijft de hele dag en nacht waarneembaar.",
+      "fr": "Oud Serein est le oud le plus serein que j'aie jamais porté : une profondeur boisée sans âpreté. Il m'accompagne du matin jusqu'au cœur de la nuit.",
+      "es": "Oud Serein es el oud más sereno que he conocido: profundidad amaderada sin estridencias. Perdura desde las reuniones matutinas hasta medianoche.",
+      "it": "Oud Serein è l'oud più sereno e nobile che abbia mai indossato: profondità legnosa, priva di asprezze. Resiste impeccabile fino a tarda notte.",
+      "nb": "Oud Serein er den mest behagelige ouden jeg noensinne har båret: treaktig dybde uten skarphet. Varer fra morgen til midnatt.",
+      "sv": "Oud Serein är den mest harmoniska oud jag någonsin burit: träig djup utan skärpa. Håller från morgonmöten till midnatt.",
+      "da": "Oud Serein er den mest harmoniske oud, jeg nogensinde har båret: træagtig dybde uden skarphed. Varer fra morgenmødet til midnat."
+    }
   },
   {
-    "t": "Ambre Velours feels like velvet on a winter evening — sweet, but never childish. My signature for three months now.",
+    "id": "rev_3",
     "n": "Camille D.",
     "c": "Paris · Ambre Velours",
-    "s": 5
+    "s": 5,
+    "t": {
+      "en": "Ambre Velours feels like velvet on a winter evening — sweet, but never childish. My signature for three months now.",
+      "de": "Ambre Velours fühlt sich an wie Samt an einem Winterabend – süß, aber niemals aufdringlich. Seit Monaten meine unverkennbare Signatur.",
+      "nl": "Ambre Velours voelt als fluweel op een winteravond — zoet, maar nooit overdreven. Al maanden mijn vaste signatuur.",
+      "fr": "Ambre Velours est comme un velours lors d'une soirée d'hiver : suave, enveloppant et profondément aristocratique. Ma signature incontestée.",
+      "es": "Ambre Velours se siente como terciopelo en una tarde de invierno: dulce, envolvente y aristocrático. Mi firma olfativa predilecta.",
+      "it": "Ambre Velours è come velluto in una sera d'inverno: avvolgente, prezioso e mai infantile. La mia firma personale da mesi.",
+      "nb": "Ambre Velours føles som fløyel på en vinterkveld – søt, varm og aristokratisk. Min signatur i månedsvis nå.",
+      "sv": "Ambre Velours känns som sammet en vinterkväll – söt, omslutande och sofistikerad. Min signaturdoft sedan månader.",
+      "da": "Ambre Velours føles som fløjl på en vinteraften – sød, varm og sofistikeret. Min signaturduft i månedsvis."
+    }
   },
   {
-    "t": "I began with the discovery set and finished with all three flacons. Azure Épure by day, Ambre Velours by night.",
+    "id": "rev_4",
     "n": "Sophie M.",
     "c": "Geneva · La Collection",
-    "s": 5
+    "s": 5,
+    "t": {
+      "en": "I began with the discovery set and finished with all three flacons. Azure Épure by day, Ambre Velours by night.",
+      "de": "Ich begann mit dem Entdeckungsset und besitze nun alle drei Flakons. Azure Épure für den Tag, Ambre Velours für die Nacht.",
+      "nl": "Ik begon met de ontdekkingsset en heb nu alle drie de flacons. Azure Épure voor overdag, Ambre Velours voor de avond.",
+      "fr": "J'ai commencé par le coffret découverte pour finalement acquérir les trois flacons. Azure Épure pour le jour, Ambre Velours pour les soirs.",
+      "es": "Comencé con el cofre de descubrimiento y terminé encargando los tres frascos. Azure Épure de día, Ambre Velours de noche.",
+      "it": "Ho iniziato con il cofanetto di scoperta e ho finito per acquistare tutti i flaconi. Azure Épure per il giorno, Ambre Velours per la sera.",
+      "nb": "Jeg begynte med oppdagelsessettet og endte med å bestille alle flakongene. Azure Épure om dagen, Ambre Velours om kvelden.",
+      "sv": "Jag började med upptäckarsetet och slutade med alla tre flakonger. Azure Épure på dagen, Ambre Velours på kvällen.",
+      "da": "Jeg begyndte med opdagelsessættet og endte med alle tre flakoner. Azure Épure om dagen, Ambre Velours om aftenen."
+    }
+  },
+  {
+    "id": "rev_5",
+    "n": "Elena V.",
+    "c": "Milano · Fleur Nocturne",
+    "s": 5,
+    "t": {
+      "en": "The balance between white florals and ambered wood is unparalleled. You immediately sense the rare Grasse extraction.",
+      "de": "Die Balance zwischen weißen Blüten und bernsteinfarbenem Holz ist vollendet. Man spürt sofort die seltene Grasse-Extraktion.",
+      "nl": "Het evenwicht tussen witte bloemen en amberachtig hout is ongeëvenaard. Je herkent direct de zeldzame Grasse-extractie.",
+      "fr": "L'équilibre entre fleurs blanches et bois ambré est sans égal. On perçoit immédiatement la rareté des extraits de Grasse.",
+      "es": "El equilibrio entre flores blancas y madera ambarina es insuperable. Se percibe de inmediato la nobleza de las esencias de Grasse.",
+      "it": "L'equilibrio tra fiori bianchi e legni ambrati è supremo. Si percepisce immediatamente la rarità delle estrazioni di Grasse.",
+      "nb": "Balansen mellom hvite blomster og ravaktig treverk er enestående. Man kjenner umiddelbart den sjeldne Grasse-ekstraksjonen.",
+      "sv": "Balansen mellan vita blommor och bärnstensartat trä är makalös. Man känner genast den sällsynta Grasse-utvinningen.",
+      "da": "Balancen mellem hvide blomster og ravagtigt træ er uovertruffen. Man mærker straks den sjældne Grasse-ekstraktion."
+    }
+  },
+  {
+    "id": "rev_6",
+    "n": "Maximilian von B.",
+    "c": "München · Cuir Privé",
+    "s": 5,
+    "t": {
+      "en": "A masterwork of leather and iris. Discreet yet unmistakably authoritative in executive salons and formal evenings.",
+      "de": "Ein Meisterwerk aus Leder und Iris. Diskret und doch von unverkennbarer Souveränität bei Geschäftsessen und Soireen.",
+      "nl": "Een meesterwerk van leer en iris. Discreet en toch onmiskenbaar gedistingeerd tijdens formele diners.",
+      "fr": "Un chef-d'œuvre de cuir et d'iris. Discret mais d'une souveraineté incontestable dans les salons et grandes soirées.",
+      "es": "Una obra maestra de cuero e iris. Discreto pero de una distinción inconfundible en salones y veladas formales.",
+      "it": "Un capolavoro di cuoio e iris. Discreto ma di un'autorità inconfondibile nei salotti e nelle serate di gala.",
+      "nb": "Et mesterverk av lær og iris. Diskret, men med umiskjennelig pondus i formelle anledninger.",
+      "sv": "Ett mästerverk av läder och iris. Diskret men med en omisskännlig elegans i formella sammanhang.",
+      "da": "Et mesterværk af læder og iris. Diskret, men med umiskendelig pondus til formelle lejligheder."
+    }
+  },
+  {
+    "id": "rev_7",
+    "n": "Astrid L.",
+    "c": "Stockholm · Santal Éthéré",
+    "s": 5,
+    "t": {
+      "en": "Creamy Australian sandalwood embraced by cool aldehydes. Minimalist, sublime, and effortlessly poetic on wool and silk.",
+      "de": "Cremiges australisches Sandelholz, umhüllt von kühlen Aldehyden. Minimalistisch, sublim und poetisch auf Wolle und Seide.",
+      "nl": "Romig Australisch sandelhout omarmd door koele aldehyden. Minimalistisch, subliem en poëtisch op wol en zijde.",
+      "fr": "Un santal crémeux d'Australie enveloppé d'aldéhydes cristallins. Minimaliste, sublime et d'une poésie infinie sur laine et soie.",
+      "es": "Sándalo australiano cremoso envuelto en aldehídos frescos. Minimalista, sublime y poético sobre lana y seda.",
+      "it": "Legno di sandalo australiano cremoso avvolto da aldeidi fresche. Minimalista, sublime e poetico sulla seta e sul cashmere.",
+      "nb": "Kremet australsk sandeltre omfavnet av kjølige aldehyder. Minimalistisk, sublimt og poetisk på ull og silke.",
+      "sv": "Krämig australisk sandelträ omfamnad av svala aldehyder. Minimalistisk, sublim och poetisk på ull och siden.",
+      "da": "Cremet australsk sandeltræ omfavnet af kølige aldehyder. Minimalistisk, sublim og poetisk på uld og silke."
+    }
+  },
+  {
+    "id": "rev_8",
+    "n": "Daan van H.",
+    "c": "Amsterdam · Vétiver d'Or",
+    "s": 5,
+    "t": {
+      "en": "Smoky Haitian vetiver kissed by golden bergamot. The drydown after four hours is something quite extraordinary.",
+      "de": "Rauchiges Vetiver aus Haiti, geküsst von goldener Bergamotte. Der Ausklang nach vier Stunden ist wahrhaft außergewöhnlich.",
+      "nl": "Rokerige Haïtiaanse vetiver gekust door gouden bergamot. De geurontwikkeling na vier uur is ronduit buitengewoon.",
+      "fr": "Vétiver fumé d'Haïti caressé par une bergamote dorée. L'évolution après quatre heures est d'une splendeur rare.",
+      "es": "Vetiver ahumado de Haití acariciado por bergamota dorada. El secado tras cuatro horas es algo extraordinario.",
+      "it": "Vetiver affumicato di Haiti accarezzato da bergamotto dorato. L'evoluzione dopo quattro ore è di una nobiltà eccezionale.",
+      "nb": "Røykfylt haitisk vetiver kysset av gyllen bergamott. Utviklingen etter fire timer er helt enestående.",
+      "sv": "Rökig haitisk vetiver kysst av gyllene bergamott. Doftens djup efter fyra timmar är något helt extraordinärt.",
+      "da": "Røget haitiansk vetiver kysset af gylden bergamot. Udviklingen efter fire timer er helt enestående."
+    }
+  },
+  {
+    "id": "rev_9",
+    "n": "Claire de B.",
+    "c": "Zürich · Fleur Nocturne",
+    "s": 5,
+    "t": {
+      "en": "A crystal-clear sillage that lingers with extraordinary delicacy. It feels tailored like haute couture.",
+      "de": "Eine kristallklare Sillage von außergewöhnlicher Delikatesse. Fühlt sich an wie maßgeschneiderte Haute Couture.",
+      "nl": "Een kristalhelder spoor van buitengewone verfijning. Voelt als op maat gemaakte haute couture.",
+      "fr": "Un sillage d'une pureté cristalline et d'une délicatesse rare. Une création qui s'apparente à de la haute couture.",
+      "es": "Una estela cristalina de una delicadeza sublime. Se percibe confeccionada como alta costura.",
+      "it": "Una scia cristallina di una raffinatezza ineguagliabile. Veste i sensi come un abito di alta sartoria.",
+      "nb": "Et krystallklart duftspor av enestående finesse. Føles skreddersydd som haute couture.",
+      "sv": "Ett kristallklart doftspår av sällsynt finess. Känns skräddarsydd som haute couture.",
+      "da": "Et krystalklart duftspor af enestående delikatesse. Føles skræddersyet som haute couture."
+    }
+  },
+  {
+    "id": "rev_10",
+    "n": "Marc-André H.",
+    "c": "Bruxelles · Oud Serein",
+    "s": 5,
+    "t": {
+      "en": "The very quintessence of French artisanal perfumery. The presentation flacon alone is a work of museum art.",
+      "de": "Die wahre Quintessenz französischer Parfumkunst. Allein der Flakon ist ein museales Kunstwerk.",
+      "nl": "De ware essentie van Franse artisanale parfumerie. Alleen al de flacon is een waar kunstwerk.",
+      "fr": "La quintessence même de la haute parfumerie artisanale française. Le flacon à lui seul relève du chef-d'œuvre.",
+      "es": "La auténtica quintaesencia de la perfumería artesanal francesa. El frasco en sí mismo es una joya artística.",
+      "it": "La quintessenza della profumeria artigianale francese. Il flacone da solo è un capolavoro da collezione.",
+      "nb": "Selve kvintessensen av fransk håndverksparfyme. Flakongen alene er et museumskunstverk.",
+      "sv": "Själva kvintessensen av fransk parfymkonst. Bara flakongen i sig är ett musealt mästerverk.",
+      "da": "Selve kvintessensen af fransk parfumekunst. Bare flakonen alene er et sandt mesterværk."
+    }
+  },
+  {
+    "id": "rev_11",
+    "n": "Sophia K.",
+    "c": "Wien · Ambre Velours",
+    "s": 5,
+    "t": {
+      "en": "Warm, magnetic, and impeccably balanced. Compliments follow wherever I enter, yet it never overwhelms.",
+      "de": "Warm, magnetisch und makellos ausbalanciert. Komplimente begleiten jeden Raum, ohne je aufdringlich zu wirken.",
+      "nl": "Warm, magnetisch en onberispelijk uitgebalanceerd. Oogst overal complimenten zonder ooit te overheersen.",
+      "fr": "Chaleureux, magnétique et d'un équilibre absolu. Il suscite l'admiration partout sans jamais s'imposer.",
+      "es": "Cálido, magnético y de un equilibrio insuperable. Despierta elogios constantes con una sutileza impecable.",
+      "it": "Caldo, magnetico e dall'equilibrio perfetto. Raccoglie complimenti continui pur rimanendo raffinatamente discreto.",
+      "nb": "Varm, magnetisk og upåklagelig balansert. Høster beundring overalt uten noensinne å overdøve.",
+      "sv": "Varm, magnetisk och oklanderligt balanserad. Väcker beundran i varje rum utan att ta över.",
+      "da": "Varm, magnetisk og upåklageligt afbalanceret. Høster komplimenter overalt uden nogensinde at virke overdøvende."
+    }
+  },
+  {
+    "id": "rev_12",
+    "n": "Henrik T.",
+    "c": "København · Azure Épure",
+    "s": 5,
+    "t": {
+      "en": "Pure Nordic clarity meeting Mediterranean sun. Sublime longevity on linen shirts during warm summers.",
+      "de": "Reine nordische Klarheit trifft mediterrane Sonne. Erhabene Langlebigkeit auf Leinenhemden im Sommer.",
+      "nl": "Zuivere noordelijke helderheid ontmoet mediterrane zon. Sublieme houdbaarheid op linnen overhemden.",
+      "fr": "Une clarté boréale qui rencontre le soleil méditerranéen. Une tenue sublime sur le lin lors des beaux jours.",
+      "es": "Claridad nórdica pura fundida con el sol mediterráneo. Una fijación sublime sobre camisas de lino en verano.",
+      "it": "Purezza nordica che sposa il calore del Mediterraneo. Longevità sublime sulle camicie di lino estive.",
+      "nb": "Ren nordisk klarhet som møter sol fra Middelhavet. Sublim holdbarhet på linskjorter om sommeren.",
+      "sv": "Ren nordisk klarhet som möter medelhavssol. Sublim hållbarhet på linneskjortor under sommaren.",
+      "da": "Ren nordisk klarhed forenet med middelhavssol. Sublim holdbarhed på hørskjorter hen over sommeren."
+    }
   }
 ]
