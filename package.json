@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "node dev-server.mjs",
     "start": "node dev-server.mjs",
-    "build": "vite build",
     "test": "node --import ./tests/register-hooks.mjs --test tests/unit/*.test.mjs",
     "test:legal": "node tests/test-legal-pages.mjs",
     "test:e2e": "node test-e2e.mjs",
     "test:studio": "node tests/e2e/auth-studio.test.mjs",
-    "test:studio:scroll": "node tests/e2e/image-removal-and-scroll.test.mjs"
+    "test:studio:scroll": "node tests/e2e/image-removal-and-scroll.test.mjs",
+    "test:reviews": "node tests/e2e/reviews-editor.test.mjs",
+    "test:lang": "node tests/e2e/notresucces-lang.test.mjs"
   },
   "devDependencies": {
     "vite": "^5.2.0"

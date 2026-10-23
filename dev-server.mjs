@@ -86,6 +86,48 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // API to sync updated customer reviews directly to src/data/reviews.json and SQLite DB
+  if (pathname === '/api/sync-reviews' && req.method === 'POST') {
+    let body = '';
+    req.on('data', (chunk) => (body += chunk));
+    req.on('end', async () => {
+      try {
+        const parsed = JSON.parse(body);
+        if (Array.isArray(parsed)) {
+          const targetPath = path.join(ROOT, 'src', 'data', 'reviews.json');
+          fs.writeFileSync(targetPath, JSON.stringify(parsed, null, 2), 'utf8');
+
+          // Sync with SQLite database if present
+          try {
+            const dbPath = path.join(ROOT, 'pocketbase', 'pb_data', 'data.db');
+            if (fs.existsSync(dbPath)) {
+              const { DatabaseSync } = await import('node:sqlite');
+              const db = new DatabaseSync(dbPath);
+              db.exec('DELETE FROM reviews');
+              const stmt = db.prepare('INSERT INTO reviews (id, author, content, location, rating, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?)');
+              for (const r of parsed) {
+                const id = r.id || 'r' + Math.random().toString(36).slice(2, 10);
+                const now = new Date().toISOString();
+                stmt.run(id, r.n || '', r.t || '', r.c || '', Number(r.s) || 5, r.created || now, now);
+              }
+              db.close();
+            }
+          } catch (dbErr) {
+            console.error('Database sync warning (reviews):', dbErr.message);
+          }
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ ok: true, count: parsed.length }));
+        }
+      } catch (err) {
+        console.error('Failed to sync reviews:', err);
+      }
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ error: 'Invalid review data' }));
+    });
+    return;
+  }
+
   const filePath = path.join(ROOT, pathname);
 
   // Handle JSON imported as ES Module (?esm)

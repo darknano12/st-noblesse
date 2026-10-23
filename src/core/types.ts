@@ -79,10 +79,12 @@ export interface CartSnapshot {
 
 /** Customer review for the carousel */
 export interface Review {
+  id?: string;
   t: string;
   n: string;
   c: string;
   s: number;
+  created?: string;
 }
 
 /** Root app configuration */
@@ -157,11 +159,18 @@ export interface LocalizedText {
 /** Global language display settings */
 export interface LanguageSettings {
   showSwitcher: boolean;
+  defaultLocale?: string;
+  switcherPosition?: 'header' | 'footer' | 'both';
   languages: {
-    de: boolean;
     en: boolean;
+    de: boolean;
+    nl?: boolean;
     fr: boolean;
     es: boolean;
+    it?: boolean;
+    nb?: boolean;
+    sv?: boolean;
+    da?: boolean;
     [locale: string]: boolean | undefined;
   };
 }

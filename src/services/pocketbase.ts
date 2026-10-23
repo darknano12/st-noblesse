@@ -17,6 +17,7 @@ export interface CheckoutResponse {
 }
 
 const PRODUCTS_STORAGE_KEY = 'st_noblesse_products_v1';
+const REVIEWS_STORAGE_KEY = 'st_noblesse_reviews_v1';
 
 export class PocketBaseService {
   private baseUrl: string;
@@ -125,7 +126,7 @@ export class PocketBaseService {
   }
 
   /**
-   * Fetch customer reviews with fallback to local reviews.json
+   * Fetch customer reviews with fallback to local persistent reviews and reviews.json
    */
   async getReviews(): Promise<Review[]> {
     try {
@@ -144,17 +145,21 @@ export class PocketBaseService {
 
       const data = await res.json();
       if (!data.items || !Array.isArray(data.items) || data.items.length === 0) {
-        return fallbackReviews as Review[];
+        return this.getLocalReviews() || (fallbackReviews as Review[]);
       }
 
-      return data.items.map((r: any): Review => ({
+      const mapped = data.items.map((r: any): Review => ({
+        id: r.id,
         t: r.content,
         n: r.author,
         c: r.location || '',
         s: Number(r.rating) || 5,
+        created: r.created,
       }));
+      this.saveLocalReviews(mapped);
+      return mapped;
     } catch (err) {
-      return fallbackReviews as Review[];
+      return this.getLocalReviews() || (fallbackReviews as Review[]);
     }
   }
 
@@ -537,6 +542,109 @@ export class PocketBaseService {
 
       if (!res.ok && res.status !== 404) {
         throw new Error(`Failed to delete product (HTTP ${res.status})`);
+      }
+    } catch {}
+  }
+
+  /* ==========================================================================
+     REVIEW CRUD (Boutique Studio)
+     ========================================================================== */
+
+  getLocalReviews(): Review[] | null {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const stored = window.localStorage.getItem(REVIEWS_STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      }
+    } catch {}
+    return null;
+  }
+
+  saveLocalReviews(reviews: Review[]): void {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+      }
+      if (typeof fetch !== 'undefined') {
+        fetch('/api/sync-reviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reviews),
+        }).catch(() => {});
+      }
+    } catch {}
+  }
+
+  async saveReview(review: Review): Promise<Review> {
+    const list = this.getLocalReviews() || [...(fallbackReviews as Review[])];
+    const id = review.id || 'rev_' + Date.now();
+    const reviewWithId: Review = { ...review, id };
+
+    const idx = list.findIndex(
+      (r) => (review.id && r.id === review.id) || (r.n === review.n && r.c === review.c)
+    );
+    if (idx >= 0) {
+      list[idx] = reviewWithId;
+    } else {
+      list.unshift(reviewWithId);
+    }
+    this.saveLocalReviews(list);
+
+    // Sync with PocketBase collection 'reviews' if online
+    try {
+      const token = this.getAuthToken();
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = token;
+
+      const payload = {
+        author: review.n,
+        content: review.t,
+        location: review.c,
+        rating: review.s,
+      };
+
+      if (review.id && !review.id.startsWith('rev_')) {
+        await fetch(`${this.baseUrl}/api/collections/reviews/records/${review.id}`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify(payload),
+        });
+      } else {
+        const res = await fetch(`${this.baseUrl}/api/collections/reviews/records`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          reviewWithId.id = data.id;
+        }
+      }
+    } catch {}
+
+    return reviewWithId;
+  }
+
+  async deleteReview(reviewIdOrName: string): Promise<void> {
+    const list = this.getLocalReviews() || [...(fallbackReviews as Review[])];
+    const remaining = list.filter((r) => r.id !== reviewIdOrName && r.n !== reviewIdOrName);
+    this.saveLocalReviews(remaining);
+
+    try {
+      const token = this.getAuthToken();
+      const headers: Record<string, string> = {};
+      if (token) headers['Authorization'] = token;
+
+      if (reviewIdOrName && !reviewIdOrName.startsWith('rev_')) {
+        await fetch(`${this.baseUrl}/api/collections/reviews/records/${reviewIdOrName}`, {
+          method: 'DELETE',
+          headers,
+        });
       }
     } catch {}
   }

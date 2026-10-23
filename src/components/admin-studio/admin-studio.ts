@@ -1,13 +1,14 @@
 import { bus } from '../../core/bus';
 import { pb } from '../../services/pocketbase';
-import { getLanguageSettings, saveLanguageSettings, t } from '../../core/i18n';
+import { getLanguageSettings, saveLanguageSettings, t, type Locale } from '../../core/i18n';
 import type { CatalogApi } from '../../core/catalog-store';
-import type { Family, Gender, LanguageSettings, Product, ProductFormData } from '../../core/types';
+import type { Family, Gender, LanguageSettings, Product, ProductFormData, Review } from '../../core/types';
 import { escapeHtml, must } from '../../utils/dom';
 
 export interface AdminStudioApi {
   open(product?: Product): void;
   close(): void;
+  switchTab(tab: 'fragrances' | 'languages' | 'reviews'): void;
 }
 
 export function initAdminStudio(
@@ -21,8 +22,10 @@ export function initAdminStudio(
   // Navigation tabs & views
   const tabFragrances = must<HTMLButtonElement>('#adminTabFragrances');
   const tabLanguages = must<HTMLButtonElement>('#adminTabLanguages');
+  const tabReviews = must<HTMLButtonElement>('#adminTabReviews');
   const viewFragrances = must('#adminViewFragrances');
   const viewLanguages = must('#adminViewLanguages');
+  const viewReviews = must('#adminViewReviews');
 
   // Fragrance list & form
   const listEl = must('#adminProductList');
@@ -30,7 +33,7 @@ export function initAdminStudio(
   const form = must<HTMLFormElement>('#adminProductForm');
   const formTitle = must('#adminFormTitle');
 
-  // Form fields
+  // Fragrance Form fields
   const idInput = must<HTMLInputElement>('#adminProductId');
   const recordIdInput = must<HTMLInputElement>('#adminProductRecordId');
   const nameInput = must<HTMLInputElement>('#adminProductName');
@@ -71,43 +74,68 @@ export function initAdminStudio(
     removeImageBtn.style.display = hasImage ? 'inline-flex' : 'none';
   }
 
-  // Buttons
+  // Fragrance Buttons
   const saveBtn = must<HTMLButtonElement>('#adminSaveBtn');
   const deleteBtn = must<HTMLButtonElement>('#adminDeleteBtn');
 
-  // Language management elements
+  // Language management elements (Notre Succès standard)
   const toggleLangSwitcher = must<HTMLInputElement>('#adminToggleLangSwitcher');
-  const langDeChk = must<HTMLInputElement>('#adminLangDe');
+  const defaultLangSelect = must<HTMLSelectElement>('#adminDefaultLang');
+  const switcherPositionSelect = must<HTMLSelectElement>('#adminSwitcherPosition');
   const langEnChk = must<HTMLInputElement>('#adminLangEn');
+  const langDeChk = must<HTMLInputElement>('#adminLangDe');
+  const langNlChk = must<HTMLInputElement>('#adminLangNl');
   const langFrChk = must<HTMLInputElement>('#adminLangFr');
   const langEsChk = must<HTMLInputElement>('#adminLangEs');
+  const langItChk = must<HTMLInputElement>('#adminLangIt');
+  const langNbChk = must<HTMLInputElement>('#adminLangNb');
+  const langSvChk = must<HTMLInputElement>('#adminLangSv');
+  const langDaChk = must<HTMLInputElement>('#adminLangDa');
   const saveLanguagesBtn = must<HTMLButtonElement>('#adminSaveLanguagesBtn');
+
+  // Client Reviews management elements
+  const reviewList = must('#adminReviewList');
+  const newReviewBtn = must<HTMLButtonElement>('#adminNewReviewBtn');
+  const reviewForm = must<HTMLFormElement>('#adminReviewForm');
+  const reviewFormTitle = must('#adminReviewFormTitle');
+  const reviewIdInput = must<HTMLInputElement>('#adminReviewId');
+  const reviewAuthorInput = must<HTMLInputElement>('#adminReviewAuthor');
+  const reviewRatingSelect = must<HTMLSelectElement>('#adminReviewRating');
+  const reviewLocationInput = must<HTMLInputElement>('#adminReviewLocation');
+  const reviewTextInput = must<HTMLTextAreaElement>('#adminReviewText');
+  const deleteReviewBtn = must<HTMLButtonElement>('#adminDeleteReviewBtn');
+  const saveReviewBtn = must<HTMLButtonElement>('#adminSaveReviewBtn');
 
   let activeProductId: string | null = null;
   let activeDescLang: 'de' | 'en' | 'fr' | 'es' = 'en';
   let descMap: Record<'de' | 'en' | 'fr' | 'es', string> = { de: '', en: '', fr: '', es: '' };
 
+  let studioReviews: Review[] = [];
+  let activeReviewIndex: number | null = null;
+
   /* ------------------------------------------------------------------ */
   /* 1. Modal Open / Close & Tab Switching                              */
   /* ------------------------------------------------------------------ */
 
-  function switchStudioTab(tab: 'fragrances' | 'languages') {
-    if (tab === 'fragrances') {
-      tabFragrances.classList.add('active');
-      tabLanguages.classList.remove('active');
-      viewFragrances.style.display = 'grid';
-      viewLanguages.style.display = 'none';
-    } else {
-      tabLanguages.classList.add('active');
-      tabFragrances.classList.remove('active');
-      viewLanguages.style.display = 'flex';
-      viewFragrances.style.display = 'none';
+  function switchStudioTab(tab: 'fragrances' | 'languages' | 'reviews') {
+    tabFragrances.classList.toggle('active', tab === 'fragrances');
+    tabLanguages.classList.toggle('active', tab === 'languages');
+    tabReviews.classList.toggle('active', tab === 'reviews');
+
+    viewFragrances.style.display = tab === 'fragrances' ? 'grid' : 'none';
+    viewLanguages.style.display = tab === 'languages' ? 'flex' : 'none';
+    viewReviews.style.display = tab === 'reviews' ? 'grid' : 'none';
+
+    if (tab === 'languages') {
       syncLanguageSettingsForm();
+    } else if (tab === 'reviews') {
+      syncReviewsList();
     }
   }
 
   tabFragrances.addEventListener('click', () => switchStudioTab('fragrances'));
   tabLanguages.addEventListener('click', () => switchStudioTab('languages'));
+  tabReviews.addEventListener('click', () => switchStudioTab('reviews'));
 
   function open(product?: Product) {
     const user = pb.getCurrentUser();
@@ -148,28 +176,45 @@ export function initAdminStudio(
   overlay.addEventListener('click', close);
 
   /* ------------------------------------------------------------------ */
-  /* 2. Language Settings Management                                    */
+  /* 2. Language Settings Management (Notre Succès standard)            */
   /* ------------------------------------------------------------------ */
 
   function syncLanguageSettingsForm() {
     const settings = getLanguageSettings();
     toggleLangSwitcher.checked = settings.showSwitcher;
-    langDeChk.checked = settings.languages.de !== false;
+    defaultLangSelect.value = settings.defaultLocale || 'en';
+    switcherPositionSelect.value = settings.switcherPosition || 'both';
+
     langEnChk.checked = true;
+    langDeChk.checked = settings.languages.de !== false;
+    langNlChk.checked = settings.languages.nl !== false;
     langFrChk.checked = settings.languages.fr !== false;
     langEsChk.checked = settings.languages.es !== false;
+    langItChk.checked = settings.languages.it !== false;
+    langNbChk.checked = settings.languages.nb !== false;
+    langSvChk.checked = settings.languages.sv !== false;
+    langDaChk.checked = settings.languages.da !== false;
   }
 
   saveLanguagesBtn.addEventListener('click', () => {
+    const defaultLoc = (defaultLangSelect.value as Locale) || 'en';
     const newSettings: LanguageSettings = {
       showSwitcher: toggleLangSwitcher.checked,
+      defaultLocale: defaultLoc,
+      switcherPosition: (switcherPositionSelect.value as any) || 'both',
       languages: {
-        de: langDeChk.checked,
         en: true,
+        de: langDeChk.checked,
+        nl: langNlChk.checked,
         fr: langFrChk.checked,
         es: langEsChk.checked,
+        it: langItChk.checked,
+        nb: langNbChk.checked,
+        sv: langSvChk.checked,
+        da: langDaChk.checked,
       },
     };
+    newSettings.languages[defaultLoc] = true;
 
     saveLanguageSettings(newSettings);
     bus.emit('toast:show', {
@@ -178,45 +223,203 @@ export function initAdminStudio(
   });
 
   /* ------------------------------------------------------------------ */
-  /* 3. Product List & Selection                                        */
+  /* 3. Client Reviews Management                                       */
   /* ------------------------------------------------------------------ */
 
-  function renderList() {
-    const products = catalog.all();
-    listEl.innerHTML = products.map((p) => {
-      const imgSrc = resolveProductImg(p.img);
-      const isActive = p.id === activeProductId ? 'active' : '';
-      return `
-        <div class="admin-item-card ${isActive}" data-id="${escapeHtml(p.id)}">
-          <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(p.name)}" class="admin-item-thumb" />
-          <div class="admin-item-info">
-            <span class="admin-item-name">${escapeHtml(p.name)}</span>
-            <span class="admin-item-sub">${escapeHtml(p.fam)} • €${p.price['50'] || 89}</span>
-          </div>
-          ${p.badge ? `<span class="admin-item-badge">${escapeHtml(p.badge)}</span>` : ''}
+  async function syncReviewsList() {
+    try {
+      studioReviews = await pb.getReviews();
+    } catch {
+      studioReviews = pb.getLocalReviews() || [];
+    }
+
+    renderReviewList();
+
+    if (studioReviews.length > 0 && activeReviewIndex === null) {
+      loadReview(0);
+    } else if (activeReviewIndex !== null && activeReviewIndex < studioReviews.length) {
+      loadReview(activeReviewIndex);
+    } else {
+      createNewReview();
+    }
+  }
+
+  function renderReviewList() {
+    reviewList.innerHTML = '';
+    if (studioReviews.length === 0) {
+      reviewList.innerHTML = `
+        <div style="padding: 24px 16px; text-align: center; color: var(--muted2); font-size: 0.85rem;">
+          No reviews yet.<br>Click "+ New Review" to add one.
         </div>
       `;
-    }).join('');
+      return;
+    }
 
-    listEl.querySelectorAll('.admin-item-card').forEach((el) => {
-      el.addEventListener('click', () => {
-        const id = el.getAttribute('data-id');
-        if (id) {
-          const found = catalog.byId(id);
-          if (found) loadProduct(found);
-        }
-      });
+    studioReviews.forEach((rev, idx) => {
+      const card = document.createElement('div');
+      card.className = `admin-review-card ${idx === activeReviewIndex ? 'active' : ''}`;
+      card.dataset.index = String(idx);
+
+      const ratingStars = Math.max(1, Math.min(5, Number(rev.s) || 5));
+      const starsDisplay = '★'.repeat(ratingStars) + '☆'.repeat(5 - ratingStars);
+
+      card.innerHTML = `
+        <div class="admin-review-card-head">
+          <strong>${escapeHtml(rev.n || 'Anonymous')}</strong>
+          <span class="admin-review-card-stars">${starsDisplay}</span>
+        </div>
+        <div class="admin-review-card-meta">${escapeHtml(rev.c || '')}</div>
+        <div class="admin-review-card-snippet">"${escapeHtml(rev.t || '')}"</div>
+      `;
+
+      card.addEventListener('click', () => loadReview(idx));
+      reviewList.appendChild(card);
     });
   }
 
+  function loadReview(index: number) {
+    if (index < 0 || index >= studioReviews.length) {
+      createNewReview();
+      return;
+    }
+
+    activeReviewIndex = index;
+    const r = studioReviews[index];
+
+    reviewFormTitle.textContent = `${t('admin.edit_review_title') || 'Edit Review'}: ${r.n}`;
+    reviewIdInput.value = r.id || '';
+    reviewAuthorInput.value = r.n || '';
+    reviewRatingSelect.value = String(r.s || 5);
+    reviewLocationInput.value = r.c || '';
+    reviewTextInput.value = r.t || '';
+
+    deleteReviewBtn.style.display = 'inline-block';
+
+    reviewList.querySelectorAll('.admin-review-card').forEach((el, j) => {
+      el.classList.toggle('active', j === index);
+    });
+  }
+
+  function createNewReview() {
+    activeReviewIndex = null;
+    reviewFormTitle.textContent = t('admin.create_review_title') || '+ New Client Review';
+    reviewIdInput.value = '';
+    reviewAuthorInput.value = '';
+    reviewRatingSelect.value = '5';
+    reviewLocationInput.value = '';
+    reviewTextInput.value = '';
+
+    deleteReviewBtn.style.display = 'none';
+
+    reviewList.querySelectorAll('.admin-review-card').forEach((el) => {
+      el.classList.remove('active');
+    });
+  }
+
+  newReviewBtn.addEventListener('click', () => createNewReview());
+
+  reviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const author = reviewAuthorInput.value.trim();
+    const text = reviewTextInput.value.trim();
+    const location = reviewLocationInput.value.trim();
+    const rating = Math.max(1, Math.min(5, Number(reviewRatingSelect.value) || 5));
+
+    if (!author) {
+      bus.emit('toast:show', { html: t('admin.review_author_required') || 'Please enter author name.' });
+      return;
+    }
+    if (!text) {
+      bus.emit('toast:show', { html: t('admin.review_text_required') || 'Please enter review text.' });
+      return;
+    }
+
+    saveReviewBtn.disabled = true;
+    saveReviewBtn.textContent = t('admin.btn_saving') || 'Saving...';
+
+    try {
+      const existingId = reviewIdInput.value || (activeReviewIndex !== null ? studioReviews[activeReviewIndex]?.id : undefined);
+      const reviewPayload: Review = {
+        id: existingId,
+        n: author,
+        t: text,
+        c: location,
+        s: rating,
+      };
+
+      const saved = await pb.saveReview(reviewPayload);
+
+      studioReviews = await pb.getReviews();
+      const updatedIdx = studioReviews.findIndex((r) => (saved.id && r.id === saved.id) || (r.n === saved.n && r.c === saved.c));
+      activeReviewIndex = updatedIdx >= 0 ? updatedIdx : 0;
+
+      bus.emit('reviews:update', { reviews: studioReviews });
+      renderReviewList();
+      loadReview(activeReviewIndex);
+
+      bus.emit('toast:show', {
+        html: `${t('admin.save_review_success') || 'Review saved'}: <b>${escapeHtml(saved.n)}</b>`,
+      });
+    } catch (err: any) {
+      bus.emit('toast:show', {
+        html: `Error saving review: ${err.message || 'Unknown error'}`,
+      });
+    } finally {
+      saveReviewBtn.disabled = false;
+      saveReviewBtn.textContent = t('admin.save_review_btn') || 'Save Review';
+    }
+  });
+
+  deleteReviewBtn.addEventListener('click', async () => {
+    if (activeReviewIndex === null || activeReviewIndex >= studioReviews.length) return;
+    const current = studioReviews[activeReviewIndex];
+
+    if (studioReviews.length <= 1) {
+      const proceed = window.confirm(
+        'This is the only review currently in the carousel. Deleting it will leave the carousel with the fallback quote. Proceed?'
+      );
+      if (!proceed) return;
+    } else {
+      const confirmed = window.confirm(
+        t('admin.confirm_delete_review') || `Are you sure you want to remove the review by "${current.n}"?`
+      );
+      if (!confirmed) return;
+    }
+
+    deleteReviewBtn.disabled = true;
+    try {
+      const targetId = current.id || current.n;
+      await pb.deleteReview(targetId);
+
+      studioReviews = await pb.getReviews();
+      bus.emit('reviews:update', { reviews: studioReviews });
+
+      bus.emit('toast:show', {
+        html: t('admin.delete_review_success') || 'Review removed from carousel.',
+      });
+
+      if (studioReviews.length > 0) {
+        loadReview(0);
+      } else {
+        createNewReview();
+      }
+    } catch (err: any) {
+      bus.emit('toast:show', {
+        html: `Error deleting review: ${err.message || 'Unknown error'}`,
+      });
+    } finally {
+      deleteReviewBtn.disabled = false;
+    }
+  });
+
   /* ------------------------------------------------------------------ */
-  /* 4. Multilingual Description Tabs                                   */
+  /* 4. Multilingual Fragrance Description Handling                     */
   /* ------------------------------------------------------------------ */
 
-  function parseDescriptions(desc: any) {
+  function parseDescriptions(desc: string | Record<string, string> | undefined) {
     descMap = { de: '', en: '', fr: '', es: '' };
     if (!desc) return;
-    if (typeof desc === 'object' && desc !== null) {
+    if (typeof desc === 'object') {
       descMap.de = desc.de || '';
       descMap.en = desc.en || '';
       descMap.fr = desc.fr || '';
@@ -225,7 +428,7 @@ export function initAdminStudio(
     }
     if (typeof desc === 'string') {
       const trimmed = desc.trim();
-      if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+      if (trimmed.startsWith('{')) {
         try {
           const parsed = JSON.parse(trimmed);
           if (typeof parsed === 'object' && parsed !== null) {
@@ -248,12 +451,10 @@ export function initAdminStudio(
 
     activeDescLang = lang;
 
-    // Update tab pills
     descLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
       btn.classList.toggle('active', btn.getAttribute('data-desc-lang') === lang);
     });
 
-    // Populate textarea with selected translation
     descTextarea.value = descMap[lang] || '';
 
     if (lang === 'de') {
@@ -266,8 +467,8 @@ export function initAdminStudio(
       descBadge.textContent = 'Editing in Español (ES)';
       descTextarea.placeholder = 'Viaje sensorial poético en español...';
     } else {
-      descBadge.textContent = 'Editing in English (EN)';
-      descTextarea.placeholder = 'Poetic sensory journey in English...';
+      descBadge.textContent = 'Editing in English (EN - Master)';
+      descTextarea.placeholder = 'Olfactory journey in English (master description)...';
     }
   }
 
@@ -281,19 +482,11 @@ export function initAdminStudio(
   });
 
   /* ------------------------------------------------------------------ */
-  /* 5. Device Image Upload & Optimization                              */
+  /* 5. Device File Upload & Removal                                    */
   /* ------------------------------------------------------------------ */
 
-  uploadBtn.addEventListener('click', () => {
-    fileInput.click();
-  });
+  uploadBtn.addEventListener('click', () => fileInput.click());
 
-  fileInput.addEventListener('change', () => {
-    const file = fileInput.files?.[0];
-    if (file) handleImageFile(file);
-  });
-
-  // Drag and drop handlers
   uploadZone.addEventListener('dragover', (e) => {
     e.preventDefault();
     uploadZone.classList.add('dragover');
@@ -306,65 +499,17 @@ export function initAdminStudio(
   uploadZone.addEventListener('drop', (e) => {
     e.preventDefault();
     uploadZone.classList.remove('dragover');
-    const file = e.dataTransfer?.files?.[0];
-    if (file) handleImageFile(file);
+    const files = e.dataTransfer?.files;
+    if (files && files.length > 0) {
+      handleImageFile(files[0]);
+    }
   });
 
-  function handleImageFile(file: File) {
-    if (!file.type.startsWith('image/')) {
-      bus.emit('toast:show', { html: 'Please select a valid image file (JPG, PNG, WebP).' });
-      return;
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files && fileInput.files.length > 0) {
+      handleImageFile(fileInput.files[0]);
     }
-
-    if (file.size > 5 * 1024 * 1024) {
-      bus.emit('toast:show', { html: 'Image file is too large. Maximum size is 5 MB.' });
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const rawDataUrl = event.target?.result as string;
-      optimizeImage(rawDataUrl, (optimizedDataUrl) => {
-        imageInput.value = optimizedDataUrl;
-        imagePreview.src = optimizedDataUrl;
-        updateRemoveImageBtn();
-        bus.emit('toast:show', { html: 'Image loaded from device successfully.' });
-      });
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function optimizeImage(dataUrl: string, callback: (result: string) => void) {
-    const img = new Image();
-    img.onload = () => {
-      const maxW = 1000;
-      const maxH = 1250;
-      let width = img.width;
-      let height = img.height;
-
-      if (width > maxW || height > maxH) {
-        const ratio = Math.min(maxW / width, maxH / height);
-        width = Math.round(width * ratio);
-        height = Math.round(height * ratio);
-      }
-
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        callback(dataUrl);
-        return;
-      }
-
-      ctx.drawImage(img, 0, 0, width, height);
-      // High-quality JPEG or WebP representation
-      const optimized = canvas.toDataURL('image/jpeg', 0.88);
-      callback(optimized);
-    };
-    img.onerror = () => callback(dataUrl);
-    img.src = dataUrl;
-  }
+  });
 
   removeImageBtn.addEventListener('click', () => {
     imageInput.value = '';
@@ -372,12 +517,34 @@ export function initAdminStudio(
     imagePreview.src = PLACEHOLDER_IMG;
     updateRemoveImageBtn();
     bus.emit('toast:show', {
-      html: t('admin.image_removed_toast') || 'Image removed from fragrance.',
+      html: t('admin.image_removed_toast') || 'Image removed from fragrance',
+      duration: 2500,
     });
   });
 
+  function handleImageFile(file: File) {
+    if (!file.type.startsWith('image/')) {
+      bus.emit('toast:show', { html: 'Please upload a valid image file (JPG, PNG, WebP)' });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      bus.emit('toast:show', { html: 'Image size exceeds maximum limit of 5 MB' });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const base64 = ev.target?.result as string;
+      imagePreview.src = base64;
+      imageInput.value = base64;
+      updateRemoveImageBtn();
+      bus.emit('toast:show', { html: 'Image loaded from device' });
+    };
+    reader.readAsDataURL(file);
+  }
+
   /* ------------------------------------------------------------------ */
-  /* 6. Form Loading, Creation & Saving                                 */
+  /* 6. Fragrance Form Loading, Creation & Saving                       */
   /* ------------------------------------------------------------------ */
 
   function loadProduct(p: Product) {
@@ -392,7 +559,6 @@ export function initAdminStudio(
     price50Input.value = String(p.price?.['50'] || 89);
     price100Input.value = String(p.price?.['100'] || 129);
 
-    // Multilingual description - preserve loaded text without overwriting from empty textarea
     parseDescriptions(p.desc);
     activeDescLang = 'en';
     setDescLang('en', false);
@@ -402,7 +568,6 @@ export function initAdminStudio(
     notesHeartInput.value = (notes.heart || []).join(', ');
     notesBaseInput.value = (notes.base || []).join(', ');
 
-    // Image
     const imgSrc = resolveProductImg(p.img);
     imageInput.value = p.img || '';
     fileInput.value = '';
@@ -439,54 +604,65 @@ export function initAdminStudio(
     updateRemoveImageBtn();
 
     deleteBtn.style.display = 'none';
-    nameInput.focus();
     renderList();
   }
 
-  newBtn.addEventListener('click', () => {
-    createNew();
-  });
+  newBtn.addEventListener('click', createNew);
+
+  function renderList() {
+    const products = catalog.all();
+    listEl.innerHTML = '';
+
+    products.forEach((p) => {
+      const item = document.createElement('div');
+      item.className = `admin-item-card ${p.id === activeProductId ? 'active' : ''}`;
+      item.setAttribute('data-id', p.id);
+
+      const thumb = resolveProductImg(p.img);
+
+      item.innerHTML = `
+        <img class="admin-item-thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(p.name)}" />
+        <div class="admin-item-info">
+          <div class="admin-item-name">${escapeHtml(p.name)}</div>
+          <div class="admin-item-meta">${escapeHtml(p.fam)} · ${escapeHtml(p.gender)}</div>
+          <div class="admin-item-price">€${p.price['50']} / €${p.price['100']}</div>
+        </div>
+      `;
+
+      item.addEventListener('click', () => loadProduct(p));
+      listEl.appendChild(item);
+    });
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    saveBtn.disabled = true;
+    saveBtn.textContent = t('admin.btn_saving') || 'Saving...';
 
-    const name = nameInput.value.trim();
-    if (!name) return;
-
-    // Flush current typing in description tab
     descMap[activeDescLang] = descTextarea.value.trim();
 
-    // Prepare description: if multiple translations present, store JSON
-    const hasTranslations = Boolean(descMap.de || descMap.fr || descMap.es);
-    const finalDesc = hasTranslations ? JSON.stringify(descMap) : (descMap.en || '');
-
-    const parseNotes = (str: string) =>
-      str.split(',').map((s) => s.trim()).filter(Boolean);
+    const hasMulti = Object.values(descMap).filter(Boolean).length > 1;
+    const finalDesc = hasMulti ? JSON.stringify(descMap) : (descMap.en || descMap.de || descMap.fr || descMap.es || '');
 
     const formData: ProductFormData = {
       id: idInput.value || undefined,
       recordId: recordIdInput.value || undefined,
-      name,
+      name: nameInput.value.trim(),
       family: familySelect.value as Family,
       gender: genderSelect.value as Gender,
       badge: badgeInput.value.trim(),
       desc: finalDesc,
-      desc_translations: descMap,
-      price_50: Number(price50Input.value) || 89,
-      price_100: Number(price100Input.value) || 129,
-      notes_top: parseNotes(notesTopInput.value),
-      notes_heart: parseNotes(notesHeartInput.value),
-      notes_base: parseNotes(notesBaseInput.value),
+      price_50: Number(price50Input.value),
+      price_100: Number(price100Input.value),
+      notes_top: notesTopInput.value.split(',').map((s) => s.trim()).filter(Boolean),
+      notes_heart: notesHeartInput.value.split(',').map((s) => s.trim()).filter(Boolean),
+      notes_base: notesBaseInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       image: imageInput.value.trim(),
     };
 
-    saveBtn.disabled = true;
-    saveBtn.textContent = 'Saving...';
-
     try {
       const saved = await pb.saveProduct(formData);
-      
-      // Update catalog and persist immediately
+
       const all = catalog.all();
       const idx = all.findIndex((p) => p.id === saved.id || (saved.recordId && p.recordId === saved.recordId));
       if (idx >= 0) {
@@ -547,5 +723,11 @@ export function initAdminStudio(
 
   bus.on('admin:open', () => open());
 
-  return { open, close };
+  const api: AdminStudioApi = {
+    open,
+    close,
+    switchTab: switchStudioTab,
+  };
+
+  return api;
 }

@@ -55,6 +55,33 @@ test('i18n switches to Spanish correctly', () => {
   assert.equal(t('catalog.add_to_bag'), 'Añadir a la Cesta');
 });
 
+test('i18n switches to Notre Succès languages (nl, it, nb, sv, da) correctly', () => {
+  setLocale('nl');
+  assert.equal(getLocale(), 'nl');
+  assert.equal(t('nav.families'), 'De Geurfamilies');
+  assert.equal(t('cart.checkout_btn'), 'Afrekenen');
+
+  setLocale('it');
+  assert.equal(getLocale(), 'it');
+  assert.equal(t('nav.families'), 'Le Famiglie');
+  assert.equal(t('cart.checkout_btn'), 'Procedi all\'Acquisto');
+
+  setLocale('nb');
+  assert.equal(getLocale(), 'nb');
+  assert.equal(t('nav.families'), 'Duftfamiliene');
+  assert.equal(t('cart.checkout_btn'), 'Gå til Kassen');
+
+  setLocale('sv');
+  assert.equal(getLocale(), 'sv');
+  assert.equal(t('nav.families'), 'Doftfamiljerna');
+  assert.equal(t('cart.checkout_btn'), 'Till Kassan');
+
+  setLocale('da');
+  assert.equal(getLocale(), 'da');
+  assert.equal(t('nav.families'), 'Duftfamilierne');
+  assert.equal(t('cart.checkout_btn'), 'Gå til Kassen');
+});
+
 test('i18n supports parameter interpolation', () => {
   setLocale('en');
   const interpolated = t('cart.shipping_progress', { amount: '€61' });

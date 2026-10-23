@@ -239,6 +239,15 @@ async function run() {
     assert.strictEqual(newFragState.previewIsPlaceholder, true, 'New fragrance preview is placeholder.svg');
     assert.strictEqual(newFragState.inputIsEmpty, true, 'New fragrance input value is empty');
 
+    // Clean up test mock products
+    await evalCode(`
+      (() => {
+        const cleanProds = window.__st.catalog.all().filter(p => !p.id.startsWith('mock_scroll_') && !p.id.startsWith('atelier-test'));
+        window.__st.catalog.setProducts(cleanProds);
+        window.__st.pb.saveLocalProducts(cleanProds);
+      })()
+    `);
+
     ws.close();
     chrome.kill();
     console.log('\n🌟 ALL TESTS PASSED: Image removal, placeholder fallback & product list scrolling verified 100%!');

@@ -287,6 +287,17 @@
         <a href="/impressum.html" data-i18n="legal.impressum">Impressum</a> · 
         <a href="/sitemap.html" data-i18n="legal.sitemap">Sitemap</a>
       </span>
+      <div class="footer-localization">
+        <div class="loc-dropdown" id="footerLangDropdown">
+          <button type="button" class="loc-btn" id="footerLangBtn" aria-haspopup="true" aria-expanded="false" aria-label="Select language">
+            <div class="loc-btn-content" id="footerLangCurrent">🇬🇧 English</div>
+            <svg class="loc-chevron" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1"></path></svg>
+          </button>
+          <div class="loc-menu" id="footerLangMenu">
+            <ul class="loc-list" id="footerLangList"></ul>
+          </div>
+        </div>
+      </div>
       <span><b>Visa · Mastercard · Amex · PayPal</b></span>
     </div>
   </div>
@@ -417,6 +428,7 @@
         <div class="admin-nav-tabs">
           <button type="button" class="admin-nav-tab active" id="adminTabFragrances" data-i18n="admin.tab_fragrances">Fragrance Collection</button>
           <button type="button" class="admin-nav-tab" id="adminTabLanguages" data-i18n="admin.tab_languages">Languages & Visibility</button>
+          <button type="button" class="admin-nav-tab" id="adminTabReviews" data-i18n="admin.tab_reviews">Client Reviews</button>
         </div>
       </div>
       <button class="x" id="adminStudioClose" aria-label="Close Studio">✕</button>
@@ -543,11 +555,11 @@
         </div>
       </div>
 
-      <!-- VIEW 2: LANGUAGES & VISIBILITY -->
+      <!-- VIEW 2: LANGUAGES & VISIBILITY (NOTRE SUCCÈS STANDARD) -->
       <div class="admin-view-languages" id="adminViewLanguages" style="display: none;">
         <div class="admin-lang-card">
           <div class="admin-lang-card-header">
-            <h4 data-i18n="admin.lang_settings_title">Boutique Language Settings</h4>
+            <h4 data-i18n="admin.lang_settings_title">Boutique Language Settings (Notre Succès standard)</h4>
             <p data-i18n="admin.lang_settings_desc">Control which languages are active on the website or hide the language selector entirely.</p>
           </div>
 
@@ -557,25 +569,59 @@
               <span class="admin-switch-slider"></span>
               <span class="admin-switch-text" data-i18n="admin.toggle_switcher">Enable language switcher on website</span>
             </label>
-            <p class="admin-subtext">If unchecked, the language bar is completely removed from the header and mobile navigation, defaulting to English.</p>
+            <p class="admin-subtext">If unchecked, the language bar is completely removed from header, mobile nav, and footer.</p>
+          </div>
+
+          <div class="admin-lang-config-row">
+            <div class="admin-field">
+              <label for="adminDefaultLang" data-i18n="admin.field_default_lang">Default Storefront Language</label>
+              <select id="adminDefaultLang">
+                <option value="en">English (Base)</option>
+                <option value="de">Deutsch (German)</option>
+                <option value="nl">Nederlands (Dutch)</option>
+                <option value="fr">Français (French)</option>
+                <option value="es">Español (Spanish)</option>
+                <option value="it">Italiano (Italian)</option>
+                <option value="nb">Norsk (bokmål) (Norwegian)</option>
+                <option value="sv">Svenska (Swedish)</option>
+                <option value="da">Dansk (Danish)</option>
+              </select>
+            </div>
+            <div class="admin-field">
+              <label for="adminSwitcherPosition" data-i18n="admin.switcher_placement">Language Switcher Placement</label>
+              <select id="adminSwitcherPosition">
+                <option value="both" selected data-i18n="admin.placement_both">Header & Footer Dropdown (Notre Succès style)</option>
+                <option value="header" data-i18n="admin.placement_header">Header Only</option>
+                <option value="footer" data-i18n="admin.placement_footer">Footer Only</option>
+              </select>
+            </div>
           </div>
 
           <div class="admin-lang-selection">
-            <label class="admin-lang-checkbox">
-              <input type="checkbox" id="adminLangDe" checked />
-              <span class="custom-chk"></span>
-              <div class="chk-info">
-                <strong data-i18n="admin.lang_de">Deutsch (German)</strong>
-                <small>Deutsche Übersetzung, DHL-Versanddetails und AGB.</small>
-              </div>
-            </label>
-
             <label class="admin-lang-checkbox disabled">
               <input type="checkbox" id="adminLangEn" checked disabled />
               <span class="custom-chk checked"></span>
               <div class="chk-info">
-                <strong data-i18n="admin.lang_en">English (Base language)</strong>
-                <small>Default language. Cannot be disabled.</small>
+                <strong data-i18n="admin.lang_en">🇬🇧 English (Base language)</strong>
+                <small>Core boutique catalog language.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangDe" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_de">🇩🇪 Deutsch (German)</strong>
+                <small>Deutsche Übersetzung, DHL-Versanddetails und AGB.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangNl" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_nl">🇳🇱 Nederlands (Dutch)</strong>
+                <small>Nederlandse vertaling en voorwaarden (Notre Succès standard).</small>
               </div>
             </label>
 
@@ -583,7 +629,7 @@
               <input type="checkbox" id="adminLangFr" checked />
               <span class="custom-chk"></span>
               <div class="chk-info">
-                <strong data-i18n="admin.lang_fr">Français (French)</strong>
+                <strong data-i18n="admin.lang_fr">🇫🇷 Français (French)</strong>
                 <small>Complete French translations and currency formats.</small>
               </div>
             </label>
@@ -592,8 +638,44 @@
               <input type="checkbox" id="adminLangEs" checked />
               <span class="custom-chk"></span>
               <div class="chk-info">
-                <strong data-i18n="admin.lang_es">Español (Spanish)</strong>
+                <strong data-i18n="admin.lang_es">🇪🇸 Español (Spanish)</strong>
                 <small>Traducción completa en español y términos legales.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangIt" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_it">🇮🇹 Italiano (Italian)</strong>
+                <small>Traduzione italiana completa, eleganza e profumi.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangNb" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_nb">🇳🇴 Norsk (bokmål) (Norwegian)</strong>
+                <small>Norsk oversettelse for nordiske kunder.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangSv" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_sv">🇸🇪 Svenska (Swedish)</strong>
+                <small>Svensk översättning och nordisk leverans.</small>
+              </div>
+            </label>
+
+            <label class="admin-lang-checkbox">
+              <input type="checkbox" id="adminLangDa" checked />
+              <span class="custom-chk"></span>
+              <div class="chk-info">
+                <strong data-i18n="admin.lang_da">🇩🇰 Dansk (Danish)</strong>
+                <small>Dansk oversættelse og skandinavisk kundeservice.</small>
               </div>
             </label>
           </div>
@@ -601,6 +683,54 @@
           <div class="admin-lang-actions">
             <button type="button" class="admin-save-btn" id="adminSaveLanguagesBtn" data-i18n="admin.btn_save_languages">Save Language Settings</button>
           </div>
+        </div>
+      </div>
+
+      <!-- VIEW 3: CLIENT REVIEWS -->
+      <div class="admin-view-reviews" id="adminViewReviews" style="display: none;">
+        <div class="admin-sidebar">
+          <div class="admin-sidebar-top">
+            <span data-i18n="admin.tab_reviews">Client Reviews</span>
+            <button type="button" class="admin-new-btn" id="adminNewReviewBtn" data-i18n="admin.new_review_btn">+ New Review</button>
+          </div>
+          <div class="admin-product-list" id="adminReviewList"></div>
+        </div>
+        <div class="admin-editor">
+          <h4 id="adminReviewFormTitle" data-i18n="admin.reviews_title">Client Reviews & Testimonials</h4>
+          <form id="adminReviewForm">
+            <input type="hidden" id="adminReviewId" />
+            <div class="admin-form-grid">
+              <div class="admin-field">
+                <label for="adminReviewAuthor" data-i18n="admin.field_review_author">Author Name</label>
+                <input type="text" id="adminReviewAuthor" required placeholder="e.g. Anna K." />
+              </div>
+              <div class="admin-field">
+                <label for="adminReviewRating" data-i18n="admin.field_review_rating">Star Rating</label>
+                <select id="adminReviewRating">
+                  <option value="5" selected>★★★★★ (5 Stars)</option>
+                  <option value="4">★★★★☆ (4 Stars)</option>
+                  <option value="3">★★★☆☆ (3 Stars)</option>
+                  <option value="2">★★☆☆☆ (2 Stars)</option>
+                  <option value="1">★☆☆☆☆ (1 Star)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="admin-field" style="margin-top: 14px;">
+              <label for="adminReviewLocation" data-i18n="admin.field_review_location">Location & Fragrance / Context</label>
+              <input type="text" id="adminReviewLocation" required placeholder="e.g. London · Azure Épure" />
+            </div>
+
+            <div class="admin-field" style="margin-top: 14px;">
+              <label for="adminReviewText" data-i18n="admin.field_review_text">Review Testimonial Text</label>
+              <textarea id="adminReviewText" rows="4" required placeholder="Share the client's authentic impressions of the fragrance..."></textarea>
+            </div>
+
+            <div class="admin-actions" style="margin-top: 24px;">
+              <button type="button" class="admin-delete-btn" id="adminDeleteReviewBtn" style="display: none;" data-i18n="admin.delete_review_btn">Delete Review</button>
+              <button type="submit" class="admin-save-btn" id="adminSaveReviewBtn" data-i18n="admin.save_review_btn">Save Review</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

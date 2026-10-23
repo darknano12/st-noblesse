@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
     configData.families
   );
 
-  initReviews(reviewsData as Review[], configData.reviewInterval);
+  const initialReviews = pb.getLocalReviews() || (reviewsData as Review[]);
+  initReviews(initialReviews, configData.reviewInterval);
 
   // Asynchronous hydration from PocketBase backend (with graceful offline fallback)
   pb.getProducts().then((liveProducts) => {

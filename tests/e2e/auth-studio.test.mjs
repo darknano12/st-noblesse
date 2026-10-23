@@ -222,6 +222,15 @@ async function run() {
       throw new Error(`Re-editing product failed: ${createAndEditResult.result.value.toastMsg}`);
     }
 
+    // Clean up test products
+    await send('Runtime.evaluate', {
+      expression: `(() => {
+        const cleanProds = window.__st.catalog.all().filter(p => !p.id.startsWith('atelier-test'));
+        window.__st.catalog.setProducts(cleanProds);
+        window.__st.pb.saveLocalProducts(cleanProds);
+      })()`
+    });
+
     // Close Studio
     await send('Runtime.evaluate', {
       expression: `window.__st.adminStudioApi.close()`

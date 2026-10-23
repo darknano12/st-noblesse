@@ -134,8 +134,9 @@
   height: 100%;
 }
 
-/* VIEW 1: FRAGRANCE COLLECTION */
-.admin-view-fragrances {
+/* VIEW 1 & VIEW 3: FRAGRANCE COLLECTION & CLIENT REVIEWS */
+.admin-view-fragrances,
+.admin-view-reviews {
   flex: 1;
   display: grid;
   grid-template-columns: 340px 1fr;
@@ -704,6 +705,67 @@
   color: var(--muted);
 }
 
+.admin-lang-config-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+
+/* Review Cards */
+.admin-review-card {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-review-card:hover {
+  background: rgba(200, 162, 77, 0.08);
+}
+
+.admin-review-card.active {
+  background: rgba(200, 162, 77, 0.14);
+  border-left: 3px solid var(--gold);
+}
+
+.admin-review-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-review-card-head strong {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: #fff;
+}
+
+.admin-review-card-stars {
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.admin-review-card-meta {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.admin-review-card-snippet {
+  font-size: 0.78rem;
+  color: var(--muted2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
 .admin-lang-actions {
   display: flex;
   justify-content: flex-end;
@@ -715,7 +777,8 @@
   .admin-header-main {
     gap: 16px;
   }
-  .admin-view-fragrances {
+  .admin-view-fragrances,
+  .admin-view-reviews {
     grid-template-columns: 1fr;
   }
   .admin-sidebar {
