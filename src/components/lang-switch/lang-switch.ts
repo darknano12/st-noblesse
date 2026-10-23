@@ -19,14 +19,27 @@ export function initLangSwitch(): void {
       (item) => settings.languages[item.code] !== false
     );
 
-    // 1. Render Header Switcher
-    const headerSwitch = document.querySelector<HTMLElement>('#langSwitch');
-    if (headerSwitch) {
-      headerSwitch.innerHTML = enabledLangs
+    // 1. Render Header Single-Button Dropdown
+    const headerFlag = document.querySelector<HTMLElement>('#headerLangFlag');
+    const headerCode = document.querySelector<HTMLElement>('#headerLangCode');
+    const headerList = document.querySelector<HTMLElement>('#headerLangList');
+    const activeMeta = NOTRESUCCES_LOCALES.find((l) => l.code === current) || NOTRESUCCES_LOCALES[0];
+
+    if (headerFlag) headerFlag.textContent = activeMeta.flag;
+    if (headerCode) headerCode.textContent = activeMeta.code.toUpperCase();
+
+    if (headerList) {
+      headerList.innerHTML = enabledLangs
         .map(
-          (item, idx) =>
-            `<button class="lang-btn ${item.code === current ? 'active' : ''}" data-lang="${item.code}" aria-label="${item.name}">${item.code.toUpperCase()}</button>` +
-            (idx < enabledLangs.length - 1 ? '<span class="lang-sep">·</span>' : '')
+          (item) => `
+          <li class="lang-switch-item ${item.code === current ? 'active' : ''}" data-lang="${item.code}">
+            <div class="lang-switch-item-text">
+              <span>${item.flag}</span>
+              <strong>${item.nativeName}</strong>
+            </div>
+            <span class="lang-switch-item-code">${item.code.toUpperCase()}</span>
+          </li>
+        `
         )
         .join('');
     }
@@ -94,6 +107,17 @@ export function initLangSwitch(): void {
   }
 
   function updateActiveButtons(current: Locale): void {
+    const activeMeta = NOTRESUCCES_LOCALES.find((l) => l.code === current) || NOTRESUCCES_LOCALES[0];
+    const headerFlag = document.querySelector<HTMLElement>('#headerLangFlag');
+    const headerCode = document.querySelector<HTMLElement>('#headerLangCode');
+    if (headerFlag) headerFlag.textContent = activeMeta.flag;
+    if (headerCode) headerCode.textContent = activeMeta.code.toUpperCase();
+
+    document.querySelectorAll<HTMLElement>('.lang-switch-item').forEach((item) => {
+      const lang = item.dataset.lang as Locale;
+      item.classList.toggle('active', lang === current);
+    });
+
     document.querySelectorAll<HTMLElement>('.lang-btn').forEach((btn) => {
       const lang = btn.dataset.lang as Locale;
       btn.classList.toggle('active', lang === current);
@@ -102,7 +126,6 @@ export function initLangSwitch(): void {
 
     const footerCurrent = document.querySelector<HTMLElement>('#footerLangCurrent');
     if (footerCurrent) {
-      const activeMeta = NOTRESUCCES_LOCALES.find((l) => l.code === current) || NOTRESUCCES_LOCALES[0];
       footerCurrent.textContent = `${activeMeta.flag} ${activeMeta.nativeName}`;
     }
 
@@ -147,8 +170,33 @@ export function initLangSwitch(): void {
     });
   }
 
-  // Delegated click handler for language buttons (header & mobile)
+  // Delegated click handler for language selectors (header, mobile, footer)
   document.addEventListener('click', (e) => {
+    // Header dropdown toggle button
+    const headerBtn = (e.target as HTMLElement).closest<HTMLElement>('#headerLangBtn');
+    if (headerBtn) {
+      const dropdown = document.querySelector('#langSwitch');
+      dropdown?.classList.toggle('active');
+      return;
+    }
+
+    // Header dropdown item click
+    const headerItem = (e.target as HTMLElement).closest<HTMLElement>('.lang-switch-item');
+    if (headerItem && headerItem.dataset.lang) {
+      const targetLang = headerItem.dataset.lang as Locale;
+      changeLocaleWithFeedback(targetLang);
+      document.querySelector('#langSwitch')?.classList.remove('active');
+      return;
+    }
+
+    // Close header dropdown if clicked outside
+    const headerDropdown = document.querySelector('#langSwitch');
+    if (headerDropdown && headerDropdown.classList.contains('active')) {
+      if (!(e.target as HTMLElement).closest('#langSwitch')) {
+        headerDropdown.classList.remove('active');
+      }
+    }
+
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.lang-btn');
     if (btn && btn.dataset.lang) {
       const targetLang = btn.dataset.lang as Locale;
@@ -180,6 +228,14 @@ export function initLangSwitch(): void {
       if (!(e.target as HTMLElement).closest('#footerLangDropdown')) {
         dropdown.classList.remove('active');
       }
+    }
+  });
+
+  // Close dropdowns on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelector('#langSwitch')?.classList.remove('active');
+      document.querySelector('#footerLangDropdown')?.classList.remove('active');
     }
   });
 

@@ -1,4 +1,5 @@
 import { bus } from '../../core/bus';
+import { getLocale, type Locale } from '../../core/i18n';
 import type { Review } from '../../core/types';
 import { must } from '../../utils/dom';
 
@@ -7,6 +8,25 @@ let currentIndex = 0;
 let autoTimer: number | null = null;
 let isInitialized = false;
 let configuredInterval = 6500;
+
+export function getReviewText(
+  text: string | Record<string, string> | undefined,
+  locale: Locale = getLocale()
+): string {
+  if (!text) return '';
+  if (typeof text === 'object') {
+    return text[locale] || text['en'] || Object.values(text)[0] || '';
+  }
+  if (typeof text === 'string' && text.trim().startsWith('{')) {
+    try {
+      const parsed = JSON.parse(text);
+      if (typeof parsed === 'object' && parsed !== null) {
+        return parsed[locale] || parsed['en'] || Object.values(parsed)[0] || text;
+      }
+    } catch {}
+  }
+  return text;
+}
 
 function escapeHtml(s: string): string {
   if (!s) return '';
@@ -82,7 +102,7 @@ export function updateReviews(reviews: Review[]): void {
       return (
         `<div class="rev-slide">` +
         `<div class="rev-stars">${'★'.repeat(starsCount)}${'☆'.repeat(5 - starsCount)}</div>` +
-        `<p class="rev-text">${escapeHtml(r.t)}</p>` +
+        `<p class="rev-text">${escapeHtml(getReviewText(r.t))}</p>` +
         `<div class="rev-who"><b>${escapeHtml(r.n)}</b><span>${escapeHtml(r.c)}</span></div>` +
         `</div>`
       );
@@ -145,5 +165,10 @@ export function initReviews(reviews: Review[], intervalMs = 6500): void {
   // Listen for real-time review updates across the application
   bus.on('reviews:update', ({ reviews }: { reviews: Review[] }) => {
     updateReviews(reviews);
+  });
+
+  // Re-render reviews when language changes to display translated reviews
+  bus.on('i18n:change', () => {
+    updateReviews(currentReviews);
   });
 }

@@ -1,9 +1,16 @@
 import { bus } from '../../core/bus';
 import { pb } from '../../services/pocketbase';
-import { getLanguageSettings, saveLanguageSettings, t, type Locale } from '../../core/i18n';
+import {
+  getLanguageSettings,
+  saveLanguageSettings,
+  t,
+  NOTRESUCCES_LOCALES,
+  type Locale,
+} from '../../core/i18n';
 import type { CatalogApi } from '../../core/catalog-store';
 import type { Family, Gender, LanguageSettings, Product, ProductFormData, Review } from '../../core/types';
 import { escapeHtml, must } from '../../utils/dom';
+import { getReviewText } from '../reviews/reviews';
 
 export interface AdminStudioApi {
   open(product?: Product): void;
@@ -103,15 +110,23 @@ export function initAdminStudio(
   const reviewRatingSelect = must<HTMLSelectElement>('#adminReviewRating');
   const reviewLocationInput = must<HTMLInputElement>('#adminReviewLocation');
   const reviewTextInput = must<HTMLTextAreaElement>('#adminReviewText');
+  const reviewLangTabs = must('#adminReviewLangTabs');
+  const reviewLangBadge = must('#adminReviewLangBadge');
   const deleteReviewBtn = must<HTMLButtonElement>('#adminDeleteReviewBtn');
   const saveReviewBtn = must<HTMLButtonElement>('#adminSaveReviewBtn');
 
   let activeProductId: string | null = null;
-  let activeDescLang: 'de' | 'en' | 'fr' | 'es' = 'en';
-  let descMap: Record<'de' | 'en' | 'fr' | 'es', string> = { de: '', en: '', fr: '', es: '' };
+  let activeDescLang: string = 'en';
+  let descMap: Record<string, string> = {
+    en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: ''
+  };
 
   let studioReviews: Review[] = [];
   let activeReviewIndex: number | null = null;
+  let activeRevLang: string = 'en';
+  let revTextMap: Record<string, string> = {
+    en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: ''
+  };
 
   /* ------------------------------------------------------------------ */
   /* 1. Modal Open / Close & Tab Switching                              */
@@ -244,6 +259,60 @@ export function initAdminStudio(
     }
   }
 
+  function parseReviewTexts(text: string | Record<string, string> | undefined) {
+    revTextMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
+    if (!text) return;
+    if (typeof text === 'object') {
+      for (const [k, v] of Object.entries(text)) {
+        revTextMap[k] = typeof v === 'string' ? v : '';
+      }
+      return;
+    }
+    if (typeof text === 'string') {
+      const trimmed = text.trim();
+      if (trimmed.startsWith('{')) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          if (typeof parsed === 'object' && parsed !== null) {
+            for (const [k, v] of Object.entries(parsed)) {
+              revTextMap[k] = typeof v === 'string' ? v : '';
+            }
+            return;
+          }
+        } catch {}
+      }
+      revTextMap.en = text;
+    }
+  }
+
+  function setReviewLang(lang: string, saveCurrent: boolean = true) {
+    if (saveCurrent && activeRevLang) {
+      revTextMap[activeRevLang] = reviewTextInput.value;
+    }
+
+    activeRevLang = lang;
+
+    reviewLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-rev-lang') === lang);
+    });
+
+    reviewTextInput.value = revTextMap[lang] || '';
+
+    const meta = NOTRESUCCES_LOCALES.find((l) => l.code === lang);
+    const langName = meta ? `${meta.nativeName} (${lang.toUpperCase()})` : lang.toUpperCase();
+    reviewLangBadge.textContent = `Editing in ${langName}${lang === 'en' ? ' — Master' : ''}`;
+    reviewTextInput.placeholder = `Review testimonial in ${meta?.name || lang}...`;
+  }
+
+  reviewLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-rev-lang');
+      if (lang && lang !== activeRevLang) {
+        setReviewLang(lang, true);
+      }
+    });
+  });
+
   function renderReviewList() {
     reviewList.innerHTML = '';
     if (studioReviews.length === 0) {
@@ -262,6 +331,7 @@ export function initAdminStudio(
 
       const ratingStars = Math.max(1, Math.min(5, Number(rev.s) || 5));
       const starsDisplay = '★'.repeat(ratingStars) + '☆'.repeat(5 - ratingStars);
+      const displaySnippet = getReviewText(rev.t);
 
       card.innerHTML = `
         <div class="admin-review-card-head">
@@ -269,7 +339,7 @@ export function initAdminStudio(
           <span class="admin-review-card-stars">${starsDisplay}</span>
         </div>
         <div class="admin-review-card-meta">${escapeHtml(rev.c || '')}</div>
-        <div class="admin-review-card-snippet">"${escapeHtml(rev.t || '')}"</div>
+        <div class="admin-review-card-snippet">"${escapeHtml(displaySnippet)}"</div>
       `;
 
       card.addEventListener('click', () => loadReview(idx));
@@ -291,7 +361,10 @@ export function initAdminStudio(
     reviewAuthorInput.value = r.n || '';
     reviewRatingSelect.value = String(r.s || 5);
     reviewLocationInput.value = r.c || '';
-    reviewTextInput.value = r.t || '';
+
+    parseReviewTexts(r.t);
+    activeRevLang = 'en';
+    setReviewLang('en', false);
 
     deleteReviewBtn.style.display = 'inline-block';
 
@@ -307,7 +380,10 @@ export function initAdminStudio(
     reviewAuthorInput.value = '';
     reviewRatingSelect.value = '5';
     reviewLocationInput.value = '';
-    reviewTextInput.value = '';
+
+    revTextMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
+    activeRevLang = 'en';
+    setReviewLang('en', false);
 
     deleteReviewBtn.style.display = 'none';
 
@@ -321,15 +397,18 @@ export function initAdminStudio(
   reviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const author = reviewAuthorInput.value.trim();
-    const text = reviewTextInput.value.trim();
     const location = reviewLocationInput.value.trim();
     const rating = Math.max(1, Math.min(5, Number(reviewRatingSelect.value) || 5));
+
+    revTextMap[activeRevLang] = reviewTextInput.value.trim();
+    const hasMultiRev = Object.values(revTextMap).filter(Boolean).length > 1;
+    const finalRevText = hasMultiRev ? JSON.stringify(revTextMap) : (revTextMap.en || Object.values(revTextMap).find(Boolean) || '');
 
     if (!author) {
       bus.emit('toast:show', { html: t('admin.review_author_required') || 'Please enter author name.' });
       return;
     }
-    if (!text) {
+    if (!finalRevText) {
       bus.emit('toast:show', { html: t('admin.review_text_required') || 'Please enter review text.' });
       return;
     }
@@ -342,7 +421,7 @@ export function initAdminStudio(
       const reviewPayload: Review = {
         id: existingId,
         n: author,
-        t: text,
+        t: finalRevText,
         c: location,
         s: rating,
       };
@@ -417,13 +496,12 @@ export function initAdminStudio(
   /* ------------------------------------------------------------------ */
 
   function parseDescriptions(desc: string | Record<string, string> | undefined) {
-    descMap = { de: '', en: '', fr: '', es: '' };
+    descMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
     if (!desc) return;
     if (typeof desc === 'object') {
-      descMap.de = desc.de || '';
-      descMap.en = desc.en || '';
-      descMap.fr = desc.fr || '';
-      descMap.es = desc.es || '';
+      for (const [k, v] of Object.entries(desc)) {
+        descMap[k] = typeof v === 'string' ? v : '';
+      }
       return;
     }
     if (typeof desc === 'string') {
@@ -432,10 +510,9 @@ export function initAdminStudio(
         try {
           const parsed = JSON.parse(trimmed);
           if (typeof parsed === 'object' && parsed !== null) {
-            descMap.de = parsed.de || '';
-            descMap.en = parsed.en || '';
-            descMap.fr = parsed.fr || '';
-            descMap.es = parsed.es || '';
+            for (const [k, v] of Object.entries(parsed)) {
+              descMap[k] = typeof v === 'string' ? v : '';
+            }
             return;
           }
         } catch {}
@@ -444,8 +521,8 @@ export function initAdminStudio(
     }
   }
 
-  function setDescLang(lang: 'de' | 'en' | 'fr' | 'es', saveCurrent: boolean = true) {
-    if (saveCurrent) {
+  function setDescLang(lang: string, saveCurrent: boolean = true) {
+    if (saveCurrent && activeDescLang) {
       descMap[activeDescLang] = descTextarea.value;
     }
 
@@ -457,24 +534,15 @@ export function initAdminStudio(
 
     descTextarea.value = descMap[lang] || '';
 
-    if (lang === 'de') {
-      descBadge.textContent = 'Editing in Deutsch (DE)';
-      descTextarea.placeholder = 'Poetische olfaktorische Reise auf Deutsch...';
-    } else if (lang === 'fr') {
-      descBadge.textContent = 'Editing in Français (FR)';
-      descTextarea.placeholder = 'Voyage sensoriel poétique en français...';
-    } else if (lang === 'es') {
-      descBadge.textContent = 'Editing in Español (ES)';
-      descTextarea.placeholder = 'Viaje sensorial poético en español...';
-    } else {
-      descBadge.textContent = 'Editing in English (EN - Master)';
-      descTextarea.placeholder = 'Olfactory journey in English (master description)...';
-    }
+    const meta = NOTRESUCCES_LOCALES.find((l) => l.code === lang);
+    const langName = meta ? `${meta.nativeName} (${lang.toUpperCase()})` : lang.toUpperCase();
+    descBadge.textContent = `Editing in ${langName}${lang === 'en' ? ' — Master' : ''}`;
+    descTextarea.placeholder = `Olfactory narrative in ${meta?.name || lang}...`;
   }
 
   descLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-desc-lang') as 'de' | 'en' | 'fr' | 'es';
+      const lang = btn.getAttribute('data-desc-lang');
       if (lang && lang !== activeDescLang) {
         setDescLang(lang, true);
       }
@@ -590,7 +658,7 @@ export function initAdminStudio(
     price50Input.value = '95';
     price100Input.value = '145';
 
-    descMap = { de: '', en: '', fr: '', es: '' };
+    descMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
     activeDescLang = 'en';
     setDescLang('en', false);
 
@@ -642,7 +710,7 @@ export function initAdminStudio(
     descMap[activeDescLang] = descTextarea.value.trim();
 
     const hasMulti = Object.values(descMap).filter(Boolean).length > 1;
-    const finalDesc = hasMulti ? JSON.stringify(descMap) : (descMap.en || descMap.de || descMap.fr || descMap.es || '');
+    const finalDesc = hasMulti ? JSON.stringify(descMap) : (descMap.en || Object.values(descMap).find(Boolean) || '');
 
     const formData: ProductFormData = {
       id: idInput.value || undefined,

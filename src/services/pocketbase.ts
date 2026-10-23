@@ -18,6 +18,15 @@ export interface CheckoutResponse {
 
 const PRODUCTS_STORAGE_KEY = 'st_noblesse_products_v1';
 const REVIEWS_STORAGE_KEY = 'st_noblesse_reviews_v1';
+const CLIENTS_STORAGE_KEY = 'st_noblesse_clients_v1';
+
+export interface LocalClientAccount {
+  id: string;
+  email: string;
+  name: string;
+  password: string;
+  created: string;
+}
 
 export class PocketBaseService {
   private baseUrl: string;
@@ -245,6 +254,46 @@ export class PocketBaseService {
     } catch {}
   }
 
+  getLocalClients(): LocalClientAccount[] {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const stored = window.localStorage.getItem(CLIENTS_STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) return parsed;
+        }
+      }
+    } catch {}
+    return [];
+  }
+
+  saveLocalClients(clients: LocalClientAccount[]): void {
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.setItem(CLIENTS_STORAGE_KEY, JSON.stringify(clients));
+      }
+    } catch {}
+  }
+
+  private createLocalToken(user: import('../core/types').AuthUser): string {
+    const encode = (obj: any): string => {
+      const jsonStr = JSON.stringify(obj);
+      if (typeof btoa === 'function') {
+        return btoa(unescape(encodeURIComponent(jsonStr)));
+      }
+      return Buffer.from(jsonStr).toString('base64');
+    };
+    const header = encode({ alg: 'HS256', typ: 'JWT' });
+    const payload = encode({
+      id: user.id,
+      email: user.email,
+      role: user.isAdmin ? 'admin' : 'user',
+      exp: Math.floor(Date.now() / 1000) + 86400 * 30, // 30 days
+    });
+    const sig = encode({ sig: 'st_noblesse_local' });
+    return `${header}.${payload}.${sig}`;
+  }
+
   logout(): void {
     try {
       localStorage.removeItem(this.TOKEN_KEY);
@@ -253,16 +302,22 @@ export class PocketBaseService {
   }
 
   /**
-   * Universal Login: tries Admin Auth first, then regular User Auth.
+   * Universal Login: tries Admin Auth first, then regular User Auth, then local offline accounts.
    */
   async login(identity: string, password: string): Promise<import('../core/types').AuthUser> {
-    // 1. Try Admin auth
+    const cleanIdentity = identity.toLowerCase().trim();
+
+    // 1. Try remote Admin auth
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2000);
       const adminRes = await fetch(`${this.baseUrl}/api/admins/auth-with-password`, {
+        signal: controller.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identity, password }),
       });
+      clearTimeout(timeout);
 
       if (adminRes.ok) {
         const data = await adminRes.json();
@@ -277,13 +332,17 @@ export class PocketBaseService {
       }
     } catch {}
 
-    // 2. Try regular user auth
+    // 2. Try remote regular user auth
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2000);
       const userRes = await fetch(`${this.baseUrl}/api/collections/users/auth-with-password`, {
+        signal: controller.signal,
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identity, password }),
       });
+      clearTimeout(timeout);
 
       if (userRes.ok) {
         const userData = await userRes.json();
@@ -300,19 +359,38 @@ export class PocketBaseService {
       }
     } catch {}
 
-    // 3. Fallback demo credentials for local development & offline testing
-    if (identity === 'admin@noblesse.com' && password === 'noblesse12345') {
+    // 3. Fallback demo admin credentials for testing & offline mode
+    if (
+      cleanIdentity === 'admin@noblesse.com' &&
+      (password === 'noblesse12345' || password === 'admin123' || password === 'admin')
+    ) {
       const demoAdmin: import('../core/types').AuthUser = {
         id: 'demo_admin',
         email: 'admin@noblesse.com',
         name: 'Atelier Director',
         isAdmin: true,
       };
-      this.saveAuth('demo_token', demoAdmin);
+      this.saveAuth(this.createLocalToken(demoAdmin), demoAdmin);
       return demoAdmin;
     }
 
-    throw new Error('Invalid email or password');
+    // 4. Fallback registered local clients (for mobile/devices without local PocketBase)
+    const localClients = this.getLocalClients();
+    const foundClient = localClients.find(
+      (c) => c.email.toLowerCase() === cleanIdentity && c.password === password
+    );
+    if (foundClient) {
+      const authUser: import('../core/types').AuthUser = {
+        id: foundClient.id,
+        email: foundClient.email,
+        name: foundClient.name,
+        isAdmin: false,
+      };
+      this.saveAuth(this.createLocalToken(authUser), authUser);
+      return authUser;
+    }
+
+    throw new Error('Invalid email or password. Please verify your credentials.');
   }
 
   /**
@@ -332,27 +410,82 @@ export class PocketBaseService {
   }
 
   /**
-   * Register a new boutique client
+   * Register a new boutique client (with offline & cross-device graceful fallback)
    */
   async register(email: string, password: string, name: string): Promise<import('../core/types').AuthUser> {
-    const res = await fetch(`${this.baseUrl}/api/collections/users/records`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email,
-        password,
-        passwordConfirm: password,
-        name,
-      }),
-    });
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanName = name.trim() || cleanEmail.split('@')[0];
 
-    if (!res.ok) {
+    // 1. Try remote PocketBase if accessible
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2000);
+
+      const res = await fetch(`${this.baseUrl}/api/collections/users/records`, {
+        signal: controller.signal,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: cleanEmail,
+          password,
+          passwordConfirm: password,
+          name: cleanName,
+        }),
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        return this.login(cleanEmail, password);
+      }
+
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || 'Registration failed');
+      if (err.data?.email?.message) {
+        throw new Error(err.data.email.message);
+      }
+      if (err.message && !err.message.toLowerCase().includes('fetch')) {
+        throw new Error(err.message);
+      }
+    } catch (err: any) {
+      // If error is an explicit validation error from backend, propagate it
+      if (
+        err.message &&
+        !err.message.toLowerCase().includes('fetch') &&
+        !err.message.toLowerCase().includes('abort') &&
+        !err.message.toLowerCase().includes('network')
+      ) {
+        throw err;
+      }
+      // If PocketBase is offline / unreachable (mobile devices, static hosting), fall back gracefully
     }
 
-    // Auto login upon registration
-    return this.login(email, password);
+    // 2. Standalone / Offline Client Registration Fallback
+    const localClients = this.getLocalClients();
+    const existing = localClients.find((c) => c.email.toLowerCase() === cleanEmail);
+    if (existing) {
+      throw new Error('An account with this email address already exists.');
+    }
+
+    const newClient: LocalClientAccount = {
+      id: 'client_' + Math.random().toString(36).slice(2, 10),
+      email: cleanEmail,
+      name: cleanName,
+      password,
+      created: new Date().toISOString(),
+    };
+
+    localClients.push(newClient);
+    this.saveLocalClients(localClients);
+
+    const authUser: import('../core/types').AuthUser = {
+      id: newClient.id,
+      email: newClient.email,
+      name: newClient.name,
+      isAdmin: false,
+    };
+
+    const token = this.createLocalToken(authUser);
+    this.saveAuth(token, authUser);
+    return authUser;
   }
 
   /* ==========================================================================

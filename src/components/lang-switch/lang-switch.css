@@ -1,13 +1,148 @@
-/* Language Switcher */
+/* Language Switcher - Header Dropdown (Single-Button Luxury Design) */
+.lang-switch-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.lang-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(17, 26, 46, 0.55);
+  backdrop-filter: blur(10px);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  outline: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.lang-switch-btn:hover {
+  border-color: var(--gold);
+  color: #fff;
+  background: rgba(200, 162, 77, 0.1);
+  box-shadow: 0 0 12px rgba(200, 162, 77, 0.2);
+}
+
+.lang-switch-dropdown.active .lang-switch-btn {
+  border-color: var(--gold);
+  background: rgba(200, 162, 77, 0.15);
+  color: #fff;
+}
+
+.lang-btn-flag {
+  font-size: 0.95rem;
+  line-height: 1;
+  display: inline-flex;
+}
+
+.lang-btn-code {
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.lang-btn-chevron {
+  width: 9px;
+  height: 6px;
+  color: var(--muted2);
+  transition: transform 0.25s var(--ease), color 0.25s;
+}
+
+.lang-switch-dropdown.active .lang-btn-chevron {
+  transform: rotate(180deg);
+  color: var(--gold);
+}
+
+.lang-switch-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 185px;
+  background: rgba(14, 21, 37, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.6);
+  padding: 6px 0;
+  display: none;
+  z-index: 1000;
+}
+
+.lang-switch-dropdown.active .lang-switch-menu {
+  display: block;
+  animation: headerMenuFade 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes headerMenuFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lang-switch-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.lang-switch-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  color: var(--ink);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.lang-switch-item:hover {
+  background: rgba(200, 162, 77, 0.12);
+  color: #fff;
+}
+
+.lang-switch-item.active {
+  color: var(--gold);
+  background: rgba(200, 162, 77, 0.08);
+  font-weight: 600;
+}
+
+.lang-switch-item-text {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.lang-switch-item-code {
+  opacity: 0.6;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Fallback simple button styles for backwards compatibility */
 .lang-switch {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: rgba(17, 26, 46, 0.4);
-  backdrop-filter: blur(8px);
 }
 
 .lang-btn {
@@ -36,23 +171,29 @@
 
 .m-lang-switch {
   display: flex;
-  gap: 16px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
 }
 
 .m-lang-switch .lang-btn {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  padding: 6px 14px;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  padding: 6px 12px;
   border: 1px solid var(--line);
+  border-radius: 4px;
   color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .m-lang-switch .lang-btn.active {
   border-color: var(--gold);
   color: var(--gold);
-  background: rgba(200, 162, 77, 0.1);
+  background: rgba(200, 162, 77, 0.12);
+  font-weight: 700;
 }
 
 /* ============ FOOTER LOCALIZATION (NOTRE SUCCÈS STANDARD) ============ */

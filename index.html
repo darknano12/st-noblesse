@@ -88,14 +88,15 @@
     <a href="#contacts" data-i18n="nav.contact">Contact</a>
   </nav>
   <div class="h-right">
-    <div class="lang-switch" id="langSwitch" aria-label="Language selector">
-      <button class="lang-btn" data-lang="de">DE</button>
-      <span class="lang-sep">·</span>
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <span class="lang-sep">·</span>
-      <button class="lang-btn" data-lang="fr">FR</button>
-      <span class="lang-sep">·</span>
-      <button class="lang-btn" data-lang="es">ES</button>
+    <div class="lang-switch-dropdown" id="langSwitch" aria-label="Language selector">
+      <button type="button" class="lang-switch-btn" id="headerLangBtn" aria-haspopup="true" aria-expanded="false" aria-label="Select language">
+        <span class="lang-btn-flag" id="headerLangFlag">🇬🇧</span>
+        <span class="lang-btn-code" id="headerLangCode">EN</span>
+        <svg class="lang-btn-chevron" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      </button>
+      <div class="lang-switch-menu" id="headerLangMenu">
+        <ul class="lang-switch-list" id="headerLangList"></ul>
+      </div>
     </div>
     <button class="icon-btn" id="userBtn" aria-label="Account / Sign in">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -524,10 +525,15 @@
                 <div class="admin-desc-header">
                   <label for="adminProductDesc" data-i18n="admin.field_desc">Olfactory Narrative</label>
                   <div class="desc-lang-tabs" id="adminDescLangTabs">
-                    <button type="button" class="desc-lang-tab" data-desc-lang="de">DE</button>
                     <button type="button" class="desc-lang-tab active" data-desc-lang="en">EN</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="de">DE</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="nl">NL</button>
                     <button type="button" class="desc-lang-tab" data-desc-lang="fr">FR</button>
                     <button type="button" class="desc-lang-tab" data-desc-lang="es">ES</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="it">IT</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="nb">NB</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="sv">SV</button>
+                    <button type="button" class="desc-lang-tab" data-desc-lang="da">DA</button>
                   </div>
                 </div>
                 <textarea id="adminProductDesc" rows="3" placeholder="Poetic sensory journey in English..."></textarea>
@@ -721,9 +727,23 @@
               <input type="text" id="adminReviewLocation" required placeholder="e.g. London · Azure Épure" />
             </div>
 
-            <div class="admin-field" style="margin-top: 14px;">
-              <label for="adminReviewText" data-i18n="admin.field_review_text">Review Testimonial Text</label>
+            <div class="admin-field full" style="margin-top: 14px;">
+              <div class="admin-desc-header">
+                <label for="adminReviewText" data-i18n="admin.field_review_text">Review Testimonial Text</label>
+                <div class="desc-lang-tabs" id="adminReviewLangTabs">
+                  <button type="button" class="desc-lang-tab active" data-rev-lang="en">EN</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="de">DE</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="nl">NL</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="fr">FR</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="es">ES</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="it">IT</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="nb">NB</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="sv">SV</button>
+                  <button type="button" class="desc-lang-tab" data-rev-lang="da">DA</button>
+                </div>
+              </div>
               <textarea id="adminReviewText" rows="4" required placeholder="Share the client's authentic impressions of the fragrance..."></textarea>
+              <div class="desc-lang-badge" id="adminReviewLangBadge">Editing in English (EN — Master)</div>
             </div>
 
             <div class="admin-actions" style="margin-top: 24px;">
