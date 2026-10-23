@@ -97,7 +97,9 @@
     "checkout_cancelled": "Kassan avbröts. Din varukorg har sparats.",
     "item_removed": "Artikeln borttagen",
     "removed": "Borttagen från Varukorgen",
-    "copied": "Länk kopierad till urklipp"
+    "copied": "Länk kopierad till urklipp",
+    "auth_required_cart": "✦ Vänligen logga in eller skapa ett konto för att köpa parfymer.",
+    "auth_required_checkout": "✦ Vänligen logga in för att slutföra beställningen."
   },
   "common": {
     "currency": "€",

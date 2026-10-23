@@ -162,6 +162,15 @@ export function initCartDrawer(
     const snap = cart.snapshot();
     if (snap.count === 0) return;
 
+    if (!pb.getCurrentUser()) {
+      bus.emit('toast:show', {
+        html: t('toast.auth_required_checkout'),
+        duration: 3500,
+      });
+      bus.emit('auth:open', { tab: 'register' });
+      return;
+    }
+
     const originalText = checkoutBtn.textContent;
     checkoutBtn.setAttribute('disabled', 'true');
     checkoutBtn.textContent = t('cart.preparing');

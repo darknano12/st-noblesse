@@ -135,27 +135,64 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Direct add-to-cart from catalog card (defaults to 50ml)
-  bus.on('grid:add-to-cart', ({ productId, volume }) => {
-    cart.add(productId, volume, 1);
+  // Pending item memory for seamless auto-fulfillment after registration/login
+  let pendingCartItem: { productId: string; volume: import('./core/types').Volume; qty: number } | null = null;
+
+  function handleAddToCart(
+    productId: string,
+    volume: import('./core/types').Volume,
+    qty = 1,
+    fromModal = false
+  ) {
+    if (!pb.getCurrentUser()) {
+      pendingCartItem = { productId, volume, qty };
+      bus.emit('toast:show', {
+        html: t('toast.auth_required_cart'),
+        duration: 3500,
+      });
+      bus.emit('auth:open', { tab: 'register' });
+      if (fromModal) {
+        modalApi.close();
+      }
+      return;
+    }
+
+    cart.add(productId, volume, qty);
     const p = catalog.byId(productId);
     if (p) {
       bus.emit('toast:show', {
         html: t('toast.added_with_details', { name: p.name, volume }),
       });
     }
+    if (fromModal) {
+      modalApi.close();
+    }
+  }
+
+  // Direct add-to-cart from catalog card (defaults to 50ml)
+  bus.on('grid:add-to-cart', ({ productId, volume }) => {
+    handleAddToCart(productId, volume, 1, false);
   });
 
   // Add-to-cart from inside the product modal
   bus.on('modal:add-to-cart', ({ productId, volume }) => {
-    cart.add(productId, volume, 1);
-    const p = catalog.byId(productId);
-    if (p) {
-      bus.emit('toast:show', {
-        html: t('toast.added_with_details', { name: p.name, volume }),
-      });
+    handleAddToCart(productId, volume, 1, true);
+  });
+
+  // Auto-fulfill pending cart item once client signs in / registers
+  bus.on('auth:change', ({ user }) => {
+    if (user && pendingCartItem) {
+      const item = pendingCartItem;
+      pendingCartItem = null;
+      cart.add(item.productId, item.volume, item.qty);
+      const p = catalog.byId(item.productId);
+      if (p) {
+        bus.emit('toast:show', {
+          html: t('toast.added_with_details', { name: p.name, volume: item.volume }),
+        });
+      }
+      drawerApi.open();
     }
-    modalApi.close();
   });
 
   // Open drawer from header cart button

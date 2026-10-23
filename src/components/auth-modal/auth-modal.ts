@@ -135,6 +135,11 @@ export function initAuthModal(): AuthModalApi {
   });
 
   bus.on('auth:open', (payload) => open(payload?.tab || 'login'));
+  bus.on('auth:change', ({ user }) => {
+    if (user && modal.classList.contains('open')) {
+      close();
+    }
+  });
 
   return {
     open,

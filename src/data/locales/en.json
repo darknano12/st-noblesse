@@ -97,7 +97,9 @@
     "checkout_cancelled": "Checkout was cancelled. Your bag has been preserved.",
     "item_removed": "Item removed from bag",
     "removed": "Removed from Bag",
-    "copied": "Link copied to clipboard"
+    "copied": "Link copied to clipboard",
+    "auth_required_cart": "✦ Please sign in or create an account to acquire fragrances.",
+    "auth_required_checkout": "✦ Please sign in or create an account to proceed to checkout."
   },
   "common": {
     "currency": "€",

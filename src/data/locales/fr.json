@@ -97,7 +97,9 @@
     "checkout_cancelled": "Paiement annulé. Votre panier est conservé.",
     "item_removed": "Article retiré du panier",
     "removed": "Retiré du Panier",
-    "copied": "Lien copié dans le presse-papiers"
+    "copied": "Lien copié dans le presse-papiers",
+    "auth_required_cart": "✦ Veuillez vous connecter ou créer un compte pour acquérir des parfums.",
+    "auth_required_checkout": "✦ Veuillez vous connecter pour finaliser votre commande."
   },
   "common": {
     "currency": "€",

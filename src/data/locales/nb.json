@@ -97,7 +97,9 @@
     "checkout_cancelled": "Kassen ble avbrutt. Varene dine er lagret.",
     "item_removed": "Vare fjernet",
     "removed": "Fjernet fra Handlekurv",
-    "copied": "Lenke kopiert til utklippstavle"
+    "copied": "Lenke kopiert til utklippstavle",
+    "auth_required_cart": "✦ Vennligst logg inn eller opprett en konto for å kjøpe parfymer.",
+    "auth_required_checkout": "✦ Vennligst logg inn for å fullføre bestillingen."
   },
   "common": {
     "currency": "€",

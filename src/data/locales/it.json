@@ -97,7 +97,9 @@
     "checkout_cancelled": "Acquisto annullato. Il tuo carrello è stato conservato.",
     "item_removed": "Articolo rimosso",
     "removed": "Rimosso dal Carrello",
-    "copied": "Link copiato negli appunti"
+    "copied": "Link copiato negli appunti",
+    "auth_required_cart": "✦ Accedi o crea un account per acquistare fragranze.",
+    "auth_required_checkout": "✦ Accedi o crea un account per procedere al pagamento."
   },
   "common": {
     "currency": "€",

@@ -97,7 +97,9 @@
     "checkout_cancelled": "Bezahlvorgang abgebrochen. Ihr Warenkorb bleibt erhalten.",
     "item_removed": "Artikel aus dem Warenkorb entfernt",
     "removed": "Entfernt",
-    "copied": "In die Zwischenablage kopiert"
+    "copied": "In die Zwischenablage kopiert",
+    "auth_required_cart": "✦ Bitte melden Sie sich an oder erstellen Sie ein Konto, um Düfte zu erwerben.",
+    "auth_required_checkout": "✦ Bitte melden Sie sich an, um zur Kasse zu gehen."
   },
   "common": {
     "currency": "€",

@@ -97,7 +97,9 @@
     "checkout_cancelled": "El pago fue cancelado. Su cesta se ha conservado.",
     "item_removed": "Artículo eliminado de la cesta",
     "removed": "Eliminado",
-    "copied": "Enlace copiado al portapapeles"
+    "copied": "Enlace copiado al portapapeles",
+    "auth_required_cart": "✦ Inicie sesión o cree una cuenta para adquirir fragancias.",
+    "auth_required_checkout": "✦ Inicie sesión o cree una cuenta para proceder al pago."
   },
   "common": {
     "currency": "€",

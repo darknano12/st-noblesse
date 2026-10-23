@@ -97,7 +97,9 @@
     "checkout_cancelled": "Kassen blev afbrudt. Din kurv er gemt.",
     "item_removed": "Vare fjernet",
     "removed": "Fjernet fra Kurv",
-    "copied": "Link kopieret til udklipsholder"
+    "copied": "Link kopieret til udklipsholder",
+    "auth_required_cart": "✦ Log venligst ind eller opret en konto for at købe parfumer.",
+    "auth_required_checkout": "✦ Log venligst ind for at gå til kassen."
   },
   "common": {
     "currency": "€",

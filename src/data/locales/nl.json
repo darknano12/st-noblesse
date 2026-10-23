@@ -97,7 +97,9 @@
     "checkout_cancelled": "Afrekenen geannuleerd. Uw winkelmand is bewaard.",
     "item_removed": "Item verwijderd",
     "removed": "Verwijderd uit Winkelmand",
-    "copied": "Link gekopieerd naar klembord"
+    "copied": "Link gekopieerd naar klembord",
+    "auth_required_cart": "✦ Log in of maak een account aan om parfums aan te schaffen.",
+    "auth_required_checkout": "✦ Log in of maak een account aan om af te rekenen."
   },
   "common": {
     "currency": "€",
