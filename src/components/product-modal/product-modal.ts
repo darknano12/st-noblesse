@@ -4,7 +4,7 @@ import type { UiApi } from '../../core/ui-store';
 import { must } from '../../utils/dom';
 import { formatPrice, formatRating, stars } from '../../utils/format';
 import { openFocusScope } from '../../utils/a11y';
-import { getProductDesc, t } from '../../core/i18n';
+import { getLocalizedText, getProductDesc, t } from '../../core/i18n';
 
 /**
  * ProductModal — quick-view dialog for a single product.
@@ -86,32 +86,41 @@ export function initProductModal(
     );
   }
 
+  function updateModalDetails(product: Product): void {
+    const localizedName = getLocalizedText(product.name);
+    const localizedBadge = getLocalizedText(product.badge);
+    const localizedDiscountLabel = getLocalizedText(product.discountLabel);
+    const saleTag = localizedDiscountLabel
+      ? `${localizedDiscountLabel}${product.discountPercent ? ` -${product.discountPercent}%` : ''}`
+      : (product.discountPercent ? `-${product.discountPercent}%` : '');
+
+    const localizedFamKey = `catalog.filter_${product.fam}`;
+    const famText = t(localizedFamKey) !== localizedFamKey ? t(localizedFamKey) : product.fam;
+
+    const metaParts = [famText, localizedBadge, saleTag].filter(Boolean);
+    mdFam.textContent = metaParts.join(' · ');
+    mdName.textContent = localizedName;
+    mdImg.alt = localizedName;
+    mdDesc.textContent = getProductDesc(product.desc);
+    mdRev.textContent = t('modal.reviews_count', {
+      rating: formatRating(product.rating),
+      count: product.rev,
+    });
+    mdNotes.innerHTML =
+      row(t('modal.notes_top'), product.notes.top) +
+      row(t('modal.notes_heart'), product.notes.heart) +
+      row(t('modal.notes_base'), product.notes.base);
+    renderVolumes();
+  }
+
   /* ---- open / close ---- */
   function open(product: Product): void {
     current = product;
     selectedVolume = '100';
 
     mdImg.src = (product.img && imageSrc(product.img)) || 'img/placeholder.svg';
-    mdImg.alt = product.name;
-    const badgeText = product.discountLabel
-      ? `${product.discountLabel}${product.discountPercent ? ` -${product.discountPercent}%` : ''}`
-      : product.badge;
-    mdFam.textContent = badgeText
-      ? `${product.fam} · ${badgeText}`
-      : product.fam;
-    mdName.textContent = product.name;
     mdStars.textContent = stars(product.rating);
-    mdRev.textContent = t('modal.reviews_count', {
-      rating: formatRating(product.rating),
-      count: product.rev,
-    });
-    mdDesc.textContent = getProductDesc(product.desc);
-    mdNotes.innerHTML =
-      row(t('modal.notes_top'), product.notes.top) +
-      row(t('modal.notes_heart'), product.notes.heart) +
-      row(t('modal.notes_base'), product.notes.base);
-
-    renderVolumes();
+    updateModalDetails(product);
 
     modal.classList.add('open');
     releaseFocus = openFocusScope(modal);
@@ -121,16 +130,7 @@ export function initProductModal(
 
   bus.on('i18n:change', () => {
     if (current && modal.classList.contains('open')) {
-      mdDesc.textContent = getProductDesc(current.desc);
-      mdRev.textContent = t('modal.reviews_count', {
-        rating: formatRating(current.rating),
-        count: current.rev,
-      });
-      mdNotes.innerHTML =
-        row(t('modal.notes_top'), current.notes.top) +
-        row(t('modal.notes_heart'), current.notes.heart) +
-        row(t('modal.notes_base'), current.notes.base);
-      renderVolumes();
+      updateModalDetails(current);
     }
   });
 

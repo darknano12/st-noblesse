@@ -4,7 +4,7 @@ import type { CatalogApi } from '../../core/catalog-store';
 import { delegate, must, qs } from '../../utils/dom';
 import { scrollToTarget } from '../../utils/animation';
 import type { FilterFamily } from '../../core/types';
-import { t } from '../../core/i18n';
+import { getLocalizedText, t } from '../../core/i18n';
 
 /**
  * Collections — "Les Familles" section with 4 family cards.
@@ -84,11 +84,21 @@ export function initCatalog(
       : p.price['50'];
     const hasDiscount = effectivePrice50 < p.price['50'];
 
-    let badgeHtml = '';
-    if (p.discountLabel) {
-      badgeHtml = `<span class="badge badge-sale">${escapeHtml(p.discountLabel)}${p.discountPercent ? ` -${p.discountPercent}%` : ''}</span>`;
-    } else if (p.badge) {
-      badgeHtml = `<span class="badge">${escapeHtml(p.badge)}</span>`;
+    const localizedName = getLocalizedText(p.name);
+    const localizedBadge = getLocalizedText(p.badge);
+    const localizedDiscountLabel = getLocalizedText(p.discountLabel);
+
+    let goldBadgeHtml = '';
+    if (localizedBadge) {
+      goldBadgeHtml = `<span class="badge">${escapeHtml(localizedBadge)}</span>`;
+    }
+
+    let saleBadgeHtml = '';
+    if (localizedDiscountLabel || (p.discountPercent && p.discountPercent > 0)) {
+      const saleText = localizedDiscountLabel
+        ? `${localizedDiscountLabel}${p.discountPercent ? ` -${p.discountPercent}%` : ''}`
+        : `-${p.discountPercent}%`;
+      saleBadgeHtml = `<span class="badge badge-sale">${escapeHtml(saleText)}</span>`;
     }
 
     let priceHtml = '';
@@ -101,13 +111,14 @@ export function initCatalog(
     return (
       `<article class="pc pc-out" data-id="${escapeHtml(p.id)}" style="transition-delay:${delay}ms">` +
       `<div class="pc-media" data-view>` +
-      badgeHtml +
-      `<img src="${escapeHtml(img)}" alt="${escapeHtml(p.name)}" loading="lazy">` +
+      goldBadgeHtml +
+      saleBadgeHtml +
+      `<img src="${escapeHtml(img)}" alt="${escapeHtml(localizedName)}" loading="lazy">` +
       `<button class="qv" type="button">${escapeHtml(qvText)}</button>` +
       `</div>` +
       `<div class="pc-body">` +
       `<span class="pc-fam">${escapeHtml(famText)} · ${escapeHtml(p.gender)}</span>` +
-      `<h3 class="pc-name">${escapeHtml(p.name)}</h3>` +
+      `<h3 class="pc-name">${escapeHtml(localizedName)}</h3>` +
       `<p class="pc-notes">${escapeHtml(noteLine(p))}</p>` +
       `<div class="pc-row">${priceHtml}` +
       `<button class="pc-add" type="button" data-add aria-label="${escapeHtml(addLabel)}">` +

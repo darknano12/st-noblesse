@@ -6,7 +6,7 @@ import { formatPrice } from '../../utils/format';
 import { announce, openFocusScope } from '../../utils/a11y';
 import { scrollToTarget } from '../../utils/animation';
 import { pb } from '../../services/pocketbase';
-import { t } from '../../core/i18n';
+import { getLocalizedText, t } from '../../core/i18n';
 
 /**
  * CartDrawer — slide-in shopping bag.
@@ -94,11 +94,12 @@ export function initCartDrawer(
     cartItems.innerHTML = snap.lines
       .map((line) => {
         const img = (line.product.img && imageSrc(line.product.img)) || 'img/placeholder.svg';
+        const lineName = getLocalizedText(line.product.name);
         return (
           `<div class="ci">` +
-          `<img src="${escapeHtml(img)}" alt="${escapeHtml(line.product.name)}">` +
+          `<img src="${escapeHtml(img)}" alt="${escapeHtml(lineName)}">` +
           `<div>` +
-          `<div class="ci-name">${escapeHtml(line.product.name)}</div>` +
+          `<div class="ci-name">${escapeHtml(lineName)}</div>` +
           `<div class="ci-meta">${familyLabel[line.product.fam] ?? line.product.fam} · ${line.volume} ml</div>` +
           `<div class="qty">` +
           `<button data-k="${escapeHtml(line.key)}" data-d="-1" aria-label="Decrease">−</button>` +

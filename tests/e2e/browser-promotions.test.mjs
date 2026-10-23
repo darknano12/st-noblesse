@@ -113,10 +113,15 @@ async function run() {
         const { pb } = await import('/src/services/pocketbase.ts');
         const { bus } = await import('/src/core/bus.ts');
         
-        const list = pb.getLocalProducts();
+        const list = pb.getLocalProducts() || (window.__st?.catalog ? [...window.__st.catalog.all()] : []);
         if (list && list.length > 0) {
+          list[0].price = list[0].price || { '50': 89, '100': 129 };
+          list[0].price['50'] = 89;
           list[0].discountPercent = 20;
-          list[0].discountLabel = 'Осенняя скидка';
+          list[0].discountLabel = 'Autumn Privilege';
+          if (window.__st?.catalog) {
+            window.__st.catalog.setProducts([...list]);
+          }
           pb.saveLocalProducts(list);
           bus.emit('catalog:updated', { products: list });
         }
@@ -126,9 +131,12 @@ async function run() {
         const badgeSale = card ? card.querySelector('.badge-sale') : null;
         const oldPrice = card ? card.querySelector('.old-price') : null;
         const effectivePrice = card ? card.querySelector('.pc-price b') : null;
+        const cardHtml = card ? card.innerHTML : '';
 
         return {
           formFieldsExist,
+          firstProd: list[0],
+          cardHtml,
           badgeSaleText: badgeSale ? badgeSale.textContent : '',
           oldPriceText: oldPrice ? oldPrice.textContent : '',
           effectivePriceText: effectivePrice ? effectivePrice.textContent : ''
@@ -137,7 +145,7 @@ async function run() {
     `);
     console.log('✓ Product discount in catalog & form:', discountTestRes);
     assert.equal(discountTestRes.formFieldsExist, true, 'Discount form fields must exist in Admin Studio');
-    assert.ok(discountTestRes.badgeSaleText.includes('Осенняя скидка'), 'Badge sale must show label');
+    assert.ok(discountTestRes.badgeSaleText.includes('Autumn Privilege'), 'Badge sale must show label');
     assert.ok(discountTestRes.effectivePriceText.includes('71'), 'Discounted 50ml price must be €71 (89 - 20%)');
 
     console.log('3. Adding 1st item to cart & opening bag...');

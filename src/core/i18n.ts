@@ -167,25 +167,39 @@ export function setLocale(locale: Locale): void {
 }
 
 /**
+ * Universal helper to resolve localized text from either a string, a JSON object string, or a dictionary
+ */
+export function getLocalizedText(
+  val: string | Record<string, string> | undefined | null,
+  locale: Locale = currentLocale
+): string {
+  if (!val) return '';
+  if (typeof val === 'object') {
+    return val[locale] || val['en'] || Object.values(val)[0] || '';
+  }
+  if (typeof val === 'string') {
+    const trimmed = val.trim();
+    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+      try {
+        const parsed = JSON.parse(trimmed);
+        if (typeof parsed === 'object' && parsed !== null) {
+          return parsed[locale] || parsed['en'] || Object.values(parsed)[0] || val;
+        }
+      } catch {}
+    }
+    return val;
+  }
+  return String(val);
+}
+
+/**
  * Helper to resolve product description across multilingual translations
  */
 export function getProductDesc(
   desc: string | Record<string, string> | undefined,
   locale: Locale = currentLocale
 ): string {
-  if (!desc) return '';
-  if (typeof desc === 'object') {
-    return desc[locale] || desc['en'] || Object.values(desc)[0] || '';
-  }
-  if (typeof desc === 'string' && desc.trim().startsWith('{')) {
-    try {
-      const parsed = JSON.parse(desc);
-      if (typeof parsed === 'object' && parsed !== null) {
-        return parsed[locale] || parsed['en'] || Object.values(parsed)[0] || desc;
-      }
-    } catch {}
-  }
-  return desc;
+  return getLocalizedText(desc, locale);
 }
 
 /**

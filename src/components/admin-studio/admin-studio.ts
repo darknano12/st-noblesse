@@ -2,6 +2,7 @@ import { bus } from '../../core/bus';
 import { pb } from '../../services/pocketbase';
 import {
   getLanguageSettings,
+  getLocalizedText,
   saveLanguageSettings,
   t,
   NOTRESUCCES_LOCALES,
@@ -52,8 +53,8 @@ export function initAdminStudio(
   const discountInput = must<HTMLInputElement>('#adminProductDiscount');
   const discountLabelInput = must<HTMLInputElement>('#adminProductDiscountLabel');
   const descTextarea = must<HTMLTextAreaElement>('#adminProductDesc');
-  const descBadge = must('#adminDescLangBadge');
-  const descLangTabs = must('#adminDescLangTabs');
+  const productLangBadge = must('#adminProductLangBadge');
+  const productLangTabs = must('#adminProductLangTabs');
   const notesTopInput = must<HTMLInputElement>('#adminProductNotesTop');
   const notesHeartInput = must<HTMLInputElement>('#adminProductNotesHeart');
   const notesBaseInput = must<HTMLInputElement>('#adminProductNotesBase');
@@ -118,7 +119,16 @@ export function initAdminStudio(
   const saveReviewBtn = must<HTMLButtonElement>('#adminSaveReviewBtn');
 
   let activeProductId: string | null = null;
-  let activeDescLang: string = 'en';
+  let activeProdLang: string = 'en';
+  let nameMap: Record<string, string> = {
+    en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: ''
+  };
+  let badgeMap: Record<string, string> = {
+    en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: ''
+  };
+  let discountLabelMap: Record<string, string> = {
+    en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: ''
+  };
   let descMap: Record<string, string> = {
     en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: ''
   };
@@ -494,62 +504,96 @@ export function initAdminStudio(
   });
 
   /* ------------------------------------------------------------------ */
-  /* 4. Multilingual Fragrance Description Handling                     */
+  /* 4. Unified Multilingual Product Fields Handling                     */
   /* ------------------------------------------------------------------ */
 
-  function parseDescriptions(desc: string | Record<string, string> | undefined) {
-    descMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
-    if (!desc) return;
-    if (typeof desc === 'object') {
-      for (const [k, v] of Object.entries(desc)) {
-        descMap[k] = typeof v === 'string' ? v : '';
+  function parseFieldLocales(val: string | Record<string, string> | undefined): Record<string, string> {
+    const res: Record<string, string> = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
+    if (!val) return res;
+    if (typeof val === 'object') {
+      for (const [k, v] of Object.entries(val)) {
+        res[k] = typeof v === 'string' ? v : '';
       }
-      return;
+      return res;
     }
-    if (typeof desc === 'string') {
-      const trimmed = desc.trim();
-      if (trimmed.startsWith('{')) {
+    if (typeof val === 'string') {
+      const trimmed = val.trim();
+      if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
         try {
           const parsed = JSON.parse(trimmed);
           if (typeof parsed === 'object' && parsed !== null) {
             for (const [k, v] of Object.entries(parsed)) {
-              descMap[k] = typeof v === 'string' ? v : '';
+              res[k] = typeof v === 'string' ? v : '';
             }
-            return;
+            return res;
           }
         } catch {}
       }
-      descMap.en = desc;
+      res.en = val;
     }
+    return res;
   }
 
-  function setDescLang(lang: string, saveCurrent: boolean = true) {
-    if (saveCurrent && activeDescLang) {
-      descMap[activeDescLang] = descTextarea.value;
+  function setProductLang(lang: string, saveCurrent: boolean = true) {
+    if (saveCurrent && activeProdLang) {
+      nameMap[activeProdLang] = nameInput.value;
+      badgeMap[activeProdLang] = badgeInput.value;
+      discountLabelMap[activeProdLang] = discountLabelInput.value;
+      descMap[activeProdLang] = descTextarea.value;
     }
 
-    activeDescLang = lang;
+    activeProdLang = lang;
 
-    descLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
-      btn.classList.toggle('active', btn.getAttribute('data-desc-lang') === lang);
+    productLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-prod-lang') === lang);
     });
 
+    nameInput.value = nameMap[lang] || '';
+    badgeInput.value = badgeMap[lang] || '';
+    discountLabelInput.value = discountLabelMap[lang] || '';
     descTextarea.value = descMap[lang] || '';
 
     const meta = NOTRESUCCES_LOCALES.find((l) => l.code === lang);
     const langName = meta ? `${meta.nativeName} (${lang.toUpperCase()})` : lang.toUpperCase();
-    descBadge.textContent = `Editing in ${langName}${lang === 'en' ? ' — Master' : ''}`;
-    descTextarea.placeholder = `Olfactory narrative in ${meta?.name || lang}...`;
+    productLangBadge.textContent = `Editing in ${langName}${lang === 'en' ? ' — Master' : ''}`;
+
+    if (lang === 'en') {
+      nameInput.placeholder = "e.g. Étoile d'Or";
+      badgeInput.placeholder = "e.g. Rare Extract, Signature";
+      discountLabelInput.placeholder = "e.g. Autumn Privilege, Winter Offer";
+      descTextarea.placeholder = "Poetic sensory journey in English...";
+    } else {
+      nameInput.placeholder = nameMap.en ? `${nameMap.en} (${meta?.name || lang})` : `Fragrance name in ${meta?.name || lang}...`;
+      badgeInput.placeholder = badgeMap.en ? `${badgeMap.en} (${meta?.name || lang})` : `Emblem badge in ${meta?.name || lang}...`;
+      discountLabelInput.placeholder = discountLabelMap.en ? `${discountLabelMap.en} (${meta?.name || lang})` : `Discount label in ${meta?.name || lang}...`;
+      descTextarea.placeholder = `Olfactory narrative in ${meta?.name || lang}...`;
+    }
   }
 
-  descLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
+  productLangTabs.querySelectorAll('.desc-lang-tab').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-desc-lang');
-      if (lang && lang !== activeDescLang) {
-        setDescLang(lang, true);
+      const lang = btn.getAttribute('data-prod-lang');
+      if (lang && lang !== activeProdLang) {
+        setProductLang(lang, true);
       }
     });
   });
+
+  function serializeTransField(map: Record<string, string>): string {
+    const entries = Object.entries(map).filter(([_, v]) => v && v.trim().length > 0);
+    if (entries.length === 0) return '';
+    if (entries.length === 1 && entries[0][0] === 'en') {
+      return entries[0][1].trim();
+    }
+    const finalMap: Record<string, string> = {};
+    for (const [k, v] of entries) {
+      finalMap[k] = v.trim();
+    }
+    if (!finalMap.en && entries[0]) {
+      finalMap.en = entries[0][1].trim();
+    }
+    return JSON.stringify(finalMap);
+  }
 
   /* ------------------------------------------------------------------ */
   /* 5. Device File Upload & Removal                                    */
@@ -619,21 +663,23 @@ export function initAdminStudio(
 
   function loadProduct(p: Product) {
     activeProductId = p.id;
-    formTitle.textContent = `${t('admin.edit_title') || 'Edit'}: ${p.name}`;
+    const displayName = getLocalizedText(p.name);
+    formTitle.textContent = `${t('admin.edit_title') || 'Edit'}: ${displayName}`;
     idInput.value = p.id;
     recordIdInput.value = p.recordId || '';
-    nameInput.value = p.name;
     familySelect.value = p.fam;
     genderSelect.value = p.gender;
-    badgeInput.value = p.badge || '';
     price50Input.value = String(p.price?.['50'] || 89);
     price100Input.value = String(p.price?.['100'] || 129);
     discountInput.value = p.discountPercent ? String(p.discountPercent) : '';
-    discountLabelInput.value = p.discountLabel || '';
 
-    parseDescriptions(p.desc);
-    activeDescLang = 'en';
-    setDescLang('en', false);
+    nameMap = parseFieldLocales(p.name);
+    badgeMap = parseFieldLocales(p.badge);
+    discountLabelMap = parseFieldLocales(p.discountLabel);
+    descMap = parseFieldLocales(p.desc);
+
+    activeProdLang = 'en';
+    setProductLang('en', false);
 
     const notes = p.notes || { top: [], heart: [], base: [] };
     notesTopInput.value = (notes.top || []).join(', ');
@@ -655,18 +701,19 @@ export function initAdminStudio(
     formTitle.textContent = t('admin.create_title') || '+ New Fragrance';
     idInput.value = '';
     recordIdInput.value = '';
-    nameInput.value = '';
     familySelect.value = 'floral';
     genderSelect.value = 'Unisex';
-    badgeInput.value = '';
     price50Input.value = '95';
     price100Input.value = '145';
     discountInput.value = '';
-    discountLabelInput.value = '';
 
+    nameMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
+    badgeMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
+    discountLabelMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
     descMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
-    activeDescLang = 'en';
-    setDescLang('en', false);
+
+    activeProdLang = 'en';
+    setProductLang('en', false);
 
     notesTopInput.value = '';
     notesHeartInput.value = '';
@@ -693,14 +740,16 @@ export function initAdminStudio(
       item.setAttribute('data-id', p.id);
 
       const thumb = resolveProductImg(p.img);
-      const discountTag = p.discountLabel
-        ? `<span class="admin-item-discount">${escapeHtml(p.discountLabel)}${p.discountPercent ? ` -${p.discountPercent}%` : ''}</span>`
+      const displayName = getLocalizedText(p.name);
+      const displayDiscountLabel = getLocalizedText(p.discountLabel);
+      const discountTag = displayDiscountLabel
+        ? `<span class="admin-item-discount">${escapeHtml(displayDiscountLabel)}${p.discountPercent ? ` -${p.discountPercent}%` : ''}</span>`
         : (p.discountPercent ? `<span class="admin-item-discount">-${p.discountPercent}%</span>` : '');
 
       item.innerHTML = `
-        <img class="admin-item-thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(p.name)}" />
+        <img class="admin-item-thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(displayName)}" />
         <div class="admin-item-info">
-          <div class="admin-item-name">${escapeHtml(p.name)}</div>
+          <div class="admin-item-name">${escapeHtml(displayName)}</div>
           <div class="admin-item-meta">${escapeHtml(p.fam)} · ${escapeHtml(p.gender)}</div>
           <div class="admin-item-price">€${p.price['50']} / €${p.price['100']} ${discountTag}</div>
         </div>
@@ -716,23 +765,28 @@ export function initAdminStudio(
     saveBtn.disabled = true;
     saveBtn.textContent = t('admin.btn_saving') || 'Saving...';
 
-    descMap[activeDescLang] = descTextarea.value.trim();
+    nameMap[activeProdLang] = nameInput.value.trim();
+    badgeMap[activeProdLang] = badgeInput.value.trim();
+    discountLabelMap[activeProdLang] = discountLabelInput.value.trim();
+    descMap[activeProdLang] = descTextarea.value.trim();
 
-    const hasMulti = Object.values(descMap).filter(Boolean).length > 1;
-    const finalDesc = hasMulti ? JSON.stringify(descMap) : (descMap.en || Object.values(descMap).find(Boolean) || '');
+    const finalName = serializeTransField(nameMap);
+    const finalBadge = serializeTransField(badgeMap);
+    const finalDiscountLabel = serializeTransField(discountLabelMap);
+    const finalDesc = serializeTransField(descMap);
 
     const formData: ProductFormData = {
       id: idInput.value || undefined,
       recordId: recordIdInput.value || undefined,
-      name: nameInput.value.trim(),
+      name: finalName || nameInput.value.trim(),
       family: familySelect.value as Family,
       gender: genderSelect.value as Gender,
-      badge: badgeInput.value.trim(),
+      badge: finalBadge,
       desc: finalDesc,
       price_50: Number(price50Input.value),
       price_100: Number(price100Input.value),
       discount_percent: discountInput.value ? Math.max(0, Math.min(99, Number(discountInput.value))) : undefined,
-      discount_label: discountLabelInput.value.trim() || undefined,
+      discount_label: finalDiscountLabel || undefined,
       notes_top: notesTopInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       notes_heart: notesHeartInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       notes_base: notesBaseInput.value.split(',').map((s) => s.trim()).filter(Boolean),
@@ -755,7 +809,7 @@ export function initAdminStudio(
       bus.emit('admin:product-saved', saved);
       renderList();
       bus.emit('toast:show', {
-        html: `${t('admin.save_success') || 'Saved'}: <b>${saved.name}</b>`,
+        html: `${t('admin.save_success') || 'Saved'}: <b>${escapeHtml(getLocalizedText(saved.name))}</b>`,
       });
 
       loadProduct(saved);

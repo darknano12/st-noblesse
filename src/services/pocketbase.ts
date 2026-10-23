@@ -544,9 +544,21 @@ export class PocketBaseService {
     };
     if (token) headers['Authorization'] = token;
 
+    const enName = (() => {
+      const trimmed = (form.name || '').trim();
+      if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+        try {
+          const parsed = JSON.parse(trimmed);
+          return (parsed.en || Object.values(parsed)[0] || form.name) as string;
+        } catch {}
+      }
+      return form.name || 'fragrance';
+    })();
+    const cleanSlug = form.slug || enName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || `product-${Date.now()}`;
+
     const payload = {
       name: form.name,
-      slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      slug: cleanSlug,
       family: form.family,
       gender: form.gender,
       badge: form.badge || '',
@@ -628,7 +640,7 @@ export class PocketBaseService {
 
     // Graceful offline / demo fallback
     const offlineProd: Product = {
-      id: form.id || form.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      id: form.id || cleanSlug,
       recordId: targetRecordId || 'demo_' + Date.now(),
       img: form.image !== undefined ? form.image : '',
       name: form.name,

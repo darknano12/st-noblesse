@@ -46,7 +46,7 @@ export interface Product {
   rev: number;
   /** Optional discount percentage, 0-99 */
   discountPercent?: number;
-  /** Optional promotion / discount label, e.g. "Осенняя скидка", "Winter Privilege" */
+  /** Optional promotion / discount label, e.g. "Autumn Privilege", "Winter Privilege" */
   discountLabel?: string;
 }
 

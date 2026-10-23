@@ -228,7 +228,7 @@
         <span>⚜</span>
         <i></i>
       </div>
-      <p class="priv-prelaunch-note" data-i18n="privileges.client_note">Перед началом продаж действует специальная сезонная акция на осень и зиму: при покупке двух флаконов из коллекции третий вы получаете в подарок.</p>
+      <p class="priv-prelaunch-note" data-i18n="privileges.client_note">Ahead of the official seasonal release, enjoy an exclusive autumn &amp; winter preview: acquire any two flacons and receive a complimentary third flacon with our compliments.</p>
       
       <div class="priv-editorial-details">
         <div class="priv-badge-top" data-i18n="privileges.offer_badge">Exclusive Seasonal Privilege</div>
@@ -520,6 +520,23 @@
         </div>
         <div class="admin-editor">
           <h4 id="adminFormTitle">Fragrance Details</h4>
+          <div class="admin-product-lang-bar">
+            <div class="admin-product-lang-meta">
+              <span class="admin-product-lang-label" data-i18n="admin.product_lang_label">Product Language</span>
+              <span class="desc-lang-badge" id="adminProductLangBadge">Editing in English (EN) — Master</span>
+            </div>
+            <div class="desc-lang-tabs" id="adminProductLangTabs">
+              <button type="button" class="desc-lang-tab active" data-prod-lang="en">EN</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="de">DE</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="nl">NL</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="fr">FR</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="es">ES</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="it">IT</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="nb">NB</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="sv">SV</button>
+              <button type="button" class="desc-lang-tab" data-prod-lang="da">DA</button>
+            </div>
+          </div>
           <form id="adminProductForm">
             <input type="hidden" id="adminProductId" />
             <input type="hidden" id="adminProductRecordId" />
@@ -563,7 +580,7 @@
               </div>
               <div class="admin-field">
                 <label for="adminProductDiscountLabel" data-i18n="admin.field_discount_label">Promotion / Discount Label</label>
-                <input type="text" id="adminProductDiscountLabel" placeholder="e.g. Осенняя скидка, Autumn Offer" />
+                <input type="text" id="adminProductDiscountLabel" placeholder="e.g. Autumn Privilege, Winter Offer" />
               </div>
               
               <!-- Flacon Image from Device -->
@@ -602,24 +619,10 @@
                 </div>
               </div>
 
-              <!-- Olfactory Narrative with Language Tabs -->
+              <!-- Olfactory Narrative -->
               <div class="admin-field full">
-                <div class="admin-desc-header">
-                  <label for="adminProductDesc" data-i18n="admin.field_desc">Olfactory Narrative</label>
-                  <div class="desc-lang-tabs" id="adminDescLangTabs">
-                    <button type="button" class="desc-lang-tab active" data-desc-lang="en">EN</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="de">DE</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="nl">NL</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="fr">FR</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="es">ES</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="it">IT</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="nb">NB</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="sv">SV</button>
-                    <button type="button" class="desc-lang-tab" data-desc-lang="da">DA</button>
-                  </div>
-                </div>
+                <label for="adminProductDesc" data-i18n="admin.field_desc">Olfactory Narrative</label>
                 <textarea id="adminProductDesc" rows="3" placeholder="Poetic sensory journey in English..."></textarea>
-                <div class="desc-lang-badge" id="adminDescLangBadge">Editing in English (EN)</div>
               </div>
 
               <div class="admin-field">
