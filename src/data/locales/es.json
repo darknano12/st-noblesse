@@ -46,7 +46,8 @@
     "filter_fresh": "Fresco",
     "quick_view": "Vista Rápida",
     "from": "desde",
-    "add_to_bag": "Añadir a la Cesta"
+    "add_to_bag": "Añadir a la Cesta",
+    "out_of_stock": "Agotado"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -224,7 +225,10 @@
     "review_author_required": "Por favor ingrese el nombre del autor.",
     "review_text_required": "Por favor ingrese el texto de la reseña.",
     "field_discount": "Descuento (%)",
-    "field_discount_label": "Etiqueta de la promoción (ej: Descuento de otoño)"
+    "field_discount_label": "Etiqueta de la promoción (ej: Descuento de otoño)",
+    "field_in_stock": "Disponibilidad de stock",
+    "stock_in": "En stock (Disponible)",
+    "stock_out": "Agotado (No disponible)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Fragancias de autor — para quienes eligen la huella perdurable, no el ruido.",

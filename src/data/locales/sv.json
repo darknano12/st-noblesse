@@ -46,7 +46,8 @@
     "filter_fresh": "Frisk",
     "quick_view": "Snabbvy",
     "from": "från",
-    "add_to_bag": "Lägg i Varukorgen"
+    "add_to_bag": "Lägg i Varukorgen",
+    "out_of_stock": "Slutsåld"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -219,7 +220,10 @@
     "review_author_required": "Vänligen ange författarens namn.",
     "review_text_required": "Vänligen ange recensionstexten.",
     "field_discount": "Rabatt (%)",
-    "field_discount_label": "Kampanjnamn / rabattetikett (t.ex. Höstrabatt)"
+    "field_discount_label": "Kampanjnamn / rabattetikett (t.ex. Höstrabatt)",
+    "field_in_stock": "Lagertillgänglighet",
+    "stock_in": "I lager (Tillgänglig)",
+    "stock_out": "Slutsåld (Ej tillgänglig)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exklusiva författardofter — för dem som väljer spåret, inte bruset.",

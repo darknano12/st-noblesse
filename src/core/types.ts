@@ -48,6 +48,8 @@ export interface Product {
   discountPercent?: number;
   /** Optional promotion / discount label, e.g. "Autumn Privilege", "Winter Privilege" */
   discountLabel?: string;
+  /** In-stock availability, defaults to true */
+  inStock?: boolean;
 }
 
 /** Composite cart key: `${productId}::${volume}` */
@@ -203,5 +205,6 @@ export interface ProductFormData {
   price_100: number;
   discount_percent?: number;
   discount_label?: string;
+  in_stock?: boolean;
   image?: string;
 }

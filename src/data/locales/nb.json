@@ -46,7 +46,8 @@
     "filter_fresh": "Frisk",
     "quick_view": "Hurtigvisning",
     "from": "fra",
-    "add_to_bag": "Legg i Handlekurv"
+    "add_to_bag": "Legg i Handlekurv",
+    "out_of_stock": "Utsolgt"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -219,7 +220,10 @@
     "review_author_required": "Vennligst skriv inn forfatterens navn.",
     "review_text_required": "Vennligst skriv inn anmeldelsesteksten.",
     "field_discount": "Rabatt (%)",
-    "field_discount_label": "Kampanjenavn / rabattetikett (f.eks. Høstrabatt)"
+    "field_discount_label": "Kampanjenavn / rabattetikett (f.eks. Høstrabatt)",
+    "field_in_stock": "Lagertilgjengelighet",
+    "stock_in": "På lager (Tilgjengelig)",
+    "stock_out": "Utsolgt (Ikke tilgjengelig)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Eksklusive signaturdufter — for de som velger sporene, ikke støyen.",

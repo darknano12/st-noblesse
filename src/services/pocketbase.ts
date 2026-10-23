@@ -128,6 +128,7 @@ export class PocketBaseService {
         rev: Number(r.reviews_count) || 100,
         discountPercent: typeof r.discount_percent === 'number' && r.discount_percent > 0 ? r.discount_percent : (r.discountPercent ? Number(r.discountPercent) : undefined),
         discountLabel: r.discount_label || r.discountLabel || undefined,
+        inStock: r.in_stock !== false && r.inStock !== false,
       }));
       this.saveLocalProducts(mapped);
       return mapped;
@@ -571,6 +572,7 @@ export class PocketBaseService {
       price_100: form.price_100,
       discount_percent: typeof form.discount_percent === 'number' ? form.discount_percent : 0,
       discount_label: form.discount_label || '',
+      in_stock: form.in_stock !== false,
       image: form.image !== undefined ? form.image : '',
     };
 
@@ -639,6 +641,7 @@ export class PocketBaseService {
           rev: Number(r.reviews_count) || 100,
           discountPercent: typeof r.discount_percent === 'number' && r.discount_percent > 0 ? r.discount_percent : (form.discount_percent ? Number(form.discount_percent) : undefined),
           discountLabel: r.discount_label || form.discount_label || undefined,
+          inStock: form.in_stock !== undefined ? form.in_stock : (r.in_stock !== false),
         };
         this.updateLocalProduct(savedProd);
         return savedProd;
@@ -669,6 +672,7 @@ export class PocketBaseService {
       rev: 1,
       discountPercent: typeof form.discount_percent === 'number' && form.discount_percent > 0 ? form.discount_percent : undefined,
       discountLabel: form.discount_label || undefined,
+      inStock: form.in_stock !== false,
     };
     this.updateLocalProduct(offlineProd);
     return offlineProd;

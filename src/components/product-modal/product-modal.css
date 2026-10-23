@@ -194,6 +194,22 @@
   display: block;
 }
 
+#mdAdd.btn-soldout,
+#mdAdd:disabled {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: var(--muted2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+#mdAdd.btn-soldout::after,
+#mdAdd:disabled::after {
+  display: none !important;
+}
+
 @media (max-width: 680px) {
   .md-panel {
     grid-template-columns: 1fr;

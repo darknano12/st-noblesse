@@ -146,6 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
     qty = 1,
     fromModal = false
   ) {
+    const p = catalog.byId(productId);
+    if (p && p.inStock === false) {
+      bus.emit('toast:show', {
+        html: t('catalog.out_of_stock') || 'Out of Stock',
+        duration: 3000,
+      });
+      return;
+    }
+
     if (!pb.getCurrentUser()) {
       pendingCartItem = { productId, volume, qty };
       bus.emit('toast:show', {
@@ -160,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     cart.add(productId, volume, qty);
-    const p = catalog.byId(productId);
     if (p) {
       bus.emit('toast:show', {
         html: t('toast.added_with_details', { name: p.name, volume }),
@@ -186,8 +194,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (user && pendingCartItem) {
       const item = pendingCartItem;
       pendingCartItem = null;
-      cart.add(item.productId, item.volume, item.qty);
       const p = catalog.byId(item.productId);
+      if (p && p.inStock === false) {
+        bus.emit('toast:show', {
+          html: t('catalog.out_of_stock') || 'Out of Stock',
+          duration: 3000,
+        });
+        return;
+      }
+      cart.add(item.productId, item.volume, item.qty);
       if (p) {
         bus.emit('toast:show', {
           html: t('toast.added_with_details', { name: p.name, volume: item.volume }),

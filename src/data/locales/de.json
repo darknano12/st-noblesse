@@ -46,7 +46,8 @@
     "filter_fresh": "Frisch",
     "quick_view": "Schnellansicht",
     "from": "ab",
-    "add_to_bag": "In den Warenkorb"
+    "add_to_bag": "In den Warenkorb",
+    "out_of_stock": "Nicht vorrätig"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -224,7 +225,10 @@
     "review_author_required": "Bitte geben Sie den Namen des Verfassers ein.",
     "review_text_required": "Bitte geben Sie den Bewertungstext ein.",
     "field_discount": "Rabatt (%)",
-    "field_discount_label": "Aktions- / Rabattbezeichnung (z.B. Herbst-Rabatt)"
+    "field_discount_label": "Aktions- / Rabattbezeichnung (z.B. Herbst-Rabatt)",
+    "field_in_stock": "Lagerverfügbarkeit",
+    "stock_in": "Vorrätig (Verfügbar)",
+    "stock_out": "Nicht vorrätig (Nicht verfügbar)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Autorenparfums — für jene, die die bleibende Signatur über das Laute stellen.",

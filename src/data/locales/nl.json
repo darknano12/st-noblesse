@@ -46,7 +46,8 @@
     "filter_fresh": "Fris",
     "quick_view": "Snelle Weergave",
     "from": "vanaf",
-    "add_to_bag": "In Winkelmand"
+    "add_to_bag": "In Winkelmand",
+    "out_of_stock": "Niet op voorraad"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -219,7 +220,10 @@
     "review_author_required": "Voer de naam van de auteur in.",
     "review_text_required": "Voer de recensietekst in.",
     "field_discount": "Korting (%)",
-    "field_discount_label": "Promotie- / kortingslabel (bijv. Herfstkorting)"
+    "field_discount_label": "Promotie- / kortingslabel (bijv. Herfstkorting)",
+    "field_in_stock": "Voorraadbeschikbaarheid",
+    "stock_in": "Op voorraad (Beschikbaar)",
+    "stock_out": "Niet op voorraad (Niet beschikbaar)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exquise auteursparfums — voor wie kiest voor het spoor, niet het lawaai.",

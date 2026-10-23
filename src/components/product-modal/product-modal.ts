@@ -96,8 +96,10 @@ export function initProductModal(
 
     const localizedFamKey = `catalog.filter_${product.fam}`;
     const famText = t(localizedFamKey) !== localizedFamKey ? t(localizedFamKey) : product.fam;
+    const isSoldOut = product.inStock === false;
+    const soldOutText = t('catalog.out_of_stock') || 'Out of Stock';
 
-    const metaParts = [famText, localizedBadge, saleTag].filter(Boolean);
+    const metaParts = [famText, localizedBadge, saleTag, isSoldOut ? soldOutText : ''].filter(Boolean);
     mdFam.textContent = metaParts.join(' · ');
     mdName.textContent = localizedName;
     mdImg.alt = localizedName;
@@ -111,6 +113,16 @@ export function initProductModal(
       row(t('modal.notes_heart'), product.notes.heart) +
       row(t('modal.notes_base'), product.notes.base);
     renderVolumes();
+
+    if (isSoldOut) {
+      mdAdd.disabled = true;
+      mdAdd.textContent = soldOutText;
+      mdAdd.classList.add('btn-soldout');
+    } else {
+      mdAdd.disabled = false;
+      mdAdd.textContent = t('modal.add_to_bag') || 'Add to Bag';
+      mdAdd.classList.remove('btn-soldout');
+    }
   }
 
   /* ---- open / close ---- */
@@ -158,7 +170,7 @@ export function initProductModal(
   });
 
   mdAdd.addEventListener('click', () => {
-    if (!current) return;
+    if (!current || current.inStock === false) return;
     bus.emit('modal:add-to-cart', {
       productId: current.id,
       volume: selectedVolume,

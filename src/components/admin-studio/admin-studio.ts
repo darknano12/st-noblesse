@@ -58,6 +58,20 @@ export function initAdminStudio(
   const notesTopInput = must<HTMLInputElement>('#adminProductNotesTop');
   const notesHeartInput = must<HTMLInputElement>('#adminProductNotesHeart');
   const notesBaseInput = must<HTMLInputElement>('#adminProductNotesBase');
+  const inStockCheckbox = must<HTMLInputElement>('#adminProductInStock');
+  const stockStatusLabel = must<HTMLElement>('#adminStockStatusLabel');
+
+  function updateStockStatusUi(inStock: boolean) {
+    inStockCheckbox.checked = inStock;
+    stockStatusLabel.textContent = inStock
+      ? (t('admin.stock_in') || 'In Stock (Available)')
+      : (t('admin.stock_out') || 'Out of Stock (Unavailable)');
+    stockStatusLabel.style.color = inStock ? 'var(--gold-soft)' : '#e08282';
+  }
+
+  inStockCheckbox.addEventListener('change', () => {
+    updateStockStatusUi(inStockCheckbox.checked);
+  });
 
   // Device Image upload elements
   const uploadZone = must('#adminUploadZone');
@@ -672,6 +686,7 @@ export function initAdminStudio(
     price50Input.value = String(p.price?.['50'] || 89);
     price100Input.value = String(p.price?.['100'] || 129);
     discountInput.value = p.discountPercent ? String(p.discountPercent) : '';
+    updateStockStatusUi(p.inStock !== false);
 
     nameMap = parseFieldLocales(p.name);
     badgeMap = parseFieldLocales(p.badge);
@@ -706,6 +721,7 @@ export function initAdminStudio(
     price50Input.value = '95';
     price100Input.value = '145';
     discountInput.value = '';
+    updateStockStatusUi(true);
 
     nameMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
     badgeMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
@@ -745,13 +761,16 @@ export function initAdminStudio(
       const discountTag = displayDiscountLabel
         ? `<span class="admin-item-discount">${escapeHtml(displayDiscountLabel)}${p.discountPercent ? ` -${p.discountPercent}%` : ''}</span>`
         : (p.discountPercent ? `<span class="admin-item-discount">-${p.discountPercent}%</span>` : '');
+      const stockBadge = p.inStock === false
+        ? `<span class="admin-item-stock-out">${escapeHtml(t('catalog.out_of_stock') || 'Out of Stock')}</span>`
+        : '';
 
       item.innerHTML = `
         <img class="admin-item-thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(displayName)}" />
         <div class="admin-item-info">
           <div class="admin-item-name">${escapeHtml(displayName)}</div>
           <div class="admin-item-meta">${escapeHtml(p.fam)} · ${escapeHtml(p.gender)}</div>
-          <div class="admin-item-price">€${p.price['50']} / €${p.price['100']} ${discountTag}</div>
+          <div class="admin-item-price" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">€${p.price['50']} / €${p.price['100']} ${discountTag} ${stockBadge}</div>
         </div>
       `;
 
@@ -787,6 +806,7 @@ export function initAdminStudio(
       price_100: Number(price100Input.value),
       discount_percent: discountInput.value ? Math.max(0, Math.min(99, Number(discountInput.value))) : undefined,
       discount_label: finalDiscountLabel || undefined,
+      in_stock: inStockCheckbox.checked,
       notes_top: notesTopInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       notes_heart: notesHeartInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       notes_base: notesBaseInput.value.split(',').map((s) => s.trim()).filter(Boolean),
@@ -855,6 +875,10 @@ export function initAdminStudio(
   });
 
   bus.on('admin:open', () => open());
+  bus.on('i18n:change', () => {
+    updateStockStatusUi(inStockCheckbox.checked);
+    renderList();
+  });
 
   const api: AdminStudioApi = {
     open,

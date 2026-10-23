@@ -46,7 +46,8 @@
     "filter_fresh": "Fresh",
     "quick_view": "Quick View",
     "from": "from",
-    "add_to_bag": "Add to Bag"
+    "add_to_bag": "Add to Bag",
+    "out_of_stock": "Out of Stock"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -224,7 +225,10 @@
     "review_author_required": "Please enter reviewer name.",
     "review_text_required": "Please enter review text.",
     "field_discount": "Discount (%)",
-    "field_discount_label": "Promotion / Discount Label (e.g. Autumn Offer)"
+    "field_discount_label": "Promotion / Discount Label (e.g. Autumn Offer)",
+    "field_in_stock": "Stock Availability",
+    "stock_in": "In Stock (Available)",
+    "stock_out": "Out of Stock (Unavailable)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exquisite authorial fragrances — for those who choose the trace, not the noise.",

@@ -46,7 +46,8 @@
     "filter_woody": "Boisé",
     "quick_view": "Aperçu Rapide",
     "from": "à partir de",
-    "add_to_bag": "Ajouter au Panier"
+    "add_to_bag": "Ajouter au Panier",
+    "out_of_stock": "Épuisé"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -224,7 +225,10 @@
     "review_author_required": "Veuillez saisir le nom de l'auteur.",
     "review_text_required": "Veuillez saisir le texte de l'avis.",
     "field_discount": "Remise (%)",
-    "field_discount_label": "Libellé de la promotion / remise (ex: Offre d'Automne)"
+    "field_discount_label": "Libellé de la promotion / remise (ex: Offre d'Automne)",
+    "field_in_stock": "Disponibilité en stock",
+    "stock_in": "En stock (Disponible)",
+    "stock_out": "Épuisé (Indisponible)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Parfums d'auteur — pour ceux qui choisissent le sillage, pas le bruit.",

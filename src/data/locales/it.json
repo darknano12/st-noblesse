@@ -46,7 +46,8 @@
     "filter_fresh": "Fresco",
     "quick_view": "Anteprima Rapida",
     "from": "da",
-    "add_to_bag": "Aggiungi al Carrello"
+    "add_to_bag": "Aggiungi al Carrello",
+    "out_of_stock": "Esaurito"
   },
   "reviews": {
     "kicker": "Témoignages",
@@ -219,7 +220,10 @@
     "review_author_required": "Inserisci il nome dell'autore.",
     "review_text_required": "Inserisci il testo della recensione.",
     "field_discount": "Sconto (%)",
-    "field_discount_label": "Etichetta promozione (es. Sconto d'Autunno)"
+    "field_discount_label": "Etichetta promozione (es. Sconto d'Autunno)",
+    "field_in_stock": "Disponibilità in magazzino",
+    "stock_in": "Disponibile in magazzino",
+    "stock_out": "Esaurito (Non disponibile)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Profumi d'autore esclusivi — per chi sceglie la scia indelebile, non il rumore.",

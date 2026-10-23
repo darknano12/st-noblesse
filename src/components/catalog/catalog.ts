@@ -78,6 +78,8 @@ export function initCatalog(
     const fromText = t('catalog.from');
     const qvText = t('catalog.quick_view');
     const addLabel = t('catalog.add_to_bag');
+    const isSoldOut = p.inStock === false;
+    const soldOutText = t('catalog.out_of_stock') || 'Out of Stock';
 
     const effectivePrice50 = p.discountPercent && p.discountPercent > 0
       ? Math.round(p.price['50'] * (1 - p.discountPercent / 100))
@@ -101,9 +103,14 @@ export function initCatalog(
       saleBadgeHtml = `<span class="badge badge-sale">${escapeHtml(saleText)}</span>`;
     }
 
+    let soldOutBadgeHtml = '';
+    if (isSoldOut) {
+      soldOutBadgeHtml = `<span class="badge badge-soldout">${escapeHtml(soldOutText)}</span>`;
+    }
+
     let badgesHtml = '';
-    if (goldBadgeHtml || saleBadgeHtml) {
-      badgesHtml = `<div class="pc-badges">${goldBadgeHtml}${saleBadgeHtml}</div>`;
+    if (goldBadgeHtml || saleBadgeHtml || soldOutBadgeHtml) {
+      badgesHtml = `<div class="pc-badges">${goldBadgeHtml}${saleBadgeHtml}${soldOutBadgeHtml}</div>`;
     }
 
     let priceHtml = '';
@@ -113,8 +120,16 @@ export function initCatalog(
       priceHtml = `<span class="pc-price">${escapeHtml(fromText)} ${formatPrice(p.price['50'])}</span>`;
     }
 
+    const addBtnHtml = isSoldOut
+      ? `<button class="pc-add pc-add-disabled" type="button" disabled aria-label="${escapeHtml(soldOutText)}" title="${escapeHtml(soldOutText)}">` +
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><line x1="8" y1="12" x2="16" y2="12"/></svg>` +
+        `</button>`
+      : `<button class="pc-add" type="button" data-add aria-label="${escapeHtml(addLabel)}">` +
+        `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>` +
+        `</button>`;
+
     return (
-      `<article class="pc pc-out" data-id="${escapeHtml(p.id)}" style="transition-delay:${delay}ms">` +
+      `<article class="pc pc-out${isSoldOut ? ' pc-soldout' : ''}" data-id="${escapeHtml(p.id)}" style="transition-delay:${delay}ms">` +
       `<div class="pc-media" data-view>` +
       badgesHtml +
       `<img src="${escapeHtml(img)}" alt="${escapeHtml(localizedName)}" loading="lazy">` +
@@ -124,10 +139,7 @@ export function initCatalog(
       `<span class="pc-fam">${escapeHtml(famText)} · ${escapeHtml(p.gender)}</span>` +
       `<h3 class="pc-name">${escapeHtml(localizedName)}</h3>` +
       `<p class="pc-notes">${escapeHtml(noteLine(p))}</p>` +
-      `<div class="pc-row">${priceHtml}` +
-      `<button class="pc-add" type="button" data-add aria-label="${escapeHtml(addLabel)}">` +
-      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>` +
-      `</button></div></div></article>`
+      `<div class="pc-row">${priceHtml}${addBtnHtml}</div></div></article>`
     );
   }
 
