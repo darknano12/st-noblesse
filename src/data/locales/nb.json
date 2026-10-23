@@ -217,7 +217,9 @@
     "lang_saved_toast": "Språkinnstillinger lagret",
     "title": "Boutique Studio",
     "review_author_required": "Vennligst skriv inn forfatterens navn.",
-    "review_text_required": "Vennligst skriv inn anmeldelsesteksten."
+    "review_text_required": "Vennligst skriv inn anmeldelsesteksten.",
+    "field_discount": "Rabatt (%)",
+    "field_discount_label": "Kampanjenavn / rabattetikett (f.eks. Høstrabatt)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Eksklusive signaturdufter — for de som velger sporene, ikke støyen.",
@@ -237,17 +239,17 @@
     "rights": "Alle rettigheter forbeholdt."
   },
   "privileges": {
-    "kicker": "Maison Privilegier",
-    "title": "Kunsten å Samle · <em>3. Flakong Som Gave</em>",
+    "kicker": "Sesongprivilegium · Høst og Vinter",
+    "title": "Førlanseringstilbud · <em>3. Flakong Som Gave</em>",
     "subtitle": "Eksklusive fordeler for våre kresne kunder. Kostbare gaver og diskret luksus ved hver bestilling.",
-    "offer_badge": "Eksklusivt Maison-Privilegium",
+    "offer_badge": "Eksklusivt Sesongprivilegium",
     "offer_kicker": "Eksepsjonelt Tilbud",
     "offer_title": "Kjøp 2 Flakonger, den 3. Får Du i Gave",
     "offer_desc": "Kjøp to håndlagde flakonger etter eget valg, og motta en tredje flakong med våre komplimenter. Fordelen trekkes automatisk fra i handleposen.",
     "hl_auto": "Automatisk i handleposen — ingen kode nødvendig",
     "hl_mix": "Kombiner fritt mellom 50ml og 100ml",
     "hl_stack": "Kan kombineres med gratis frakt og velkomstkoder",
-    "cta_compose": "Sett Sammen Din Trio",
+    "cta_compose": "Utforsk Høst- og Vinterkolleksjonen",
     "tag_offert": "Gave",
     "seal_text": "3. Flakong Som Gave",
     "perk1_title": "Velkomstprivilegium",
@@ -258,6 +260,9 @@
     "perk2_meta": "Sendes innen 24 timer",
     "perk3_title": "Trio av Duftprøver",
     "perk3_desc": "Hver bestilling følges av tre forseglede 2ml oppdagelsesprøver for å oppleve duften før forseglingen brytes.",
-    "perk3_meta": "Inkludert med våre komplimenter"
+    "perk3_meta": "Inkludert med våre komplimenter",
+    "client_note": "Før det offisielle salget starter, gjelder et eksklusivt høst- og vintertilbud: Ved kjøp av to flakonger fra kolleksjonen mottar du den tredje flakongen som gave.",
+    "hl_seasonal": "Eksklusiv førpremiere-utgave for høst- og vintersesongen",
+    "cta_explore": "Utforsk Høst- og Vinterkolleksjonen"
   }
 }

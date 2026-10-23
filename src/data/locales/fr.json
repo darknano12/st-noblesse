@@ -222,7 +222,9 @@
     "confirm_delete": "Êtes-vous sûr de vouloir retirer ce parfum du catalogue ?",
     "title": "Studio Boutique",
     "review_author_required": "Veuillez saisir le nom de l'auteur.",
-    "review_text_required": "Veuillez saisir le texte de l'avis."
+    "review_text_required": "Veuillez saisir le texte de l'avis.",
+    "field_discount": "Remise (%)",
+    "field_discount_label": "Libellé de la promotion / remise (ex: Offre d'Automne)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Parfums d'auteur — pour ceux qui choisissent le sillage, pas le bruit.",
@@ -242,17 +244,17 @@
     "rights": "Tous droits réservés."
   },
   "privileges": {
-    "kicker": "Privilèges Maison",
-    "title": "L'Art de l'Acquisition · <em>3ème Flacon Offert</em>",
+    "kicker": "Privilège Saisonnier · Automne & Hiver",
+    "title": "Offre d'Avant-Première · <em>3ème Flacon Offert</em>",
     "subtitle": "Des égards exclusifs réservés à notre clientèle d'exception. Trésors offerts et attentions sur mesure pour chaque commande.",
-    "offer_badge": "Privilège Exclusif de la Maison",
+    "offer_badge": "Privilège Saisonnier Exclusif",
     "offer_kicker": "Offre Exceptionnelle",
     "offer_title": "2 Flacons Achetés, le 3ème Flacon Offert",
     "offer_desc": "Pour l'acquisition de deux flacons de haute parfumerie, un troisième flacon vous est offert avec nos compliments. La déduction s'applique automatiquement dans votre panier.",
-    "hl_auto": "Application automatique dans le panier",
+    "hl_auto": "Application automatique dans le panier — sans code requis",
     "hl_mix": "Combinez librement flacons 50ml et 100ml",
     "hl_stack": "Cumulable avec la livraison offerte et les privilèges",
-    "cta_compose": "Composer Mon Trio",
+    "cta_compose": "Découvrir la Collection Automne & Hiver",
     "tag_offert": "Offert",
     "seal_text": "3ème Flacon Offert",
     "perk1_title": "Privilège de Bienvenue",
@@ -263,6 +265,9 @@
     "perk2_meta": "Expédié sous 24 heures",
     "perk3_title": "Trio d'Échantillons de Découverte",
     "perk3_desc": "Chaque flacon s'accompagne de trois fioles de 2ml scellées pour découvrir l'essence avant d'ouvrir votre flacon.",
-    "perk3_meta": "Offert avec chaque commande"
+    "perk3_meta": "Offert avec chaque commande",
+    "client_note": "En prélude au lancement officiel, profitez d'une offre saisonnière d'exception pour l'automne et l'hiver : pour deux flacons acquis, le troisième vous est offert avec nos compliments.",
+    "hl_seasonal": "Édition exclusive d'avant-première pour la saison automne-hiver",
+    "cta_explore": "Découvrir la Collection Automne & Hiver"
   }
 }

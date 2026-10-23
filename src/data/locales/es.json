@@ -222,7 +222,9 @@
     "confirm_delete": "¿Está seguro de que desea retirar esta fragancia del catálogo?",
     "title": "Estudio Boutique",
     "review_author_required": "Por favor ingrese el nombre del autor.",
-    "review_text_required": "Por favor ingrese el texto de la reseña."
+    "review_text_required": "Por favor ingrese el texto de la reseña.",
+    "field_discount": "Descuento (%)",
+    "field_discount_label": "Etiqueta de la promoción (ej: Descuento de otoño)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Fragancias de autor — para quienes eligen la huella perdurable, no el ruido.",
@@ -242,17 +244,17 @@
     "rights": "Todos los derechos reservados."
   },
   "privileges": {
-    "kicker": "Privilegios Maison",
-    "title": "El Arte de Coleccionar · <em>3.er Frasco de Cortesía</em>",
+    "kicker": "Privilegio de Temporada · Otoño e Invierno",
+    "title": "Oferta de Lanzamiento · <em>3.er Frasco de Cortesía</em>",
     "subtitle": "Atenciones exclusivas para nuestros clientes más distinguidos. Obsequios selectos en cada pedido.",
-    "offer_badge": "Privilegio Exclusivo de la Maison",
+    "offer_badge": "Privilegio Exclusivo de Temporada",
     "offer_kicker": "Oferta Excepcional",
     "offer_title": "Compre 2 Frascos, el 3.° es de Cortesía",
     "offer_desc": "Adquiera dos frascos de alta perfumería a su elección y reciba un tercer frasco con nuestros cumplidos. El descuento se aplica automáticamente en la cesta.",
     "hl_auto": "Automático en la cesta: no requiere código",
     "hl_mix": "Combine formatos de 50ml y 100ml a su gusto",
     "hl_stack": "Compatible con envío gratuito y privilegios de bienvenida",
-    "cta_compose": "Componer Mi Trío",
+    "cta_compose": "Descubrir la Colección de Otoño e Invierno",
     "tag_offert": "De Cortesía",
     "seal_text": "3.er Frasco de Cortesía",
     "perk1_title": "Privilegio de Bienvenida",
@@ -263,6 +265,9 @@
     "perk2_meta": "Envío en un plazo de 24 horas",
     "perk3_title": "Trío de Muestras Exclusivas",
     "perk3_desc": "Cada frasco va acompañado de tres viales sellados de 2ml para degustar la fragancia antes de abrirla.",
-    "perk3_meta": "Incluido con nuestros cumplidos"
+    "perk3_meta": "Incluido con nuestros cumplidos",
+    "client_note": "Antes del inicio de las ventas oficiales, disfrute de un privilegio de temporada de otoño e invierno: por la compra de dos frascos de la colección, el tercero es de cortesía.",
+    "hl_seasonal": "Edición exclusiva de prelanzamiento para la temporada de otoño e invierno",
+    "cta_explore": "Descubrir la Colección de Otoño e Invierno"
   }
 }

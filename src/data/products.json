@@ -1,23 +1,32 @@
 [
   {
     "id": "azure-epure",
+    "recordId": "demo_1792769642696",
     "img": "",
     "name": "Azure Épure",
     "fam": "fresh",
     "gender": "Unisex",
     "badge": "Signature",
-    "desc": "Our priority fragrance — fresh, elegant and the finest place to begin. Azure-clean air, cool iris and white musk: a cloudless sky, made wearable.",
+    "desc": "Azure-clean air and iris.",
     "notes": {
-      "top": ["Bergamot", "Neroli", "Lemon"],
-      "heart": ["Iris", "Green Tea"],
-      "base": ["White Musk", "Cedar"]
+      "top": [
+        "Bergamot"
+      ],
+      "heart": [
+        "Iris"
+      ],
+      "base": [
+        "Musk"
+      ]
     },
     "price": {
       "50": 89,
       "100": 129
     },
-    "rating": 4.9,
-    "rev": 187
+    "rating": 5,
+    "rev": 1,
+    "discountPercent": 20,
+    "discountLabel": "Осенняя скидка"
   },
   {
     "id": "ambre-velours",
@@ -28,9 +37,18 @@
     "badge": "",
     "desc": "The sweeter side of the House: golden amber, Bourbon vanilla and benzoin, wrapped in the warmth of velvet.",
     "notes": {
-      "top": ["Bitter Orange"],
-      "heart": ["Amber", "Benzoin", "Rose"],
-      "base": ["Bourbon Vanilla", "Tonka Bean"]
+      "top": [
+        "Bitter Orange"
+      ],
+      "heart": [
+        "Amber",
+        "Benzoin",
+        "Rose"
+      ],
+      "base": [
+        "Bourbon Vanilla",
+        "Tonka Bean"
+      ]
     },
     "price": {
       "50": 99,
@@ -48,15 +66,24 @@
     "badge": "",
     "desc": "Serene oud: Laotian oud and cedar, deepened by sandalwood — woody, quiet and certain, without a trace of harshness.",
     "notes": {
-      "top": ["Saffron"],
-      "heart": ["Laotian Oud", "Cedar"],
-      "base": ["Sandalwood", "Vetiver", "Grey Amber"]
+      "top": [
+        "Saffron"
+      ],
+      "heart": [
+        "Laotian Oud",
+        "Cedar"
+      ],
+      "base": [
+        "Sandalwood",
+        "Vetiver",
+        "Grey Amber"
+      ]
     },
     "price": {
       "50": 119,
       "100": 159
     },
-    "rating": 5.0,
+    "rating": 5,
     "rev": 96
   }
 ]

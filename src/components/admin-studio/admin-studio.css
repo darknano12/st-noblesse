@@ -793,6 +793,19 @@
   }
 }
 
+.admin-item-discount {
+  display: inline-block;
+  background: rgba(184, 107, 54, 0.25);
+  border: 1px solid rgba(236, 170, 118, 0.45);
+  color: #f7cbb1;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
 @media (max-width: 680px) {
   #adminStudioModal {
     padding: 8px;

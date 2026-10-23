@@ -217,7 +217,9 @@
     "lang_saved_toast": "Taalinstellingen succesvol opgeslagen",
     "title": "Boutique Studio",
     "review_author_required": "Voer de naam van de auteur in.",
-    "review_text_required": "Voer de recensietekst in."
+    "review_text_required": "Voer de recensietekst in.",
+    "field_discount": "Korting (%)",
+    "field_discount_label": "Promotie- / kortingslabel (bijv. Herfstkorting)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exquise auteursparfums — voor wie kiest voor het spoor, niet het lawaai.",
@@ -237,17 +239,17 @@
     "rights": "Alle rechten voorbehouden."
   },
   "privileges": {
-    "kicker": "Maison Privileges",
-    "title": "De Kunst van het Verwerven · <em>3e Flacon Cadeau</em>",
+    "kicker": "Seizoensprivilege · Herfst & Winter",
+    "title": "Pre-Launch Privilege · <em>3e Flacon Cadeau</em>",
     "subtitle": "Exclusieve privileges voor onze gewaardeerde patrons. Kostbare geschenken en persoonlijke attenties bij elke bestelling.",
-    "offer_badge": "Exclusief Maison Privilege",
+    "offer_badge": "Exclusief Seizoensprivilege",
     "offer_kicker": "Uitzonderlijk Aanbod",
     "offer_title": "Koop 2 Flacons, de 3e is Ons Geschenk",
     "offer_desc": "Verwerf twee ambachtelijke flacons naar keuze en ontvang een derde flacon met onze complimenten. Het privilege wordt automatisch verrekend in uw mand.",
     "hl_auto": "Automatisch in winkelmand — geen code vereist",
     "hl_mix": "Vrij combineerbaar met 50ml en 100ml",
     "hl_stack": "Combineerbaar met gratis verzending en welkomstprivileges",
-    "cta_compose": "Stel Uw Trio Samen",
+    "cta_compose": "Ontdek de Herfst- & Wintercollectie",
     "tag_offert": "Cadeau",
     "seal_text": "3e Flacon Cadeau",
     "perk1_title": "Welkomstprivilege",
@@ -258,6 +260,9 @@
     "perk2_meta": "Verzonden binnen 24 uur",
     "perk3_title": "Trio van Ontdekkingsvials",
     "perk3_desc": "Elke flacon gaat vergezeld van drie verzegelde 2ml monsters om te ontdekken voor het ontzegelen.",
-    "perk3_meta": "Inbegrepen met onze complimenten"
+    "perk3_meta": "Inbegrepen met onze complimenten",
+    "client_note": "Voorafgaand aan de officiële seizoenslancering geniet u van een exclusief herfst- en winterprivilege: bij aankoop van twee flacons ontvangt u de derde kosteloos als geschenk.",
+    "hl_seasonal": "Exclusieve pre-launch editie voor het herfst- en winterseizoen",
+    "cta_explore": "Ontdek de Herfst- & Wintercollectie"
   }
 }

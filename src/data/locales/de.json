@@ -222,7 +222,9 @@
     "confirm_delete": "Möchten Sie diese Kreation wirklich aus dem Katalog entfernen?",
     "title": "Boutique Studio",
     "review_author_required": "Bitte geben Sie den Namen des Verfassers ein.",
-    "review_text_required": "Bitte geben Sie den Bewertungstext ein."
+    "review_text_required": "Bitte geben Sie den Bewertungstext ein.",
+    "field_discount": "Rabatt (%)",
+    "field_discount_label": "Aktions- / Rabattbezeichnung (z.B. Herbst-Rabatt)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Autorenparfums — für jene, die die bleibende Signatur über das Laute stellen.",
@@ -242,17 +244,17 @@
     "rights": "Alle Rechte vorbehalten."
   },
   "privileges": {
-    "kicker": "Maison Privilegien",
-    "title": "Die Kunst des Schenkens · <em>3. Flakon Gratis</em>",
+    "kicker": "Saisonales Privileg · Herbst & Winter",
+    "title": "Vorverkaufs-Privileg · <em>3. Flakon Als Geschenk</em>",
     "subtitle": "Exklusive Vorzüge für unsere anspruchsvollen Kunden. Kostbare Geschenke und feine Aufmerksamkeiten bei jeder Bestellung.",
-    "offer_badge": "Exklusives Maison-Privileg",
+    "offer_badge": "Exklusives Saisonales Privileg",
     "offer_kicker": "Außergewöhnliches Angebot",
     "offer_title": "2 Flakons Erwerben, der 3. Flakon ist Ihr Geschenk",
     "offer_desc": "Erwerben Sie zwei kunstvoll komponierte Flakons Ihrer Wahl und erhalten Sie einen dritten Flakon als Geschenk der Maison. Die Ermäßigung wird im Warenkorb automatisch verrechnet.",
     "hl_auto": "Automatisch im Warenkorb — kein Code erforderlich",
     "hl_mix": "Frei kombinierbar zwischen 50ml und 100ml",
     "hl_stack": "Kombinierbar mit Gratisversand und Willkommens-Codes",
-    "cta_compose": "Trio Zusammenstellen",
+    "cta_compose": "Herbst- & Winterkollektion Entdecken",
     "tag_offert": "Geschenk",
     "seal_text": "3. Flakon Gratis",
     "perk1_title": "Willkommens-Privileg",
@@ -263,6 +265,9 @@
     "perk2_meta": "Versand innerhalb von 24 Stunden",
     "perk3_title": "Trio Erlesener Kostproben",
     "perk3_desc": "Jeder Bestellung liegen drei versiegelte 2ml-Entdeckungsfläschchen bei, um den Duft in Ruhe zu erleben.",
-    "perk3_meta": "Mit unseren Komplimenten beigelegt"
+    "perk3_meta": "Mit unseren Komplimenten beigelegt",
+    "client_note": "Vor Beginn des offiziellen Verkaufs gilt ein exklusives Herbst- und Winterprivileg: Beim Kauf von zwei Flakons aus der Kollektion erhalten Sie den dritten Flakon als Geschenk der Maison.",
+    "hl_seasonal": "Exklusive Vorab-Edition für die Herbst- und Wintersaison",
+    "cta_explore": "Herbst- & Winterkollektion Entdecken"
   }
 }

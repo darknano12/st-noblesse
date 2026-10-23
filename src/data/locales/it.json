@@ -217,7 +217,9 @@
     "lang_saved_toast": "Impostazioni lingua salvate con successo",
     "title": "Studio Boutique",
     "review_author_required": "Inserisci il nome dell'autore.",
-    "review_text_required": "Inserisci il testo della recensione."
+    "review_text_required": "Inserisci il testo della recensione.",
+    "field_discount": "Sconto (%)",
+    "field_discount_label": "Etichetta promozione (es. Sconto d'Autunno)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Profumi d'autore esclusivi — per chi sceglie la scia indelebile, non il rumore.",
@@ -237,17 +239,17 @@
     "rights": "Tutti i diritti riservati."
   },
   "privileges": {
-    "kicker": "Privilegi Maison",
-    "title": "L'Arte dell'Acquisizione · <em>3° Flacone in Omaggio</em>",
+    "kicker": "Privilegio Stagionale · Autunno e Inverno",
+    "title": "Offerta di Anteprima · <em>3° Flacone in Omaggio</em>",
     "subtitle": "Riconoscimenti esclusivi dedicati ai nostri estimatori. Doni preziosi e premure sartoriali su ogni ordine.",
-    "offer_badge": "Privilegio Esclusivo della Maison",
+    "offer_badge": "Privilegio Stagionale Esclusivo",
     "offer_kicker": "Offerta Straordinaria",
     "offer_title": "Acquista 2 Flaconi, il 3° è in Omaggio",
     "offer_desc": "Scegli due flaconi d'arte olfattiva e ricevi un terzo flacone con i nostri complimenti. Lo sconto viene applicato automaticamente nella borsa degli acquisti.",
     "hl_auto": "Automatico nella borsa — nessun codice richiesto",
     "hl_mix": "Libera combinazione tra formati da 50ml e 100ml",
     "hl_stack": "Cumulabile con spedizione gratuita e codici di benvenuto",
-    "cta_compose": "Componi il Tuo Trio",
+    "cta_compose": "Scopri la Collezione Autunno & Inverno",
     "tag_offert": "In Omaggio",
     "seal_text": "3° Flacone in Omaggio",
     "perk1_title": "Privilegio di Benvenuto",
@@ -258,6 +260,9 @@
     "perk2_meta": "Spedito entro 24 ore",
     "perk3_title": "Trìo di Fiale di Scoperta",
     "perk3_desc": "Ogni flacone include tre fiale sigillate da 2ml per esplorare l'essenza prima dell'apertura.",
-    "perk3_meta": "Incluso con i nostri complimenti"
+    "perk3_meta": "Incluso con i nostri complimenti",
+    "client_note": "Prima del debutto ufficiale delle vendite, approfitti della speciale offerta autunno-inverno: acquistando due flaconi della collezione, il terzo Le viene offerto in omaggio.",
+    "hl_seasonal": "Edizione esclusiva di anteprima per la stagione autunno-inverno",
+    "cta_explore": "Scopri la Collezione Autunno & Inverno"
   }
 }

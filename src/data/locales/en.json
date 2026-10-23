@@ -222,7 +222,9 @@
     "confirm_delete": "Are you sure you want to remove this fragrance from the collection?",
     "title": "Boutique Studio",
     "review_author_required": "Please enter reviewer name.",
-    "review_text_required": "Please enter review text."
+    "review_text_required": "Please enter review text.",
+    "field_discount": "Discount (%)",
+    "field_discount_label": "Promotion / Discount Label (e.g. Autumn Offer)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exquisite authorial fragrances — for those who choose the trace, not the noise.",
@@ -242,17 +244,17 @@
     "rights": "All rights reserved."
   },
   "privileges": {
-    "kicker": "Privilèges Maison",
-    "title": "The Art of Acquisition · <em>3ème Flacon Offert</em>",
+    "kicker": "Seasonal Privilege · Autumn & Winter",
+    "title": "Pre-Launch Privilege · <em>3rd Flacon Complimentary</em>",
     "subtitle": "Exclusive benefits curated for our distinguished patrons. Complimentary treasures and bespoke courtesies on every order.",
-    "offer_badge": "Exclusive Maison Privilege",
+    "offer_badge": "Exclusive Seasonal Privilege",
     "offer_kicker": "Offre Exceptionnelle",
     "offer_title": "Buy 2 Flacons, the 3rd is Complimentary",
     "offer_desc": "Acquire two handcrafted flacons of your choice and receive a third flacon with our compliments. The complimentary flacon privilege is automatically deducted in your shopping bag.",
-    "hl_auto": "Automatic in bag — no promo code required",
-    "hl_mix": "Combine 50ml & 100ml flacons freely",
+    "hl_auto": "Automatic calculation in your shopping bag — no code required",
+    "hl_mix": "Combine 50ml & 100ml flacons across all fragrance families freely",
     "hl_stack": "Stacks with welcome privileges & free shipping",
-    "cta_compose": "Compose Your Trio",
+    "cta_compose": "Discover the Autumn & Winter Collection",
     "tag_offert": "Complimentary",
     "seal_text": "3ème Flacon Offert",
     "perk1_title": "Privilège Bienvenue",
@@ -263,6 +265,9 @@
     "perk2_meta": "Dispatched within 24 hours",
     "perk3_title": "Trio of Discovery Vials",
     "perk3_desc": "Every full bottle acquisition arrives with three 2ml sealed samples to explore the composition before unsealing.",
-    "perk3_meta": "Included with our compliments"
+    "perk3_meta": "Included with our compliments",
+    "client_note": "Ahead of the official seasonal release, enjoy an exclusive autumn & winter preview: acquire any two flacons and receive a complimentary third flacon with our compliments.",
+    "hl_seasonal": "Curated pre-launch edition for the autumn & winter season",
+    "cta_explore": "Discover the Autumn & Winter Collection"
   }
 }

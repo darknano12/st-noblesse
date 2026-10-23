@@ -192,6 +192,14 @@
   padding: 6px 12px;
 }
 
+.badge.badge-sale {
+  background: linear-gradient(135deg, #7c3a1e 0%, #b86b36 50%, #c8834d 100%);
+  color: #fff;
+  border: 1px solid rgba(236, 217, 168, 0.35);
+  letter-spacing: 0.14em;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
 .qv {
   position: absolute;
   z-index: 2;

@@ -46,19 +46,36 @@ export function initProductModal(
   /** Resolver injected by main.ts so modal can prefix image paths */
   const imageSrc: (key: string) => string = imageResolver || ((k) => k);
 
+  function getEffectivePrice(p: Product, vol: Volume): number {
+    if (p.discountPercent && p.discountPercent > 0) {
+      return Math.round(p.price[vol] * (1 - p.discountPercent / 100));
+    }
+    return p.price[vol];
+  }
+
   /* ---- volume buttons ---- */
   function renderVolumes(): void {
     if (!current) return;
     mdVol.innerHTML = (['50', '100'] as Volume[])
       .map((v) => {
         const active = v === selectedVolume ? ' active' : '';
+        const eff = getEffectivePrice(current!, v);
+        const hasDiscount = eff < current!.price[v];
         return (
           `<button type="button" data-vol="${v}" class="${active}">${v} ml` +
-          `<b>${formatPrice(current!.price[v])}</b></button>`
+          `<b>${formatPrice(eff)}</b>` +
+          (hasDiscount ? `<s style="opacity:0.5;font-size:0.75em;margin-left:4px;color:var(--muted2)">${formatPrice(current!.price[v])}</s>` : '') +
+          `</button>`
         );
       })
       .join('');
-    mdPrice.textContent = formatPrice(current.price[selectedVolume]);
+
+    const effSelected = getEffectivePrice(current, selectedVolume);
+    if (effSelected < current.price[selectedVolume]) {
+      mdPrice.innerHTML = `<b>${formatPrice(effSelected)}</b> <s style="opacity:0.5;font-size:0.75em;margin-left:6px;font-weight:normal;color:var(--muted2);">${formatPrice(current.price[selectedVolume])}</s>`;
+    } else {
+      mdPrice.textContent = formatPrice(effSelected);
+    }
   }
 
   /* ---- note chips row ---- */
@@ -76,8 +93,11 @@ export function initProductModal(
 
     mdImg.src = (product.img && imageSrc(product.img)) || 'img/placeholder.svg';
     mdImg.alt = product.name;
-    mdFam.textContent = product.badge
-      ? `${product.fam} · ${product.badge}`
+    const badgeText = product.discountLabel
+      ? `${product.discountLabel}${product.discountPercent ? ` -${product.discountPercent}%` : ''}`
+      : product.badge;
+    mdFam.textContent = badgeText
+      ? `${product.fam} · ${badgeText}`
       : product.fam;
     mdName.textContent = product.name;
     mdStars.textContent = stars(product.rating);

@@ -49,6 +49,8 @@ export function initAdminStudio(
   const badgeInput = must<HTMLInputElement>('#adminProductBadge');
   const price50Input = must<HTMLInputElement>('#adminProductPrice50');
   const price100Input = must<HTMLInputElement>('#adminProductPrice100');
+  const discountInput = must<HTMLInputElement>('#adminProductDiscount');
+  const discountLabelInput = must<HTMLInputElement>('#adminProductDiscountLabel');
   const descTextarea = must<HTMLTextAreaElement>('#adminProductDesc');
   const descBadge = must('#adminDescLangBadge');
   const descLangTabs = must('#adminDescLangTabs');
@@ -626,6 +628,8 @@ export function initAdminStudio(
     badgeInput.value = p.badge || '';
     price50Input.value = String(p.price?.['50'] || 89);
     price100Input.value = String(p.price?.['100'] || 129);
+    discountInput.value = p.discountPercent ? String(p.discountPercent) : '';
+    discountLabelInput.value = p.discountLabel || '';
 
     parseDescriptions(p.desc);
     activeDescLang = 'en';
@@ -657,6 +661,8 @@ export function initAdminStudio(
     badgeInput.value = '';
     price50Input.value = '95';
     price100Input.value = '145';
+    discountInput.value = '';
+    discountLabelInput.value = '';
 
     descMap = { en: '', de: '', nl: '', fr: '', es: '', it: '', nb: '', sv: '', da: '' };
     activeDescLang = 'en';
@@ -687,13 +693,16 @@ export function initAdminStudio(
       item.setAttribute('data-id', p.id);
 
       const thumb = resolveProductImg(p.img);
+      const discountTag = p.discountLabel
+        ? `<span class="admin-item-discount">${escapeHtml(p.discountLabel)}${p.discountPercent ? ` -${p.discountPercent}%` : ''}</span>`
+        : (p.discountPercent ? `<span class="admin-item-discount">-${p.discountPercent}%</span>` : '');
 
       item.innerHTML = `
         <img class="admin-item-thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(p.name)}" />
         <div class="admin-item-info">
           <div class="admin-item-name">${escapeHtml(p.name)}</div>
           <div class="admin-item-meta">${escapeHtml(p.fam)} · ${escapeHtml(p.gender)}</div>
-          <div class="admin-item-price">€${p.price['50']} / €${p.price['100']}</div>
+          <div class="admin-item-price">€${p.price['50']} / €${p.price['100']} ${discountTag}</div>
         </div>
       `;
 
@@ -722,6 +731,8 @@ export function initAdminStudio(
       desc: finalDesc,
       price_50: Number(price50Input.value),
       price_100: Number(price100Input.value),
+      discount_percent: discountInput.value ? Math.max(0, Math.min(99, Number(discountInput.value))) : undefined,
+      discount_label: discountLabelInput.value.trim() || undefined,
       notes_top: notesTopInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       notes_heart: notesHeartInput.value.split(',').map((s) => s.trim()).filter(Boolean),
       notes_base: notesBaseInput.value.split(',').map((s) => s.trim()).filter(Boolean),

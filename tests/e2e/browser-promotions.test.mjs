@@ -76,22 +76,69 @@ async function run() {
     `);
     console.log('✓ Authenticated member:', userResult);
 
-    console.log('2. Verifying #privileges section rendered in DOM...');
+    console.log('2. Verifying #privileges section rendered in DOM (clean luxury editorial layout)...');
     const privInfo = await evalCode(`
       (() => {
         const sec = document.getElementById('privileges');
         const h2 = sec ? sec.querySelector('h2') : null;
-        const perks = sec ? sec.querySelectorAll('.priv-perk') : [];
+        const note = sec ? sec.querySelector('.priv-prelaunch-note') : null;
+        const visual = sec ? sec.querySelector('.priv-visual') : null;
+        const perks = sec ? sec.querySelector('.privileges-grid') : null;
         return {
           exists: !!sec,
           title: h2 ? h2.textContent : '',
-          perksCount: perks.length
+          hasPrelaunchNote: !!note,
+          noteText: note ? note.textContent : '',
+          hasVisualBottles: !!visual,
+          hasPerkCards: !!perks
         };
       })()
     `);
     assert.equal(privInfo.exists, true, '#privileges section must exist in DOM');
-    assert.equal(privInfo.perksCount, 3, 'Must render 3 perks in privileges section');
-    console.log('✓ Privileges section in DOM:', privInfo);
+    assert.equal(privInfo.hasVisualBottles, false, 'Schematic bottles visual must be removed');
+    assert.equal(privInfo.hasPerkCards, false, 'Perk cards must be removed');
+    assert.equal(privInfo.hasPrelaunchNote, true, 'Seasonal prelaunch note must be present');
+    console.log('✓ Privileges section in DOM (clean Quiet Luxury):', privInfo);
+
+    console.log('2.1. Testing product editor discount form & rendering...');
+    const discountTestRes = await evalCode(`
+      (async () => {
+        const discountInput = document.getElementById('adminProductDiscount');
+        const discountLabelInput = document.getElementById('adminProductDiscountLabel');
+        
+        // Verify form fields exist in DOM
+        const formFieldsExist = Boolean(discountInput && discountLabelInput);
+
+        // Test catalog rendering with autumn discount
+        const { pb } = await import('/src/services/pocketbase.ts');
+        const { bus } = await import('/src/core/bus.ts');
+        
+        const list = pb.getLocalProducts();
+        if (list && list.length > 0) {
+          list[0].discountPercent = 20;
+          list[0].discountLabel = 'Осенняя скидка';
+          pb.saveLocalProducts(list);
+          bus.emit('catalog:updated', { products: list });
+        }
+        await new Promise(r => setTimeout(r, 200));
+
+        const card = document.querySelector('#grid .pc');
+        const badgeSale = card ? card.querySelector('.badge-sale') : null;
+        const oldPrice = card ? card.querySelector('.old-price') : null;
+        const effectivePrice = card ? card.querySelector('.pc-price b') : null;
+
+        return {
+          formFieldsExist,
+          badgeSaleText: badgeSale ? badgeSale.textContent : '',
+          oldPriceText: oldPrice ? oldPrice.textContent : '',
+          effectivePriceText: effectivePrice ? effectivePrice.textContent : ''
+        };
+      })()
+    `);
+    console.log('✓ Product discount in catalog & form:', discountTestRes);
+    assert.equal(discountTestRes.formFieldsExist, true, 'Discount form fields must exist in Admin Studio');
+    assert.ok(discountTestRes.badgeSaleText.includes('Осенняя скидка'), 'Badge sale must show label');
+    assert.ok(discountTestRes.effectivePriceText.includes('71'), 'Discounted 50ml price must be €71 (89 - 20%)');
 
     console.log('3. Adding 1st item to cart & opening bag...');
     const clickRes = await evalCode(`
@@ -235,7 +282,7 @@ async function run() {
       })()
     `);
     console.log('✓ French translations in DOM:', frState);
-    assert.ok(frState.privTitle.includes("L'Art de l'Acquisition"), 'Privileges title should be in French');
+    assert.ok(frState.privTitle.includes("Offre d'Avant-Première"), 'Privileges title should be in French');
     assert.equal(frState.freeBadge, 'Offert', 'Free badge should be Offert');
     assert.ok(frState.bannerMsg.includes('Privilège appliqué'), 'Banner msg should be in French');
 
@@ -253,7 +300,7 @@ async function run() {
       })()
     `);
     console.log('✓ German translations in DOM:', deState);
-    assert.ok(deState.privTitle.includes('Die Kunst des Schenkens'), 'Privileges title should be in German');
+    assert.ok(deState.privTitle.includes('Vorverkaufs-Privileg'), 'Privileges title should be in German');
     assert.equal(deState.freeBadge, 'Gratis', 'Free badge should be Gratis');
     assert.ok(deState.bannerMsg.includes('Privileg aktiv'), 'Banner msg should be in German');
 

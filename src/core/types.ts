@@ -44,6 +44,10 @@ export interface Product {
   rating: number;
   /** Total review count */
   rev: number;
+  /** Optional discount percentage, 0-99 */
+  discountPercent?: number;
+  /** Optional promotion / discount label, e.g. "Осенняя скидка", "Winter Privilege" */
+  discountLabel?: string;
 }
 
 /** Composite cart key: `${productId}::${volume}` */
@@ -197,5 +201,7 @@ export interface ProductFormData {
   notes_base: string[];
   price_50: number;
   price_100: number;
+  discount_percent?: number;
+  discount_label?: string;
   image?: string;
 }

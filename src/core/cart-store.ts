@@ -116,8 +116,11 @@ export function createCart(opts: CartStoreOptions): CartApi {
     if (!parts) return null;
     const product = opts.resolveProduct(parts.productId);
     if (!product) return null;
-    const unit = product.price[parts.volume];
-    if (typeof unit !== 'number') return null;
+    const basePrice = product.price[parts.volume];
+    if (typeof basePrice !== 'number') return null;
+    const unit = product.discountPercent && product.discountPercent > 0
+      ? Math.round(basePrice * (1 - product.discountPercent / 100))
+      : basePrice;
     return {
       key: key as CartKey,
       product,
@@ -140,11 +143,9 @@ export function createCart(opts: CartStoreOptions): CartApi {
       lines.push(line);
       count += line.qty;
       subtotal += line.lineTotal;
-      const unit = line.product.price[line.volume];
-      if (typeof unit === 'number') {
-        for (let i = 0; i < line.qty; i++) {
-          unitPrices.push(unit);
-        }
+      const unit = line.lineTotal / line.qty;
+      for (let i = 0; i < line.qty; i++) {
+        unitPrices.push(unit);
       }
     }
 

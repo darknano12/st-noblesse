@@ -217,7 +217,9 @@
     "lang_saved_toast": "Språkinställningar har sparats",
     "title": "Boutique Studio",
     "review_author_required": "Vänligen ange författarens namn.",
-    "review_text_required": "Vänligen ange recensionstexten."
+    "review_text_required": "Vänligen ange recensionstexten.",
+    "field_discount": "Rabatt (%)",
+    "field_discount_label": "Kampanjnamn / rabattetikett (t.ex. Höstrabatt)"
   },
   "footer": {
     "brand_desc": "Maison de Haute Parfumerie. Exklusiva författardofter — för dem som väljer spåret, inte bruset.",
@@ -237,17 +239,17 @@
     "rights": "Alla rättigheter förbehållna."
   },
   "privileges": {
-    "kicker": "Maison Privilegier",
-    "title": "Konsten att Samla · <em>3:e Flakongen Som Gåva</em>",
+    "kicker": "Säsongsprivilegium · Höst och Vinter",
+    "title": "Förlanseringstillbud · <em>3:e Flakongen Som Gåva</em>",
     "subtitle": "Exklusiva fördelar för våra distingerade kunder. Kostsamma gåvor och personlig omsorg vid varje beställning.",
-    "offer_badge": "Exklusivt Maison-Privilegium",
+    "offer_badge": "Exklusivt Säsongsprivilegium",
     "offer_kicker": "Exceptionellt Erbjudande",
     "offer_title": "Köp 2 Flakonger, den 3:e Får Du i Gåva",
     "offer_desc": "Köp två handgjorda flakonger efter eget val och få en tredje flakong med våra komplimanger. Förmånen dras automatiskt av i varukorgen.",
     "hl_auto": "Automatiskt i varukorgen — ingen kod krävs",
     "hl_mix": "Kombinera fritt mellan 50ml och 100ml",
     "hl_stack": "Kan kombineras med fri frakt och välkomstkoder",
-    "cta_compose": "Skapa Din Trio",
+    "cta_compose": "Upptäck Höst- och Vinterkollektionen",
     "tag_offert": "Gåva",
     "seal_text": "3:e Flakongen Som Gåva",
     "perk1_title": "Välkomstprivilegium",
@@ -258,6 +260,9 @@
     "perk2_meta": "Skickas inom 24 timmar",
     "perk3_title": "Trio av Upptäckarprover",
     "perk3_desc": "Varje flakong åtföljs av tre förseglade 2ml prover för att utforska doften innan flaskan öppnas.",
-    "perk3_meta": "Inkluderat med våra komplimanger"
+    "perk3_meta": "Inkluderat med våra komplimanger",
+    "client_note": "Före den officiella säljstarten gäller ett exklusivt höst- och vinterprivilegium: Vid köp av två flakonger från kollektionen får du den tredje flakongen som gåva.",
+    "hl_seasonal": "Exklusiv förhandsupplaga för höst- och vintersäsongen",
+    "cta_explore": "Upptäck Höst- och Vinterkollektionen"
   }
 }

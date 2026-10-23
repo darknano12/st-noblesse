@@ -73,17 +73,35 @@ export function initCatalog(
   function renderCard(p: Product, index: number): string {
     const delay = (index % 4) * 80;
     const img = (p.img && (images[p.img] || p.img)) || images['placeholder'] || 'img/placeholder.svg';
-    const badge = p.badge ? `<span class="badge">${escapeHtml(p.badge)}</span>` : '';
     const localizedFamKey = `catalog.filter_${p.fam}`;
     const famText = t(localizedFamKey) !== localizedFamKey ? t(localizedFamKey) : (familyLabel[p.fam] ?? p.fam);
     const fromText = t('catalog.from');
     const qvText = t('catalog.quick_view');
     const addLabel = t('catalog.add_to_bag');
 
+    const effectivePrice50 = p.discountPercent && p.discountPercent > 0
+      ? Math.round(p.price['50'] * (1 - p.discountPercent / 100))
+      : p.price['50'];
+    const hasDiscount = effectivePrice50 < p.price['50'];
+
+    let badgeHtml = '';
+    if (p.discountLabel) {
+      badgeHtml = `<span class="badge badge-sale">${escapeHtml(p.discountLabel)}${p.discountPercent ? ` -${p.discountPercent}%` : ''}</span>`;
+    } else if (p.badge) {
+      badgeHtml = `<span class="badge">${escapeHtml(p.badge)}</span>`;
+    }
+
+    let priceHtml = '';
+    if (hasDiscount) {
+      priceHtml = `<span class="pc-price">${escapeHtml(fromText)} <b>${formatPrice(effectivePrice50)}</b> <s class="old-price">${formatPrice(p.price['50'])}</s></span>`;
+    } else {
+      priceHtml = `<span class="pc-price">${escapeHtml(fromText)} ${formatPrice(p.price['50'])}</span>`;
+    }
+
     return (
       `<article class="pc pc-out" data-id="${escapeHtml(p.id)}" style="transition-delay:${delay}ms">` +
       `<div class="pc-media" data-view>` +
-      badge +
+      badgeHtml +
       `<img src="${escapeHtml(img)}" alt="${escapeHtml(p.name)}" loading="lazy">` +
       `<button class="qv" type="button">${escapeHtml(qvText)}</button>` +
       `</div>` +
@@ -91,7 +109,7 @@ export function initCatalog(
       `<span class="pc-fam">${escapeHtml(famText)} · ${escapeHtml(p.gender)}</span>` +
       `<h3 class="pc-name">${escapeHtml(p.name)}</h3>` +
       `<p class="pc-notes">${escapeHtml(noteLine(p))}</p>` +
-      `<div class="pc-row"><span class="pc-price">${escapeHtml(fromText)} ${formatPrice(p.price['50'])}</span>` +
+      `<div class="pc-row">${priceHtml}` +
       `<button class="pc-add" type="button" data-add aria-label="${escapeHtml(addLabel)}">` +
       `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 5v14M5 12h14"/></svg>` +
       `</button></div></div></article>`
